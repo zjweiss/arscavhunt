@@ -22,6 +22,9 @@ struct ContentView: View {
             TextField("Search for quest...", text: $searchText)
                 .textFieldStyle(RoundedBorderTextFieldStyle())
                 .padding()
+            Text("Active")
+                .font(.largeTitle)
+                .frame(maxWidth: .infinity, alignment: .leading)
             Spacer()
         }
         .padding()
