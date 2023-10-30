@@ -78,7 +78,7 @@ struct QuestDetailPage: View {
                             .font(.title3)
                     }
                 }
-                .padding(.bottom, 30)
+                .padding(.bottom, 25)
                 Text("What Awaits?")
                     .font(.title)
                     .frame(maxWidth: .infinity, alignment: .leading)
@@ -87,7 +87,7 @@ struct QuestDetailPage: View {
                     .font(.body) // Set the font size
                     .foregroundColor(Color.gray) // Set the text color
                     .lineSpacing(8)
-                Spacer()
+                    .padding(.bottom, 30)
                 HStack{
                     VStack{
                         Text("JOIN A TEAM.")
