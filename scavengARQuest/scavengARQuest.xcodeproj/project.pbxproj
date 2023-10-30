@@ -11,6 +11,12 @@
 		420156AC2AEED418007189B5 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 420156AB2AEED418007189B5 /* ContentView.swift */; };
 		420156AE2AEED41A007189B5 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 420156AD2AEED41A007189B5 /* Assets.xcassets */; };
 		420156B12AEED41A007189B5 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 420156B02AEED41A007189B5 /* Preview Assets.xcassets */; };
+		8DDBEDF32AEF2077002B5EB4 /* QuestListRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DDBEDF22AEF2077002B5EB4 /* QuestListRow.swift */; };
+		8DDBEDF72AEF4E99002B5EB4 /* QuestPage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DDBEDF62AEF4E99002B5EB4 /* QuestPage.swift */; };
+		8DDBEDF92AEFE150002B5EB4 /* Leaderboard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DDBEDF82AEFE150002B5EB4 /* Leaderboard.swift */; };
+		8DDBEDFB2AEFE2DA002B5EB4 /* ChatPage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DDBEDFA2AEFE2DA002B5EB4 /* ChatPage.swift */; };
+		8DDBEDFD2AEFE337002B5EB4 /* ProfilePage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DDBEDFC2AEFE337002B5EB4 /* ProfilePage.swift */; };
+		8DDBEDFF2AEFE75A002B5EB4 /* HomePage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DDBEDFE2AEFE75A002B5EB4 /* HomePage.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -19,6 +25,12 @@
 		420156AB2AEED418007189B5 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		420156AD2AEED41A007189B5 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		420156B02AEED41A007189B5 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
+		8DDBEDF22AEF2077002B5EB4 /* QuestListRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = QuestListRow.swift; path = scavengARQuest/QuestListRow.swift; sourceTree = SOURCE_ROOT; };
+		8DDBEDF62AEF4E99002B5EB4 /* QuestPage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = QuestPage.swift; path = scavengARQuest/QuestPage.swift; sourceTree = SOURCE_ROOT; };
+		8DDBEDF82AEFE150002B5EB4 /* Leaderboard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = Leaderboard.swift; path = scavengARQuest/Leaderboard.swift; sourceTree = SOURCE_ROOT; };
+		8DDBEDFA2AEFE2DA002B5EB4 /* ChatPage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatPage.swift; sourceTree = "<group>"; };
+		8DDBEDFC2AEFE337002B5EB4 /* ProfilePage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfilePage.swift; sourceTree = "<group>"; };
+		8DDBEDFE2AEFE75A002B5EB4 /* HomePage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = HomePage.swift; path = scavengARQuest/HomePage.swift; sourceTree = SOURCE_ROOT; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -51,10 +63,16 @@
 		420156A82AEED418007189B5 /* ScavengARQuest */ = {
 			isa = PBXGroup;
 			children = (
+				8DDBEDFC2AEFE337002B5EB4 /* ProfilePage.swift */,
+				8DDBEDFA2AEFE2DA002B5EB4 /* ChatPage.swift */,
 				420156A92AEED418007189B5 /* ScavengARQuestApp.swift */,
 				420156AB2AEED418007189B5 /* ContentView.swift */,
 				420156AD2AEED41A007189B5 /* Assets.xcassets */,
 				420156AF2AEED41A007189B5 /* Preview Content */,
+				8DDBEDF22AEF2077002B5EB4 /* QuestListRow.swift */,
+				8DDBEDF62AEF4E99002B5EB4 /* QuestPage.swift */,
+				8DDBEDF82AEFE150002B5EB4 /* Leaderboard.swift */,
+				8DDBEDFE2AEFE75A002B5EB4 /* HomePage.swift */,
 			);
 			path = ScavengARQuest;
 			sourceTree = "<group>";
@@ -102,7 +120,7 @@
 					};
 				};
 			};
-			buildConfigurationList = 420156A12AEED418007189B5 /* Build configuration list for PBXProject "ScavengARQuest" */;
+			buildConfigurationList = 420156A12AEED418007189B5 /* Build configuration list for PBXProject "scavengARQuest" */;
 			compatibilityVersion = "Xcode 14.0";
 			developmentRegion = en;
 			hasScannedForEncodings = 0;
@@ -137,8 +155,14 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				8DDBEDF32AEF2077002B5EB4 /* QuestListRow.swift in Sources */,
+				8DDBEDF92AEFE150002B5EB4 /* Leaderboard.swift in Sources */,
+				8DDBEDFB2AEFE2DA002B5EB4 /* ChatPage.swift in Sources */,
+				8DDBEDFD2AEFE337002B5EB4 /* ProfilePage.swift in Sources */,
 				420156AC2AEED418007189B5 /* ContentView.swift in Sources */,
+				8DDBEDF72AEF4E99002B5EB4 /* QuestPage.swift in Sources */,
 				420156AA2AEED418007189B5 /* ScavengARQuestApp.swift in Sources */,
+				8DDBEDFF2AEFE75A002B5EB4 /* HomePage.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -323,7 +347,7 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		420156A12AEED418007189B5 /* Build configuration list for PBXProject "ScavengARQuest" */ = {
+		420156A12AEED418007189B5 /* Build configuration list for PBXProject "scavengARQuest" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				420156B22AEED41A007189B5 /* Debug */,
