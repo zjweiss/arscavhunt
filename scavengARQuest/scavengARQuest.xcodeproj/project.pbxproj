@@ -17,6 +17,7 @@
 		8DDBEDFB2AEFE2DA002B5EB4 /* ChatPage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DDBEDFA2AEFE2DA002B5EB4 /* ChatPage.swift */; };
 		8DDBEDFD2AEFE337002B5EB4 /* ProfilePage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DDBEDFC2AEFE337002B5EB4 /* ProfilePage.swift */; };
 		8DDBEDFF2AEFE75A002B5EB4 /* HomePage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DDBEDFE2AEFE75A002B5EB4 /* HomePage.swift */; };
+		8DDBEE032AF04F71002B5EB4 /* QuestDetailPage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DDBEE022AF04F71002B5EB4 /* QuestDetailPage.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -31,6 +32,7 @@
 		8DDBEDFA2AEFE2DA002B5EB4 /* ChatPage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatPage.swift; sourceTree = "<group>"; };
 		8DDBEDFC2AEFE337002B5EB4 /* ProfilePage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfilePage.swift; sourceTree = "<group>"; };
 		8DDBEDFE2AEFE75A002B5EB4 /* HomePage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = HomePage.swift; path = scavengARQuest/HomePage.swift; sourceTree = SOURCE_ROOT; };
+		8DDBEE022AF04F71002B5EB4 /* QuestDetailPage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = QuestDetailPage.swift; path = scavengARQuest/QuestDetailPage.swift; sourceTree = SOURCE_ROOT; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -73,6 +75,7 @@
 				8DDBEDF62AEF4E99002B5EB4 /* QuestPage.swift */,
 				8DDBEDF82AEFE150002B5EB4 /* Leaderboard.swift */,
 				8DDBEDFE2AEFE75A002B5EB4 /* HomePage.swift */,
+				8DDBEE022AF04F71002B5EB4 /* QuestDetailPage.swift */,
 			);
 			path = ScavengARQuest;
 			sourceTree = "<group>";
@@ -159,6 +162,7 @@
 				8DDBEDF92AEFE150002B5EB4 /* Leaderboard.swift in Sources */,
 				8DDBEDFB2AEFE2DA002B5EB4 /* ChatPage.swift in Sources */,
 				8DDBEDFD2AEFE337002B5EB4 /* ProfilePage.swift in Sources */,
+				8DDBEE032AF04F71002B5EB4 /* QuestDetailPage.swift in Sources */,
 				420156AC2AEED418007189B5 /* ContentView.swift in Sources */,
 				8DDBEDF72AEF4E99002B5EB4 /* QuestPage.swift in Sources */,
 				420156AA2AEED418007189B5 /* ScavengARQuestApp.swift in Sources */,
