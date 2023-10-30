@@ -7,13 +7,13 @@ struct ContentView: View {
         TabView(selection: $selectedTab){
             QuestPage()
                 .tabItem() {
-                    Image(systemName: "globe")
+                    Image(systemName: "map")
                     Text("Quests")
                 }
                 .tag(0)
             LeaderboardPage()
                 .tabItem() {
-                    Image(systemName: "globe")
+                    Image(systemName: "chart.bar")
                     Text("Leaderboard")
                 }
                 .tag(1)
@@ -25,13 +25,13 @@ struct ContentView: View {
                 .tag(2)
             ChatPage()
                 .tabItem() {
-                    Image(systemName: "globe")
+                    Image(systemName: "ellipsis.message")
                     Text("Chat")
                 }
                 .tag(3)
             ProfilePage()
                 .tabItem() {
-                    Image(systemName: "globe")
+                    Image(systemName: "person.crop.circle")
                     Text("Profile")
                 }
                 .tag(4)

@@ -27,10 +27,10 @@ struct HomePage: View {
                             Text("ScavangAR")
                                 .font(.headline)
                             Spacer()
-                            Image(systemName: "globe")
+                            Image(systemName: "app.gift")
                                 .imageScale(.large)
                                 .foregroundStyle(.tint)
-                            Image(systemName: "globe")
+                            Image(systemName: "bell")
                                 .imageScale(.large)
                                 .foregroundStyle(.tint)
                         }
