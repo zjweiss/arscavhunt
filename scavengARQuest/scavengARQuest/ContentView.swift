@@ -5,7 +5,7 @@ struct ContentView: View {
     
     var body: some View {
         TabView(selection: $selectedTab){
-            QuestPage()
+            QuestDetailPage()
                 .tabItem() {
                     Image(systemName: "map")
                     Text("Quests")
