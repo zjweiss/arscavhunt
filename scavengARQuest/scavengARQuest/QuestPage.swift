@@ -38,9 +38,10 @@ struct QuestDetailPage: View {
         NavigationView{
             VStack{
                 HStack{
-                    NavigationLink(destination: QuestDetailPage()) {
-                        Label("", systemImage: "lessthan")
-                    }
+                    //                    NavigationLink(destination: HomePage()) {
+                    // Do we need this if it is a main page?
+                    // Label("", systemImage: "lessthan")
+                    //                    }
                     Spacer()
                     Image(systemName: "app.gift")
                         .imageScale(.large)
@@ -91,18 +92,28 @@ struct QuestDetailPage: View {
                     VStack{
                         Text("JOIN A TEAM.")
                         TextField("Enter Team Id...", text: $username)
-                            .frame(width: 128, height: 28)
+                            .frame(width: 132, height: 32)
                             .background(Color(red: 235 / 255.0, green: 232 / 255.0, blue: 232 / 255.0))
                     }
-                    Divider()
-                        .background(Color.gray)
-                        .frame(height: 70)
-                        .padding(.horizontal, 30)
+                    VStack {
+                        HStack{
+                            Divider()
+                            .background(Color.gray)
+                            .frame(height: 30)
+                        }
+                        Text("OR")
+                        HStack{
+                            Divider()
+                            .background(Color.gray)
+                            .frame(height: 30)
+                        }
+                    }
+                    .padding(.horizontal)
                     VStack{
                         Text("GO SOLO.")
                         Button(action: {}) {
                             Text("Accept Quest")
-                                .padding(EdgeInsets(top: 8, leading: 8, bottom: 8, trailing: 8)) 
+                                .padding(EdgeInsets(top: 8, leading: 8, bottom: 8, trailing: 8))
                                 .background(Color(red: 23 / 255.0, green: 37 / 255.0, blue: 84 / 255.0))
                                 .foregroundColor(.white)
                                 .cornerRadius(8)
