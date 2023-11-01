@@ -11,6 +11,7 @@
 		420156AC2AEED418007189B5 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 420156AB2AEED418007189B5 /* ContentView.swift */; };
 		420156AE2AEED41A007189B5 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 420156AD2AEED41A007189B5 /* Assets.xcassets */; };
 		420156B12AEED41A007189B5 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 420156B02AEED41A007189B5 /* Preview Assets.xcassets */; };
+		8716DE762AF2F18C00EB5DDE /* LeaderboardRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8716DE752AF2F18C00EB5DDE /* LeaderboardRow.swift */; };
 		8DDBEDF32AEF2077002B5EB4 /* QuestListRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DDBEDF22AEF2077002B5EB4 /* QuestListRow.swift */; };
 		8DDBEDF72AEF4E99002B5EB4 /* QuestPage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DDBEDF62AEF4E99002B5EB4 /* QuestPage.swift */; };
 		8DDBEDF92AEFE150002B5EB4 /* Leaderboard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DDBEDF82AEFE150002B5EB4 /* Leaderboard.swift */; };
@@ -25,6 +26,7 @@
 		420156AB2AEED418007189B5 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		420156AD2AEED41A007189B5 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		420156B02AEED41A007189B5 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
+		8716DE752AF2F18C00EB5DDE /* LeaderboardRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = LeaderboardRow.swift; path = scavengARQuest/LeaderboardRow.swift; sourceTree = SOURCE_ROOT; };
 		8DDBEDF22AEF2077002B5EB4 /* QuestListRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = QuestListRow.swift; path = scavengARQuest/QuestListRow.swift; sourceTree = SOURCE_ROOT; };
 		8DDBEDF62AEF4E99002B5EB4 /* QuestPage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = QuestPage.swift; path = scavengARQuest/QuestPage.swift; sourceTree = SOURCE_ROOT; };
 		8DDBEDF82AEFE150002B5EB4 /* Leaderboard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = Leaderboard.swift; path = scavengARQuest/Leaderboard.swift; sourceTree = SOURCE_ROOT; };
@@ -70,6 +72,7 @@
 				420156AD2AEED41A007189B5 /* Assets.xcassets */,
 				420156AF2AEED41A007189B5 /* Preview Content */,
 				8DDBEDF22AEF2077002B5EB4 /* QuestListRow.swift */,
+				8716DE752AF2F18C00EB5DDE /* LeaderboardRow.swift */,
 				8DDBEDF62AEF4E99002B5EB4 /* QuestPage.swift */,
 				8DDBEDF82AEFE150002B5EB4 /* Leaderboard.swift */,
 				8DDBEDFE2AEFE75A002B5EB4 /* HomePage.swift */,
@@ -163,6 +166,7 @@
 				8DDBEDF72AEF4E99002B5EB4 /* QuestPage.swift in Sources */,
 				420156AA2AEED418007189B5 /* ScavengARQuestApp.swift in Sources */,
 				8DDBEDFF2AEFE75A002B5EB4 /* HomePage.swift in Sources */,
+				8716DE762AF2F18C00EB5DDE /* LeaderboardRow.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
