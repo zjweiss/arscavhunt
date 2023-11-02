@@ -8,6 +8,27 @@
 import SwiftUI
 
 struct ActiveQuestPage: View {
+    let all_quests: [ActiveQuestInfo] = [
+        ActiveQuestInfo(
+             id: "1",
+             name: "DOW",
+             description: "“Home to mechanical engineering and chemical engineering departments.”",
+             image: "dow_building"
+        ),
+        ActiveQuestInfo(
+             id: "1",
+             name: "DOW",
+             description: "“Home to mechanical engineering and chemical engineering departments.”",
+             image: "dow_building"
+        ),
+        ActiveQuestInfo(
+             id: "1",
+             name: "DOW",
+             description: "“Home to mechanical engineering and chemical engineering departments.”",
+             image: "dow_building"
+        )
+    ]
+    
     var body: some View {
         NavigationView {
             ScrollView {
@@ -63,6 +84,11 @@ struct ActiveQuestPage: View {
                         }
                     }
                     Spacer()
+                    VStack{
+                        ActiveQuestInfoContent(all_quests: all_quests)
+                            .frame(maxWidth: .infinity)
+                            .frame(maxWidth: .infinity, alignment: .leading)
+                    }
                 }
                 .padding()
             }
