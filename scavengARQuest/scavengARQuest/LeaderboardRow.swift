@@ -37,7 +37,7 @@ struct LeaderboardInfoContent: View {
                     if let place = player.place {
                         Text(place)
                             .font(.subheadline)
-                            .frame(maxWidth: .infinity, alignment: .leading)
+                            // .frame(maxWidth: .infinity, alignment: .leading)
                     }
                     Image(player.image)
                         .resizable()
