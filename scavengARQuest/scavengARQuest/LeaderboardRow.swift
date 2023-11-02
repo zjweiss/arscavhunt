@@ -37,7 +37,6 @@ struct LeaderboardInfoContent: View {
                     if let place = player.place {
                         Text(place)
                             .font(.subheadline)
-                            // .frame(maxWidth: .infinity, alignment: .leading)
                     }
                     Image(player.image)
                         .resizable()
@@ -54,7 +53,6 @@ struct LeaderboardInfoContent: View {
                     if let points = player.points {
                         Text(points)
                             .font(.subheadline)
-//                            .frame(maxWidth: .infinity, alignment: .trailing)
                     }
                 }
             }

@@ -122,7 +122,6 @@ struct LeaderboardPage: View {
                             .font(.custom("Times New Roman", size: 20))
                             .fontWeight(.bold)
                             .frame(maxWidth: .infinity, alignment: .leading)
-                        // TODO: figure out how to push pic/name to the left
                         LeaderboardInfoContent(leaderboard: leaderBoard)
                             .frame(maxWidth: .infinity)
                             .frame(maxWidth: .infinity, alignment: .leading)
