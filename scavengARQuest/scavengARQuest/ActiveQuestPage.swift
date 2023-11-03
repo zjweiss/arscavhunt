@@ -8,34 +8,13 @@
 import SwiftUI
 
 struct ActiveQuestPage: View {
-    let all_quests: [ActiveQuestInfo] = [
-        ActiveQuestInfo(
-             id: "1",
-             name: "DOW",
-             description: "“Home to mechanical engineering and chemical engineering departments.”",
-             image: "dow_building"
-        ),
-        ActiveQuestInfo(
-             id: "1",
-             name: "DOW",
-             description: "“Home to mechanical engineering and chemical engineering departments.”",
-             image: "dow_building"
-        ),
-        ActiveQuestInfo(
-             id: "1",
-             name: "DOW",
-             description: "“Home to mechanical engineering and chemical engineering departments.”",
-             image: "dow_building"
-        )
-    ]
-    
     var body: some View {
         NavigationView {
             ScrollView {
                 VStack {
                     HStack {
                         Button(action: {
-                            // TODO: add back button action
+                            // TODO: add back button action (goes back to quest detail page)
                         }) {
                             Image(systemName: "chevron.left")
                                 .scaleEffect(0.6)
@@ -54,38 +33,8 @@ struct ActiveQuestPage: View {
                         .font(.custom("Times New Roman", size: 30))
                         .fontWeight(.bold)
                         .frame(maxWidth: .infinity, alignment: .leading)
-                    Spacer()
-                    HStack{
-                        VStack{
-                            // TODO: Change complete/togo to pull from data structure
-                            Text("5")
-                                .font(.custom("Times New Roman", size: 30))
-                                .fontWeight(.bold)
-                                .frame(maxWidth: .infinity, alignment: .center)
-                            Text("Completed")
-                                .font(.custom("Times New Roman", size: 12))
-                                .fontWeight(.bold)
-                                .foregroundColor(Color.gray) // Set the text color to gray
-                                .frame(maxWidth: .infinity, alignment: .center)
-                        }
-                        Rectangle()
-                            .frame(width: 1, height: 50) // Set the width and height of the vertical line
-                            .foregroundColor(Color.gray) // Set the color of the line
-                        VStack{
-                            Text("1")
-                                .font(.custom("Times New Roman", size: 30))
-                                .fontWeight(.bold)
-                                .frame(maxWidth: .infinity, alignment: .center)
-                            Text("To Go")
-                                .font(.custom("Times New Roman", size: 12))
-                                .fontWeight(.bold)
-                                .foregroundColor(Color.gray) // Set the text color to gray
-                                .frame(maxWidth: .infinity, alignment: .center)
-                        }
-                    }
-                    Spacer()
                     VStack{
-                        ActiveQuestInfoContent(all_quests: all_quests)
+                        ActiveQuestInfoContent()
                             .frame(maxWidth: .infinity)
                             .frame(maxWidth: .infinity, alignment: .leading)
                     }
