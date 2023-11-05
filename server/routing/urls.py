@@ -19,6 +19,9 @@ from django.urls import path
 from app import views
 
 urlpatterns = [
-    path('admin/', admin.site.urls),
-    path('getchatts/', views.getchatts, name='getchatts'),
+    # Leaderboard API
+    path('leaderboard/', views.get_leaderboard, name='leaderboard'),
+    
+    # User API
+    path('login/', views.login, name='login'),
 ]

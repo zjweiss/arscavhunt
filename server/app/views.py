@@ -16,11 +16,11 @@ def login(req):
             cursor.execute("""
                 SELECT * FROM users WHERE username = %s;
             """, [username])
-            rows = cursor.fetchone()
-            if rows:
+            row = cursor.fetchone()
+            if row:
                 res = {
                     "status": "validUser",
-                    "user": rows[0]
+                    "user": row
                 }
                 return JsonResponse(res)
             else:
