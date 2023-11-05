@@ -14,4 +14,5 @@ struct LocationDetailsStore {
     var description: String?
     var labels: String?
     var geodata: GeoData?
+    var hasAR: Bool?
 }

@@ -9,11 +9,13 @@ import SwiftUI
 
 struct KeywordTag: View {
     let keywords: String
-
+    
     var body: some View {
-        HStack(spacing: 8) {
-            ForEach(keywords.split(separator: ","), id: \.self) { keyword in
-                KeywordPill(keyword: keyword.trimmingCharacters(in: .whitespacesAndNewlines))
+        VStack(alignment: .leading, spacing: 8) {
+            HStack {
+                ForEach(keywords.split(separator: ","), id: \.self) { keyword in
+                    KeywordPill(keyword: keyword.trimmingCharacters(in: .whitespacesAndNewlines))
+                }
             }
         }
     }
@@ -24,7 +26,7 @@ struct KeywordPill: View {
 
     var body: some View {
         Text(keyword)
-            .padding(.horizontal, 8)
+            .padding(.horizontal, 4)
             .padding(.vertical, 4)
             .background(Color.blue)
             .foregroundColor(.white)
