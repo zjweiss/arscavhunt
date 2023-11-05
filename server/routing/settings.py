@@ -26,7 +26,11 @@ SECRET_KEY = 'django-insecure-834)m#-b+!o%n1*fl(7i+3)ceq-3v02to@%((t9nwr&r&#esh8
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = [
+    "3.142.74.134",
+    "localhost",
+    "127.0.0.1"
+]
 
 
 # Application definition
@@ -75,12 +79,15 @@ WSGI_APPLICATION = 'routing.wsgi.application'
 # https://docs.djangoproject.com/en/4.2/ref/settings/#databases
 
 DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
-    }
+  'default': {
+      'ENGINE': 'django.db.backends.postgresql',
+      'NAME': 'scavangar',
+      'USER': 'arscav',
+      'PASSWORD': 'arscavhunt',
+      'HOST': 'localhost',
+      'PORT': '',
+  }
 }
-
 
 # Password validation
 # https://docs.djangoproject.com/en/4.2/ref/settings/#auth-password-validators
@@ -116,7 +123,8 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/4.2/howto/static-files/
 
-STATIC_URL = 'static/'
+STATIC_URL = '/static/'
+STATIC_ROOT = BASE_DIR / 'static'   # added line
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.2/ref/settings/#default-auto-field
