@@ -16,21 +16,22 @@ struct GeoData: Hashable {
 
 // The distance between two GPS points alogorithm was inspired by:
 // www.geeksforgeeks.org/program-distance-two-points-earth/
+// Returns the distance in km
 func distanceBetweenPoints(point1: GeoData, point2: GeoData) -> Double {
     
-    var lat1: Double = point1.lat / 57.29577951
-    var lon1: Double = point1.lon / 57.29577951
-    var lat2: Double = point2.lat / 57.29577951
-    var lon2: Double = point2.lon / 57.29577951
+    let lat1: Double = point1.lat / 57.29577951
+    let lon1: Double = point1.lon / 57.29577951
+    let lat2: Double = point2.lat / 57.29577951
+    let lon2: Double = point2.lon / 57.29577951
     
-    var distLong: Double = lon2 - lon1;
-    var distLat: Double = lat2 - lat1;
+    let distLong: Double = lon2 - lon1;
+    let distLat: Double = lat2 - lat1;
     var ans: Double = 0
 
     ans = pow(sin(distLat / 2), 2) + cos(lat1) * cos(lat2) * pow(sin(distLong / 2), 2);
     ans = 2 * asin(sqrt(ans));
     
-    var R: Double = 6371;
+    let R: Double = 6371;
     
     return ans * R;
     

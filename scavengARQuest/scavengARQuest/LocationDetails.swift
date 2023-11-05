@@ -16,6 +16,8 @@ struct LocationDetails: View {
     @State var isMapping = false
     @State var hasArrived = false
     var locationDetailStore: LocationDetailsStore;
+    // This should be the full
+    @Binding var returnBinding: Bool;
     
     
     @ViewBuilder
@@ -35,7 +37,7 @@ struct LocationDetails: View {
                     .frame(maxWidth: .infinity)
                     .frame(minHeight: 0, maxHeight: .infinity)
                 } .fullScreenCover(isPresented: $hasArrived) {
-                    LocationVerification(locationDetailStore: locationDetailStore)
+                    LocationVerification(locationDetailStore: locationDetailStore, returnBinding: $hasArrived)
                 }
             }
             .edgesIgnoringSafeArea(.all)

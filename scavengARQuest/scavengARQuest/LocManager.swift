@@ -1,6 +1,6 @@
 //
 //  LocManager.swift
-//  scavengARQuest
+//  swiftUIChatter
 //
 //  Created by Zachary Weiss on 10/24/23.
 //
@@ -26,6 +26,20 @@ final class LocManager {
     private(set) var location = CLLocation()
     private(set) var isUpdating = false
     
+    
+    /*
+    var speed: String {
+            switch location.speed {
+            case 0.5..<5: "walking"
+                case 5..<7: "running"
+                case 7..<13: "cycling"
+                case 13..<90: "driving"
+                case 90..<139: "in train"
+                case 139..<225: "flying"
+                default: "resting"
+            }
+        }
+    
     private var heading: CLHeading? = nil
     private let compass = ["North", "NE", "East", "SE", "South", "SW", "West", "NW", "North"]
     var compassHeading: String {
@@ -47,6 +61,7 @@ final class LocManager {
                locManager.startUpdatingHeading()
            }
        }
+    */
     
        private func startUpdates() {
            if locManager.authorizationStatus == .notDetermined {
@@ -54,7 +69,7 @@ final class LocManager {
                // Be sure to add 'Privacy - Location When In Use Usage Description' to
                // Info.plist, otherwise location read will fail silently,
                // with (lat/lon = 0)
-               locManager.requestAlwaysAuthorization()
+               locManager.requestWhenInUseAuthorization()
            }
        
            Task {
@@ -67,14 +82,6 @@ final class LocManager {
                    print(error.localizedDescription)
                }
            }
-           
-           Task {
-               for await newHeading in headings {
-                   if !isUpdating { break }
-                   heading = newHeading
-               }
-           }
-           
        }
        
        func toggleUpdates() {
