@@ -81,7 +81,7 @@ WSGI_APPLICATION = 'routing.wsgi.application'
 DATABASES = {
   'default': {
       'ENGINE': 'django.db.backends.postgresql',
-      'NAME': 'scavangar',
+      'NAME': 'scavangardb',
       'USER': 'arscav',
       'PASSWORD': 'arscavhunt',
       'HOST': 'localhost',
