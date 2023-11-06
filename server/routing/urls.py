@@ -19,6 +19,9 @@ from django.urls import path
 from app import views
 
 urlpatterns = [
+    # Quest API
+    path('feed/<int:user_id>', views.get_user_quest_feed, name='feed'),
+
     # Leaderboard API
     path('leaderboard/', views.get_leaderboard, name='leaderboard'),
     
