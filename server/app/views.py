@@ -26,7 +26,6 @@ def submit_checkpoint(req):
                     uql.user_id = (SELECT id FROM users WHERE username=%s)
                     AND uql.quest_id = %s 
                     AND uql.location_id = %s
-                RETURNING *;
             """, [username, quest_id, location_id])
             return HttpResponse(status=200)
     else:
@@ -45,9 +44,18 @@ def accept_quest(req):
     quest_id = body.get('quest_id', None)
     
     if username and quest_id:
-        # TODO: grab all the subquests for a quest
-        # TODO: insert all the subquests into the user_quest_locations table
-        return JsonResponse()
+        with connection.cursor() as cursor:
+            cursor.execute("""
+                WITH cte AS (
+                  SELECT id FROM users WHERE username = %s
+                ), sub_qs AS (
+                  SELECT quest_id, location_id FROM quest_locations WHERE quest_id = %s
+                )
+                INSERT INTO user_quest_locations_status (user_id, quest_id, location_id)
+                SELECT cte.id, sub_qs.quest_id, sub_qs.location_id
+                FROM cte, sub_qs;
+            """, [username, quest_id])
+        return HttpResponse(status=200)
     else:
         return HttpResponse(status=400)
 
@@ -61,7 +69,7 @@ def get_user_quest_feed(req, user_id):
         WITH cte AS (
           -- Selects all the quests that will be active for a specific user
           SELECT * FROM user_quest_locations_status uql
-          WHERE user_id = 1
+          WHERE user_id = %s 
         ), cte2 AS (
           SELECT 
             quest_id,

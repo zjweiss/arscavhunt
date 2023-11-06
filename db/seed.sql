@@ -16,6 +16,7 @@ CREATE TABLE users (
 INSERT INTO users (first_name, last_name, username)
 VALUES
   ('Rohan', 'Nagavardhan', 'rnagavar'),
+  ('Janice', 'Liu', 'jliu'),
   ('Shaan', 'Patel', 'pshaan'),
   ('Zach', 'Weiss', 'zjweiss'),
   ('Abbie', 'Tooman', 'atooman');
@@ -32,7 +33,7 @@ CREATE TABLE locations (
 CREATE TABLE quests (
   id serial PRIMARY KEY,
   name varchar NOT NULL,
-  thumnail text NOT NULL
+  thumbnail text NOT NULL
 );
 
 CREATE TABLE quest_locations (
@@ -53,4 +54,3 @@ CREATE TABLE user_quest_locations_status (
 
   PRIMARY KEY (user_id, quest_id, location_id)
 );
-

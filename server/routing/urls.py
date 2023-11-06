@@ -25,9 +25,6 @@ urlpatterns = [
     # Quest API
     path('feed/<int:user_id>', views.get_user_quest_feed, name='feed'),
     path('accept/', views.accept_quest, name='feed'),
-
-    # Leaderboard API
-    path('leaderboard/', views.get_leaderboard, name='leaderboard'),
     
     # User API
     path('login/', views.login, name='login'),
