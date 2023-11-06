@@ -18,9 +18,17 @@ def submit_checkpoint(req):
     location_id = body.get('location_id', None)
     
     if username and quest_id and location_id:
-        # TODO: get the point value associated with the location id
-        # TODO: mark as complete
-        # TODO: add the points
+        with connection.cursor() as cursor:
+            cursor.execute("""
+                UPDATE user_quest_locations_status AS uql
+                    SET status = 'complete'
+                WHERE
+                    uql.user_id = (SELECT id FROM users WHERE username=%s)
+                    AND uql.quest_id = %s 
+                    AND uql.location_id = %s
+                RETURNING *;
+            """, [username, quest_id, location_id])
+            return HttpResponse(status=200)
     else:
         return HttpResponse(status=400)
 
@@ -105,6 +113,7 @@ def login(req):
     
     if username:
         with connection.cursor() as cursor:
+            # TODO: compute points
             cursor.execute("""
                 SELECT * FROM users WHERE username = %s;
             """, [username])
@@ -125,19 +134,3 @@ def login(req):
                 )
     else:
         return HttpResponse(status=400)
-
-
-def get_leaderboard(req):
-    if req.method not in {'GET'}:
-        return HttpResponse(status=404)
-
-    cursor = connection.cursor()
-    cursor.execute("""
-        SELECT first_name, last_name, points
-        FROM users ORDER BY points DESC;
-    """)
-    rows = cursor.fetchall()
-
-    res = {}
-    res['users'] = rows
-    return JsonResponse(res)

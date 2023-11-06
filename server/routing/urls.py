@@ -19,8 +19,12 @@ from django.urls import path
 from app import views
 
 urlpatterns = [
+    # Locations API
+    path('submit_checkpoint/', views.submit_checkpoint, name='Submit checkpoint'),
+
     # Quest API
     path('feed/<int:user_id>', views.get_user_quest_feed, name='feed'),
+    path('accept/', views.accept_quest, name='feed'),
 
     # Leaderboard API
     path('leaderboard/', views.get_leaderboard, name='leaderboard'),
