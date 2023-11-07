@@ -1,4 +1,4 @@
-#!/home/ubuntu/arscavhunt/server/env/bin/python
+#!/Users/rohan/Documents/arscavhunt/server/env/bin/python3
 # -*- coding: utf-8 -*-
 import re
 import sys
