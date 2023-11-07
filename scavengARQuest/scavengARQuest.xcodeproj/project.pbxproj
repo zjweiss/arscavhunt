@@ -11,6 +11,8 @@
 		420156AC2AEED418007189B5 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 420156AB2AEED418007189B5 /* ContentView.swift */; };
 		420156AE2AEED41A007189B5 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 420156AD2AEED41A007189B5 /* Assets.xcassets */; };
 		420156B12AEED41A007189B5 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 420156B02AEED41A007189B5 /* Preview Assets.xcassets */; };
+		8716DE782AF3043700EB5DDE /* ActiveQuestPage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8716DE772AF3043700EB5DDE /* ActiveQuestPage.swift */; };
+		871C64452AF45233008CE4FF /* ActiveQuestListRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 871C64442AF45233008CE4FF /* ActiveQuestListRow.swift */; };
 		42AC26352AF7DBD0000CF09A /* LoginView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42AC26342AF7DBD0000CF09A /* LoginView.swift */; };
 		42B0F8F62AFA7B0000FF5DB4 /* LeaderboardRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42B0F8F52AFA7B0000FF5DB4 /* LeaderboardRow.swift */; };
 		8DDBEDF32AEF2077002B5EB4 /* QuestListRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DDBEDF22AEF2077002B5EB4 /* QuestListRow.swift */; };
@@ -27,6 +29,8 @@
 		420156AB2AEED418007189B5 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		420156AD2AEED41A007189B5 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		420156B02AEED41A007189B5 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
+		8716DE772AF3043700EB5DDE /* ActiveQuestPage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = ActiveQuestPage.swift; path = scavengARQuest/ActiveQuestPage.swift; sourceTree = SOURCE_ROOT; };
+		871C64442AF45233008CE4FF /* ActiveQuestListRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = ActiveQuestListRow.swift; path = scavengARQuest/ActiveQuestListRow.swift; sourceTree = SOURCE_ROOT; };
 		42AC26342AF7DBD0000CF09A /* LoginView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginView.swift; sourceTree = "<group>"; };
 		42B0F8F52AFA7B0000FF5DB4 /* LeaderboardRow.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = LeaderboardRow.swift; path = scavengARQuest/LeaderboardRow.swift; sourceTree = SOURCE_ROOT; };
 		8DDBEDF22AEF2077002B5EB4 /* QuestListRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = QuestListRow.swift; path = scavengARQuest/QuestListRow.swift; sourceTree = SOURCE_ROOT; };
@@ -79,6 +83,8 @@
 				8DDBEDF82AEFE150002B5EB4 /* Leaderboard.swift */,
 				42B0F8F52AFA7B0000FF5DB4 /* LeaderboardRow.swift */,
 				8DDBEDFE2AEFE75A002B5EB4 /* HomePage.swift */,
+				8716DE772AF3043700EB5DDE /* ActiveQuestPage.swift */,
+				871C64442AF45233008CE4FF /* ActiveQuestListRow.swift */,
 			);
 			path = ScavengARQuest;
 			sourceTree = "<group>";
@@ -163,6 +169,8 @@
 			files = (
 				42B0F8F62AFA7B0000FF5DB4 /* LeaderboardRow.swift in Sources */,
 				8DDBEDF32AEF2077002B5EB4 /* QuestListRow.swift in Sources */,
+				871C64452AF45233008CE4FF /* ActiveQuestListRow.swift in Sources */,
+				8716DE782AF3043700EB5DDE /* ActiveQuestPage.swift in Sources */,
 				8DDBEDF92AEFE150002B5EB4 /* Leaderboard.swift in Sources */,
 				8DDBEDFB2AEFE2DA002B5EB4 /* ChatPage.swift in Sources */,
 				42AC26352AF7DBD0000CF09A /* LoginView.swift in Sources */,
