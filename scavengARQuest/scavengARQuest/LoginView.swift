@@ -15,7 +15,7 @@ import SwiftUI
 
 struct LoginView: View {
     
-    private var serverUrl = ""
+    private var serverUrl = "https://3.142.74.134"
     @State private var username = "Enter your username here"
     @State private var status = LoginStatus.pending
     @State private var loginDone = false
@@ -32,7 +32,7 @@ struct LoginView: View {
                    return
                }
                        
-               guard let apiUrl = URL(string: serverUrl+"login/") else {
+               guard let apiUrl = URL(string: serverUrl+"/login/") else {
                    print("login: Bad URL")
                    return
                }
@@ -48,15 +48,16 @@ struct LoginView: View {
                        print("login: \(HTTPURLResponse.localizedString(forStatusCode: http.statusCode))")
                    } else {
                        //process the returned response
-                       guard let jsonObj = try? JSONSerialization.jsonObject(with: data) as? [String:Any] else {
+                       guard let jsonResponse = try? JSONSerialization.jsonObject(with: data) as? [String:Any] else {
                                     print("login response: failed JSON deserialization")
                                     return
                                 }
                        
-                       if jsonObj["status"] as! String == "validUser"{
+                       if jsonResponse["status"] as! String == "validUser"{
                            let defaults = UserDefaults.standard
                            defaults.set(username, forKey: "logname")
                            status = LoginStatus.success
+                           loginDone.toggle()
                        } else{
                            status = LoginStatus.invalid
                        }
