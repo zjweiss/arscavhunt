@@ -55,6 +55,13 @@ struct LoginView: View {
                        
                        if jsonResponse["status"] as! String == "validUser"{
                            let defaults = UserDefaults.standard
+                           
+                           if let userArray = jsonResponse["user"] as? [Any] {
+                               let firstName = userArray[1] as? String ?? ""
+                               let lastName = userArray[2] as? String ?? ""
+                               let canolicalName = firstName + " " + lastName
+                               defaults.set(canolicalName, forKey: "canName")
+                           }
                            defaults.set(username, forKey: "logname")
                            status = LoginStatus.success
                            loginDone.toggle()
