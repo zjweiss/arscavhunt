@@ -123,7 +123,25 @@ def login(req):
         with connection.cursor() as cursor:
             # TODO: compute points
             cursor.execute("""
-                SELECT * FROM users WHERE username = %s;
+                WITH user_info AS (
+                    SELECT * FROM users WHERE username = %s
+                ), cte2 AS (
+                    -- all the quests and its subquest locations that have been completed by
+                    -- a secific user.
+                    SELECT SUM(ql.points) as points 
+                    FROM user_info, user_quest_locations_status uqls 
+                    JOIN quest_locations ql 
+                        ON uqls.quest_id = ql.quest_id
+                        AND uqls.location_id = ql.location_id
+                    WHERE user_id = user_info.id AND status = 'complete'
+                )
+                SELECT 
+                    user_info.id,
+                    user_info.first_name,
+                    user_info.last_name,
+                    user_info.username,
+                    COALESCE(points, 0) as points 
+                FROM user_info, cte2;
             """, [username])
             row = cursor.fetchone()
             if row:
