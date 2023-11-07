@@ -1,64 +1,123 @@
 from django.http import JsonResponse, HttpResponse
 from django.db import connection
 from django.views.decorators.csrf import csrf_exempt
-import json
+import simplejson as json
 
 """
-Locations API endpoint
+Utils
 """
+def fetchall(cursor): 
+    "Returns all rows from a cursor as a dict" 
+    desc = cursor.description 
+    return [
+            dict(zip([col[0] for col in desc], row)) 
+            for row in cursor.fetchall() 
+    ]
+
+"""
+Users API
+"""
+def users(req):
+    if req.method != "GET":
+        return HttpResponse(status=404)
+
+    with connection.cursor() as cursor:
+        cursor.execute("""
+            SELECT
+              u.id AS user_id,
+              u.first_name,
+              u.last_name,
+              u.username,
+              COALESCE(SUM(CASE WHEN uqls.status = 'complete' THEN qpl.points ELSE 0 END), 0) AS total_points
+            FROM
+              users u
+            LEFT JOIN user_quest_locations_status uqls ON u.id = uqls.user_id
+            LEFT JOIN quest_locations qpl ON uqls.quest_id = qpl.quest_id AND uqls.location_id = qpl.location_id
+            GROUP BY
+              u.id, u.first_name, u.last_name, u.username
+            ORDER BY
+              total_points DESC;
+        """)
+        rows = fetchall(cursor)
+        return JsonResponse({"users": rows})
 
 @csrf_exempt
-def submit_checkpoint(req):
+def login(req):
     if req.method not in {'POST'}:
         return HttpResponse(status=404)
 
     body = json.loads(req.body)
-    username = body.get('username', None)
-    quest_id = body.get('quest_id', None)
-    location_id = body.get('location_id', None)
+    username = body.get("username", None)
     
-    if username and quest_id and location_id:
+    if username:
+        with connection.cursor() as cursor:
+            cursor.execute("""
+                WITH user_info AS (
+                    SELECT * FROM users WHERE username = %s
+                ), cte2 AS (
+                    -- all the quests and its subquest locations that have been completed by
+                    -- a secific user.
+                    SELECT SUM(ql.points) as points 
+                    FROM user_info, user_quest_locations_status uqls 
+                    JOIN quest_locations ql 
+                        ON uqls.quest_id = ql.quest_id
+                        AND uqls.location_id = ql.location_id
+                    WHERE user_id = user_info.id AND status = 'complete'
+                )
+                SELECT 
+                    user_info.id,
+                    user_info.first_name,
+                    user_info.last_name,
+                    user_info.username,
+                    COALESCE(points, 0) as points 
+                FROM user_info, cte2;
+            """, [username])
+            row = cursor.fetchone()
+            if row:
+                return JsonResponse({"status": "validUser", "user": row})
+
+            return JsonResponse({"status": "noUser", "user": None}, status=404)
+    else:
+        return HttpResponse(status=400)
+
+@csrf_exempt
+def submit_checkpoint(req, user_id: int, quest_id: int, location_id: int):
+    if req.method not in {'POST'}:
+        return HttpResponse(status=404)
+
+    if user_id and quest_id and location_id:
         with connection.cursor() as cursor:
             cursor.execute("""
                 UPDATE user_quest_locations_status AS uql
                     SET status = 'complete'
                 WHERE
-                    uql.user_id = (SELECT id FROM users WHERE username=%s)
+                    uql.user_id = %s
                     AND uql.quest_id = %s 
                     AND uql.location_id = %s
-            """, [username, quest_id, location_id])
+            """, [user_id, quest_id, location_id])
             return HttpResponse(status=200)
     else:
         return HttpResponse(status=400)
 
-"""
-Quests API Endpoint
-"""
 @csrf_exempt
-def accept_quest(req):
+def accept_quest(req, user_id: int, quest_id: int):
     if req.method not in {'POST'}:
         return HttpResponse(status=404)
     
-    body = json.loads(req.body)
-    username = body.get('username', None)
-    quest_id = body.get('quest_id', None)
-    
-    if username and quest_id:
+    # TODO: fix this query to work with user id instead of username
+    if user_id and quest_id:
         with connection.cursor() as cursor:
             cursor.execute("""
-                WITH cte AS (
-                  SELECT id FROM users WHERE username = %s
-                ), sub_qs AS (
+                WITH sub_qs AS (
                   SELECT quest_id, location_id FROM quest_locations WHERE quest_id = %s
                 )
                 INSERT INTO user_quest_locations_status (user_id, quest_id, location_id)
-                SELECT cte.id, sub_qs.quest_id, sub_qs.location_id
+                SELECT %s, sub_qs.quest_id, sub_qs.location_id
                 FROM cte, sub_qs;
-            """, [username, quest_id])
+            """, [quest_id, user_id])
         return HttpResponse(status=200)
     else:
         return HttpResponse(status=400)
-
 
 def get_user_quest_feed(req, user_id):
     if req.method not in {'GET'}:
@@ -103,60 +162,7 @@ def get_user_quest_feed(req, user_id):
         LEFT JOIN cte2 ON q.id = cte2.quest_id
         LEFT JOIN cte3 ON q.id = cte3.quest_id;
         """, [user_id])
-        rows = cursor.fetchall()
+        rows = fetchall(cursor)
         
         return JsonResponse({"feed": rows})
 
-"""
-Users API Endpoint
-"""
-
-@csrf_exempt
-def login(req):
-    if req.method not in {'POST'}:
-        return HttpResponse(status=404)
-
-    body = json.loads(req.body)
-    username = body.get("username", None)
-    
-    if username:
-        with connection.cursor() as cursor:
-            # TODO: compute points
-            cursor.execute("""
-                WITH user_info AS (
-                    SELECT * FROM users WHERE username = %s
-                ), cte2 AS (
-                    -- all the quests and its subquest locations that have been completed by
-                    -- a secific user.
-                    SELECT SUM(ql.points) as points 
-                    FROM user_info, user_quest_locations_status uqls 
-                    JOIN quest_locations ql 
-                        ON uqls.quest_id = ql.quest_id
-                        AND uqls.location_id = ql.location_id
-                    WHERE user_id = user_info.id AND status = 'complete'
-                )
-                SELECT 
-                    user_info.id,
-                    user_info.first_name,
-                    user_info.last_name,
-                    user_info.username,
-                    COALESCE(points, 0) as points 
-                FROM user_info, cte2;
-            """, [username])
-            row = cursor.fetchone()
-            if row:
-                res = {
-                    "status": "validUser",
-                    "user": row
-                }
-                return JsonResponse(res)
-            else:
-                return JsonResponse(
-                    status=404, 
-                    data={
-                        "status": "noUser", 
-                        "user": []
-                    }
-                )
-    else:
-        return HttpResponse(status=400)
