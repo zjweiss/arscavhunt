@@ -1,3 +1,5 @@
 
 scavengARQuest/.DS_Store
 scavengARQuest/scavengARQuest.xcodeproj/project.xcworkspace/xcuserdata/zacharyweiss.xcuserdatad/UserInterfaceState.xcuserstate
+server/env/
+server/routing/__pycache__/
