@@ -6,20 +6,19 @@ DROP TABLE IF EXISTS quest_locations;
 DROP TABLE IF EXISTS user_quest_locations_status;
 
 CREATE TABLE users (
-  id serial PRIMARY KEY NOT NULl,
+  id serial PRIMARY KEY,
   first_name varchar NOT NULL,
   last_name varchar NOT NULL,
-  username varchar NOT NULL,
-  points int DEFAULT 0 NOT NULL
+  email varchar NOT NULL,
+  password_hash varchar NOT NULL
 );
 
-INSERT INTO users (first_name, last_name, username)
-VALUES
-  ('Rohan', 'Nagavardhan', 'rnagavar'),
-  ('Shaan', 'Patel', 'pshaan'),
-  ('Zach', 'Weiss', 'zjweiss'),
-  ('Abbie', 'Tooman', 'atooman');
+CREATE TABLE leaderboard (
+  user_id int NOT NULL REFERENCES users(id),
+  points int NOT NULL DEFAULT 0
 
+  PRIMARY KEY (user_id)
+);
 
 CREATE TABLE locations (
   id serial PRIMARY KEY,
