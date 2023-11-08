@@ -20,16 +20,10 @@ from app import views
 
 urlpatterns = [
     # User API
-    # GET
-    path('users/', views.users, name='users'),
-    # path('users/<int:user_id>/quests/', views.users, name='feed'),
-    
-    # POST 
-    path('login/', views.login, name='login'),
-    # path('users/<int:user_id>/quests/<int:quest_id>/accept/', views.users, name='accept quest'),
-    # path('/users/<int:user_id>/quests/<int:quest_id>/locations/<int:location_id>/submit_checkpoint', views.users, name='submit checkpoint'),
-    
-    # Quest API
-    # GET
-    # path('quests/<int:quest_id>', views.users, name='quest'),
+    path('users/', views.users, name='Get users'),
+    path('login/', views.login, name='Login'),
+    path('users/<int:user_id>/quests/', views.get_user_quest_feed, name='Get active and available quests'),
+    path('users/<int:user_id>/quests/<int:quest_id>/', views.get_active_quest_details, name='Get active quest'),
+    path('users/<int:user_id>/quests/<int:quest_id>/accept/', views.accept_quest, name='Accept quest'),
+    path('/users/<int:user_id>/quests/<int:quest_id>/locations/<int:location_id>/submit_checkpoint', views.submit_checkpoint, name='Submit checkpoint'),
 ]
