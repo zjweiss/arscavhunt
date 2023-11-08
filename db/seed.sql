@@ -4,14 +4,14 @@ DROP TABLE IF EXISTS quests CASCADE;
 DROP TABLE IF EXISTS quest_locations CASCADE;
 DROP TABLE IF EXISTS user_quest_locations_status CASCADE;
 
-CREATE TABLE user (
+CREATE TABLE users (
   id serial PRIMARY KEY NOT NULl,
   first_name varchar NOT NULL,
   last_name varchar NOT NULL,
-  username varchar NOT NULL,
+  username varchar NOT NULL
 );
 
-INSERT INTO user (first_name, last_name, username)
+INSERT INTO users (first_name, last_name, username)
 VALUES
   ('Janice', 'Liu', 'jliu'),
   ('Rohan', 'Nagavardhan', 'rnagavar'),
@@ -20,7 +20,7 @@ VALUES
   ('Abbie', 'Tooman', 'atooman');
 
 
-CREATE TABLE location (
+CREATE TABLE locations (
   id serial PRIMARY KEY,
   name varchar NOT NULL,
   latitude decimal NOT NULL,
@@ -31,7 +31,7 @@ CREATE TABLE location (
   distance_threshold decimal NOT NULL -- meters
 );
 
-INSERT INTO location (name, latitude, longitude, description, thumbnail, ar_enabled, distance_threshold)
+INSERT INTO locations (name, latitude, longitude, description, thumbnail, ar_enabled, distance_threshold)
 VALUES
   ('The Duderstadt Center', 42.2912, -83.7157, '', '', true, 100),
   ('Hatcher Graduate Library', 42.2763, -83.7380, '', '', false, 10),
@@ -41,12 +41,12 @@ VALUES
   ('UGLI', 42.2756, -83.7372, '', '', true, 10),
   ('The Fishbowl', 42.2767, -83.7396, '', '', true, 50),
 
-CREATE TABLE tag (
+CREATE TABLE tags (
   id serial PRIMARY KEY,
   name varchar NOT NULL
 );
 
-INSERT INTO tag (name)
+INSERT INTO tags (name)
 VALUES
   ('Central Campus'),
   ('North Campus'),
@@ -69,7 +69,7 @@ VALUES
   (6, 1),
   (7, 1);
 
-CREATE TABLE quest (
+CREATE TABLE quests (
   id serial PRIMARY KEY,
   name varchar NOT NULL,
   thumbnail text NOT NULL, -- base64 encoded
@@ -78,12 +78,12 @@ CREATE TABLE quest (
   estimated_time decimal NOT NULL -- stored in seconds
 );
 
-INSERT INTO quest (name, thumbnail, description, rating, estimated_time)
+INSERT INTO quests (name, thumbnail, description, rating, estimated_time)
 VALUES
   ('Campus Study Spots', '', '', 4.8, 5400),
   ('Campus Art & Murals', '', '', 4.0, 3000);
 
-CREATE TABLE quest_location (
+CREATE TABLE quest_locations (
   quest_id int NOT NULL REFERENCES quest(id),
   location_id int NOT NULL REFERENCES location(id),
   points decimal NOT NULL,
@@ -91,7 +91,7 @@ CREATE TABLE quest_location (
   PRIMARY KEY (quest_id, location_id)
 );
 
-INSERT INTO quest_location (quest_id, location_id, points)
+INSERT INTO quest_locations (quest_id, location_id, points)
 VALUES
   (1, 1, 50),
   (1, 2, 90),
@@ -103,7 +103,7 @@ VALUES
 
 CREATE TYPE location_status AS ENUM ('active', 'complete');
 
-CREATE TABLE user_quest_location_status (
+CREATE TABLE user_quest_locations_status (
   user_id int NOT NULL REFERENCES user(id),
   quest_id int NOT NULL REFERENCES quest(id),
   location_id int NOT NULL REFERENCES location(id),
@@ -112,7 +112,7 @@ CREATE TABLE user_quest_location_status (
   PRIMARY KEY (user_id, quest_id, location_id)
 );
 
-INSERT INTO user_quest_location_status (user_id, quest_id, location_id)
+INSERT INTO user_quest_locations_status (user_id, quest_id, location_id)
 VALUES
   (1, 1, 1),
   (1, 1, 2),
