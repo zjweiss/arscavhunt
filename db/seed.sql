@@ -84,8 +84,8 @@ VALUES
   ('Campus Art & Murals', '', '', 4.0, 3000);
 
 CREATE TABLE quest_location (
-  quest_id int NOT NULL REFERENCES quests(id),
-  location_id int NOT NULL REFERENCES locations(id),
+  quest_id int NOT NULL REFERENCES quest(id),
+  location_id int NOT NULL REFERENCES location(id),
   points decimal NOT NULL,
 
   PRIMARY KEY (quest_id, location_id)
@@ -104,9 +104,9 @@ VALUES
 CREATE TYPE location_status AS ENUM ('active', 'complete');
 
 CREATE TABLE user_quest_location_status (
-  user_id int NOT NULL REFERENCES users(id),
-  quest_id int NOT NULL REFERENCES quests(id),
-  location_id int NOT NULL REFERENCES locations(id),
+  user_id int NOT NULL REFERENCES user(id),
+  quest_id int NOT NULL REFERENCES quest(id),
+  location_id int NOT NULL REFERENCES location(id),
   status location_status NOT NULL DEFAULT 'active',
 
   PRIMARY KEY (user_id, quest_id, location_id)
