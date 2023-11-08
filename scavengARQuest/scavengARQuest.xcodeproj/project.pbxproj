@@ -11,6 +11,13 @@
 		420156AC2AEED418007189B5 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 420156AB2AEED418007189B5 /* ContentView.swift */; };
 		420156AE2AEED41A007189B5 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 420156AD2AEED41A007189B5 /* Assets.xcassets */; };
 		420156B12AEED41A007189B5 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 420156B02AEED41A007189B5 /* Preview Assets.xcassets */; };
+		428F1DA22AF32069009C8815 /* LocManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 428F1DA12AF32069009C8815 /* LocManager.swift */; };
+		428F1DA42AF3217A009C8815 /* geodata.swift in Sources */ = {isa = PBXBuildFile; fileRef = 428F1DA32AF3217A009C8815 /* geodata.swift */; };
+		428F1DA62AF32205009C8815 /* LocationDetails.swift in Sources */ = {isa = PBXBuildFile; fileRef = 428F1DA52AF32205009C8815 /* LocationDetails.swift */; };
+		428F1DA82AF323EB009C8815 /* LocationDetailsStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 428F1DA72AF323EB009C8815 /* LocationDetailsStore.swift */; };
+		428F1DAA2AF32D7D009C8815 /* KeywordTag.swift in Sources */ = {isa = PBXBuildFile; fileRef = 428F1DA92AF32D7D009C8815 /* KeywordTag.swift */; };
+		428F1DAE2AF32F47009C8815 /* MapView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 428F1DAD2AF32F47009C8815 /* MapView.swift */; };
+		42AC26332AF5D229000CF09A /* LocationVerification.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42AC26322AF5D229000CF09A /* LocationVerification.swift */; };
 		8716DE782AF3043700EB5DDE /* ActiveQuestPage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8716DE772AF3043700EB5DDE /* ActiveQuestPage.swift */; };
 		871C64452AF45233008CE4FF /* ActiveQuestListRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 871C64442AF45233008CE4FF /* ActiveQuestListRow.swift */; };
 		42AC26352AF7DBD0000CF09A /* LoginView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42AC26342AF7DBD0000CF09A /* LoginView.swift */; };
@@ -29,8 +36,18 @@
 		420156AB2AEED418007189B5 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		420156AD2AEED41A007189B5 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		420156B02AEED41A007189B5 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
+<<<<<<< HEAD
+		428F1DA12AF32069009C8815 /* LocManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocManager.swift; sourceTree = "<group>"; };
+		428F1DA32AF3217A009C8815 /* geodata.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = geodata.swift; sourceTree = "<group>"; };
+		428F1DA52AF32205009C8815 /* LocationDetails.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationDetails.swift; sourceTree = "<group>"; };
+		428F1DA72AF323EB009C8815 /* LocationDetailsStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationDetailsStore.swift; sourceTree = "<group>"; };
+		428F1DA92AF32D7D009C8815 /* KeywordTag.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeywordTag.swift; sourceTree = "<group>"; };
+		428F1DAD2AF32F47009C8815 /* MapView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapView.swift; sourceTree = "<group>"; };
+		42AC26322AF5D229000CF09A /* LocationVerification.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationVerification.swift; sourceTree = "<group>"; };
+=======
 		8716DE772AF3043700EB5DDE /* ActiveQuestPage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = ActiveQuestPage.swift; path = scavengARQuest/ActiveQuestPage.swift; sourceTree = SOURCE_ROOT; };
 		871C64442AF45233008CE4FF /* ActiveQuestListRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = ActiveQuestListRow.swift; path = scavengARQuest/ActiveQuestListRow.swift; sourceTree = SOURCE_ROOT; };
+>>>>>>> main
 		42AC26342AF7DBD0000CF09A /* LoginView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginView.swift; sourceTree = "<group>"; };
 		42B0F8F52AFA7B0000FF5DB4 /* LeaderboardRow.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = LeaderboardRow.swift; path = scavengARQuest/LeaderboardRow.swift; sourceTree = SOURCE_ROOT; };
 		8DDBEDF22AEF2077002B5EB4 /* QuestListRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = QuestListRow.swift; path = scavengARQuest/QuestListRow.swift; sourceTree = SOURCE_ROOT; };
@@ -72,6 +89,7 @@
 			isa = PBXGroup;
 			children = (
 				8DDBEDFC2AEFE337002B5EB4 /* ProfilePage.swift */,
+				428F1DA72AF323EB009C8815 /* LocationDetailsStore.swift */,
 				8DDBEDFA2AEFE2DA002B5EB4 /* ChatPage.swift */,
 				420156A92AEED418007189B5 /* ScavengARQuestApp.swift */,
 				420156AB2AEED418007189B5 /* ContentView.swift */,
@@ -83,8 +101,17 @@
 				8DDBEDF82AEFE150002B5EB4 /* Leaderboard.swift */,
 				42B0F8F52AFA7B0000FF5DB4 /* LeaderboardRow.swift */,
 				8DDBEDFE2AEFE75A002B5EB4 /* HomePage.swift */,
+<<<<<<< HEAD
+				428F1DA12AF32069009C8815 /* LocManager.swift */,
+				428F1DA32AF3217A009C8815 /* geodata.swift */,
+				428F1DA52AF32205009C8815 /* LocationDetails.swift */,
+				42AC26322AF5D229000CF09A /* LocationVerification.swift */,
+				428F1DAD2AF32F47009C8815 /* MapView.swift */,
+				428F1DA92AF32D7D009C8815 /* KeywordTag.swift */,
+=======
 				8716DE772AF3043700EB5DDE /* ActiveQuestPage.swift */,
 				871C64442AF45233008CE4FF /* ActiveQuestListRow.swift */,
+>>>>>>> main
 			);
 			path = ScavengARQuest;
 			sourceTree = "<group>";
@@ -132,7 +159,7 @@
 					};
 				};
 			};
-			buildConfigurationList = 420156A12AEED418007189B5 /* Build configuration list for PBXProject "scavengARQuest" */;
+			buildConfigurationList = 420156A12AEED418007189B5 /* Build configuration list for PBXProject "ScavengARQuest" */;
 			compatibilityVersion = "Xcode 14.0";
 			developmentRegion = en;
 			hasScannedForEncodings = 0;
@@ -169,16 +196,26 @@
 			files = (
 				42B0F8F62AFA7B0000FF5DB4 /* LeaderboardRow.swift in Sources */,
 				8DDBEDF32AEF2077002B5EB4 /* QuestListRow.swift in Sources */,
+<<<<<<< HEAD
+				428F1DA82AF323EB009C8815 /* LocationDetailsStore.swift in Sources */,
+=======
 				871C64452AF45233008CE4FF /* ActiveQuestListRow.swift in Sources */,
 				8716DE782AF3043700EB5DDE /* ActiveQuestPage.swift in Sources */,
+>>>>>>> main
 				8DDBEDF92AEFE150002B5EB4 /* Leaderboard.swift in Sources */,
+				428F1DA22AF32069009C8815 /* LocManager.swift in Sources */,
+				428F1DAA2AF32D7D009C8815 /* KeywordTag.swift in Sources */,
 				8DDBEDFB2AEFE2DA002B5EB4 /* ChatPage.swift in Sources */,
 				42AC26352AF7DBD0000CF09A /* LoginView.swift in Sources */,
 				8DDBEDFD2AEFE337002B5EB4 /* ProfilePage.swift in Sources */,
+				428F1DAE2AF32F47009C8815 /* MapView.swift in Sources */,
+				42AC26332AF5D229000CF09A /* LocationVerification.swift in Sources */,
 				420156AC2AEED418007189B5 /* ContentView.swift in Sources */,
+				428F1DA62AF32205009C8815 /* LocationDetails.swift in Sources */,
 				8DDBEDF72AEF4E99002B5EB4 /* QuestPage.swift in Sources */,
 				420156AA2AEED418007189B5 /* ScavengARQuestApp.swift in Sources */,
 				8DDBEDFF2AEFE75A002B5EB4 /* HomePage.swift in Sources */,
+				428F1DA42AF3217A009C8815 /* geodata.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -314,6 +351,8 @@
 				DEVELOPMENT_ASSET_PATHS = "\"ScavengARQuest/Preview Content\"";
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_NSLocationAlwaysUsageDescription = "Location is needed to verify your location.";
+				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "Location is needed to verify your location.";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
@@ -342,6 +381,8 @@
 				DEVELOPMENT_ASSET_PATHS = "\"ScavengARQuest/Preview Content\"";
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_NSLocationAlwaysUsageDescription = "Location is needed to verify your location.";
+				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "Location is needed to verify your location.";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
@@ -363,7 +404,7 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		420156A12AEED418007189B5 /* Build configuration list for PBXProject "scavengARQuest" */ = {
+		420156A12AEED418007189B5 /* Build configuration list for PBXProject "ScavengARQuest" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				420156B22AEED41A007189B5 /* Debug */,
