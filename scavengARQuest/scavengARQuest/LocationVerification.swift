@@ -9,7 +9,7 @@ import SwiftUI
 
 struct LocationVerification: View {
     
-    let serverUrl: String = "URL"
+    let serverUrl = "https://3.142.74.134"
     var locationDetailStore: LocationDetailsStore;
     @State var locationVerified: Bool = false;
     @State var badLocation  = false;
@@ -40,9 +40,7 @@ struct LocationVerification: View {
         let locationValid = distanceBetweenPoints(point1: landmark, point2: userLocation) < thresh
         
         if locationValid{
-            UserDefaults.standard.set("zjweiss", forKey: "logname")
-            let logname = UserDefaults.standard.string(forKey: "logname") ?? "unknown user"
-            await submitValidLocation(locationId: locactionId, username: logname)
+            await submitValidLocation()
             locationVerified = true
             return
         } else {
@@ -52,17 +50,25 @@ struct LocationVerification: View {
         
     }
     
-    func submitValidLocation(locationId: Int, username: String) async {
+    func submitValidLocation() async {
+        
+        // get the required params
+        let logname = UserDefaults.standard.string(forKey: "logname") ?? "unknown user"
+        let userID: Int  = UserDefaults.standard.integer(forKey: "userID")
+        let questID: Int = locationDetailStore.questID ?? 0
+        let locationID: Int = locationDetailStore.locationID ?? 0
+        
+        // form json object
         let jsonObj = [
-            "locationId": locationId,
-            "username" : username] as [String : Any];
+            "locationID": locationID,
+            "username" : logname] as [String : Any];
         
         guard let jsonData = try? JSONSerialization.data(withJSONObject: jsonObj) else {
             print("login: jsonData serialization error")
             return
         }
         
-        guard let apiUrl = URL(string: serverUrl+"submitcheckpoint/") else {
+        guard let apiUrl = URL(string: serverUrl+"/users/" + String(userID) + "/quests/" + String(questID) + "/locations/" + String(locationID) + "/submit_checkpoint/") else {
             print("login: Bad URL")
             return
         }
@@ -75,7 +81,7 @@ struct LocationVerification: View {
         do {
             let (_, response) = try await URLSession.shared.data(for: request)
             if let http = response as? HTTPURLResponse, http.statusCode != 200 {
-                print("login: \(HTTPURLResponse.localizedString(forStatusCode: http.statusCode))")
+                print("submit checkpoint: \(HTTPURLResponse.localizedString(forStatusCode: http.statusCode))")
                 return
             }
         } catch {
@@ -93,8 +99,7 @@ struct LocationVerification: View {
                 Button {
                     //do something
                     Task{
-                        var userLocation = GeoData(lat: LocManager.shared.location.coordinate.latitude, lon: LocManager.shared.location.coordinate.longitude)
-
+                        let userLocation = GeoData(lat: LocManager.shared.location.coordinate.latitude, lon: LocManager.shared.location.coordinate.longitude)
                         await verifyLocation(landmark: locationDetailStore.geodata!, userLocation: userLocation, thresh: locationDetailStore.distanceThresh ?? 1, locactionId: locationDetailStore.locationID!)
                     }
                 } label: {
@@ -132,6 +137,7 @@ struct LocationVerification: View {
             if let hasAR = locationDetailStore.hasAR{
                 if hasAR{
                  // do AR stuff
+                 // will be implemented in MVP
                 } else {
                  // show an image if there is no AR stuff
                     let displayString: String = "This is what the " +  (locationDetailStore.name ?? "location") + " looks like.\nHave you found it?";

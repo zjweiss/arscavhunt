@@ -9,7 +9,10 @@ import SwiftUI
 
 // To get the currently logged in user's username, see example below:
 // The user should only have to log in 1 time per downloading the app
-// let logname = defaults.object(forKey: "logname") as? [String] ?? [String]()
+// let userId = UserDefaults.standard.integer(forKey: "userID")
+// let logname = UserDefaults.standard.string(forKey: "logname")
+
+
 
 
 
@@ -59,8 +62,11 @@ struct LoginView: View {
                            if let userArray = jsonResponse["user"] as? [Any] {
                                let firstName = userArray[1] as? String ?? ""
                                let lastName = userArray[2] as? String ?? ""
+                               let userID = userArray[0] as? Int ?? 0
                                let canolicalName = firstName + " " + lastName
                                defaults.set(canolicalName, forKey: "canName")
+                               defaults.set(userID, forKey: "userID")
+
                            }
                            defaults.set(username, forKey: "logname")
                            status = LoginStatus.success

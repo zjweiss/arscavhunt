@@ -9,6 +9,7 @@ import Foundation
 
 // Stores all the basic info for one particular location
 struct LocationDetailsStore {
+    var questID: Int?
     var locationID: Int?
     var name: String?
     var imageUrl: String?
