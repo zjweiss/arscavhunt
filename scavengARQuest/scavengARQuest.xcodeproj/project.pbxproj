@@ -11,7 +11,6 @@
 		420156AC2AEED418007189B5 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 420156AB2AEED418007189B5 /* ContentView.swift */; };
 		420156AE2AEED41A007189B5 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 420156AD2AEED41A007189B5 /* Assets.xcassets */; };
 		420156B12AEED41A007189B5 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 420156B02AEED41A007189B5 /* Preview Assets.xcassets */; };
-<<<<<<< Updated upstream
 		428F1DA22AF32069009C8815 /* LocManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 428F1DA12AF32069009C8815 /* LocManager.swift */; };
 		428F1DA42AF3217A009C8815 /* geodata.swift in Sources */ = {isa = PBXBuildFile; fileRef = 428F1DA32AF3217A009C8815 /* geodata.swift */; };
 		428F1DA62AF32205009C8815 /* LocationDetails.swift in Sources */ = {isa = PBXBuildFile; fileRef = 428F1DA52AF32205009C8815 /* LocationDetails.swift */; };
@@ -23,10 +22,8 @@
 		871C64452AF45233008CE4FF /* ActiveQuestListRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 871C64442AF45233008CE4FF /* ActiveQuestListRow.swift */; };
 		42AC26352AF7DBD0000CF09A /* LoginView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42AC26342AF7DBD0000CF09A /* LoginView.swift */; };
 		42B0F8F62AFA7B0000FF5DB4 /* LeaderboardRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42B0F8F52AFA7B0000FF5DB4 /* LeaderboardRow.swift */; };
-=======
 		8D311E0C2AFA80E500D01838 /* Quest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D311E0B2AFA80E500D01838 /* Quest.swift */; };
 		8D311E0E2AFA821200D01838 /* QuestList.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D311E0D2AFA821200D01838 /* QuestList.swift */; };
->>>>>>> Stashed changes
 		8DDBEDF32AEF2077002B5EB4 /* QuestListRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DDBEDF22AEF2077002B5EB4 /* QuestListRow.swift */; };
 		8DDBEDF72AEF4E99002B5EB4 /* QuestPage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DDBEDF62AEF4E99002B5EB4 /* QuestPage.swift */; };
 		8DDBEDF92AEFE150002B5EB4 /* Leaderboard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DDBEDF82AEFE150002B5EB4 /* Leaderboard.swift */; };
@@ -41,7 +38,6 @@
 		420156AB2AEED418007189B5 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		420156AD2AEED41A007189B5 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		420156B02AEED41A007189B5 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
-<<<<<<< Updated upstream
 		428F1DA12AF32069009C8815 /* LocManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocManager.swift; sourceTree = "<group>"; };
 		428F1DA32AF3217A009C8815 /* geodata.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = geodata.swift; sourceTree = "<group>"; };
 		428F1DA52AF32205009C8815 /* LocationDetails.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationDetails.swift; sourceTree = "<group>"; };
@@ -53,10 +49,8 @@
 		871C64442AF45233008CE4FF /* ActiveQuestListRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = ActiveQuestListRow.swift; path = scavengARQuest/ActiveQuestListRow.swift; sourceTree = SOURCE_ROOT; };
 		42AC26342AF7DBD0000CF09A /* LoginView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginView.swift; sourceTree = "<group>"; };
 		42B0F8F52AFA7B0000FF5DB4 /* LeaderboardRow.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = LeaderboardRow.swift; path = scavengARQuest/LeaderboardRow.swift; sourceTree = SOURCE_ROOT; };
-=======
 		8D311E0B2AFA80E500D01838 /* Quest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Quest.swift; sourceTree = "<group>"; };
 		8D311E0D2AFA821200D01838 /* QuestList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = QuestList.swift; path = scavengARQuest/QuestList.swift; sourceTree = SOURCE_ROOT; };
->>>>>>> Stashed changes
 		8DDBEDF22AEF2077002B5EB4 /* QuestListRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = QuestListRow.swift; path = scavengARQuest/QuestListRow.swift; sourceTree = SOURCE_ROOT; };
 		8DDBEDF62AEF4E99002B5EB4 /* QuestPage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = QuestPage.swift; path = scavengARQuest/QuestPage.swift; sourceTree = SOURCE_ROOT; };
 		8DDBEDF82AEFE150002B5EB4 /* Leaderboard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = Leaderboard.swift; path = scavengARQuest/Leaderboard.swift; sourceTree = SOURCE_ROOT; };
@@ -109,7 +103,6 @@
 				8DDBEDF82AEFE150002B5EB4 /* Leaderboard.swift */,
 				42B0F8F52AFA7B0000FF5DB4 /* LeaderboardRow.swift */,
 				8DDBEDFE2AEFE75A002B5EB4 /* HomePage.swift */,
-<<<<<<< Updated upstream
 				428F1DA12AF32069009C8815 /* LocManager.swift */,
 				428F1DA32AF3217A009C8815 /* geodata.swift */,
 				428F1DA52AF32205009C8815 /* LocationDetails.swift */,
@@ -118,9 +111,7 @@
 				428F1DA92AF32D7D009C8815 /* KeywordTag.swift */,
 				8716DE772AF3043700EB5DDE /* ActiveQuestPage.swift */,
 				871C64442AF45233008CE4FF /* ActiveQuestListRow.swift */,
-=======
 				8D311E0D2AFA821200D01838 /* QuestList.swift */,
->>>>>>> Stashed changes
 			);
 			path = ScavengARQuest;
 			sourceTree = "<group>";
