@@ -9,15 +9,7 @@ import SwiftUI
 
 struct HomePage: View {
     @State private var searchText = "" // Define and declare searchText as a @State property
-    let questInfo: [QuestInfo] = [
-        QuestInfo(id: "2", title: "Campus Murals", image: "campus_murals"),
-        QuestInfo(id: "1", title: "Campus Study Spots", image: "study_title"),
-        QuestInfo(id: "3", title: "Campus Fun", image: "study_title"),
-    ]
-    
-    let activeQuestInfo: [QuestInfo] = [
-        QuestInfo(id: "1", title: "Campus Study Spots", image: "study_title"),
-    ]
+    private let store = QuestList.shared
 
     var body: some View {
             NavigationView {
@@ -44,7 +36,8 @@ struct HomePage: View {
                             .font(.largeTitle)
                             .frame(maxWidth: .infinity, alignment: .leading)
                             .padding(.vertical)
-                        QuestListRowContent(quests: activeQuestInfo)
+                        //  Active Quests
+                        QuestListRow(quests: store.quests)
                             .frame(maxWidth: 275)
                             .frame(maxWidth: .infinity, alignment: .leading)
                         Capsule()
@@ -63,7 +56,8 @@ struct HomePage: View {
                             .font(.largeTitle)
                             .frame(maxWidth: .infinity, alignment: .leading)
                             .padding(.top, 40)
-                        QuestListRowContent(quests: questInfo)
+                        //  Non-Active Quests
+                        QuestListRow(quests: store.quests)
                             .frame(maxWidth: .infinity)
                             .frame(maxWidth: .infinity, alignment: .leading)
                         Spacer()
@@ -71,7 +65,7 @@ struct HomePage: View {
                             .font(.largeTitle)
                             .frame(maxWidth: .infinity, alignment: .leading)
                             .padding(.top, 40)
-                        QuestListRowContent(quests: questInfo)
+                        QuestListRow(quests: store.quests)
                             .frame(maxWidth: .infinity)
                             .frame(maxWidth: .infinity, alignment: .leading)
                         Spacer()
