@@ -2,6 +2,11 @@ from django.http import JsonResponse, HttpResponse
 from django.db import connection
 from django.views.decorators.csrf import csrf_exempt
 import simplejson as json
+import time
+import os
+from django.conf import settings
+from django.core.files.storage import FileSystemStorage
+
 
 """
 Utils
@@ -13,6 +18,25 @@ def fetchall(cursor):
             dict(zip([col[0] for col in desc], row)) 
             for row in cursor.fetchall() 
     ]
+
+
+@csrf_exempt
+def postmedia(request):
+    if request.method != 'POST':
+        return HttpResponse(status=400)
+
+    # loading multipart/form-data
+    filename = request.POST.get("filename")
+
+    if request.FILES.get("image"):
+        content = request.FILES['image']
+        filename = filename+str(time.time())+".jpeg"
+        fs = FileSystemStorage()
+        filename = fs.save(filename, content)
+        imageurl = fs.url(filename)
+
+    return JsonResponse( {"filename" : filename})
+
 
 
 """
@@ -110,22 +134,26 @@ def get_active_quest_details(req, user_id, quest_id):
     if user_id and quest_id:
         with connection.cursor() as cursor:
             cursor.execute("""
-                SELECT
-                  ql.quest_id,
-                  ql.location_id,
-                  name,
-                  latitude,
-                  longitude,
-                  description,
-                  thumbnail,
-                  ar_enabled,
-                  distance_threshold,
-                  status,
-                  points
-                FROM quest_locations ql 
-                JOIN locations l ON ql.location_id = l.id
-                JOIN user_quest_locations_status uqls ON uqls.user_id = %s AND uqls.location_id = ql.location_id AND uqls.quest_id = ql.quest_id
-                WHERE ql.quest_id = %s;
+            SELECT
+                ql.quest_id,
+                ql.location_id,
+                l.name,
+                latitude,
+                longitude,
+                description,
+                thumbnail,
+                ar_enabled,
+                distance_threshold,
+                status,
+                points,
+                STRING_AGG(tags.name, ',') as tags
+            FROM quest_locations ql 
+            JOIN locations l ON ql.location_id = l.id
+            JOIN user_quest_locations_status uqls ON uqls.user_id = %s AND uqls.location_id = ql.location_id AND uqls.quest_id = ql.quest_id
+            JOIN location_tag lt ON lt.location_id = ql.location_id
+            JOIN tags ON lt.tag_id = tags.id
+            WHERE ql.quest_id = %s
+            GROUP BY ql.quest_id, ql.location_id, l.name, latitude, longitude, description, thumbnail, ar_enabled, distance_threshold, status, points;
             """, [user_id, quest_id])
 
             rows = fetchall(cursor)

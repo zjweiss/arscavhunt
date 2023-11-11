@@ -22,6 +22,7 @@ urlpatterns = [
     # User API
     path('users/', views.users, name='Get users'),
     path('login/', views.login, name='Login'),
+    path('postmedia/', views.postmedia, name="Post an image"),
     path('users/<int:user_id>/quests/', views.get_user_quest_feed, name='Get active and available quests'),
     path('users/<int:user_id>/quests/<int:quest_id>/', views.get_active_quest_details, name='Get active quest'),
     path('users/<int:user_id>/quests/<int:quest_id>/accept/', views.accept_quest, name='Accept quest'),
