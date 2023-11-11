@@ -63,9 +63,13 @@ struct LoginView: View {
                                let firstName = userArray[1] as? String ?? ""
                                let lastName = userArray[2] as? String ?? ""
                                let userID = userArray[0] as? Int ?? 0
+                               let points = userArray[4] as? Int ?? 0
                                let canolicalName = firstName + " " + lastName
                                defaults.set(canolicalName, forKey: "canName")
                                defaults.set(userID, forKey: "userID")
+                               defaults.set(firstName, forKey: "firstName")
+                               defaults.set(lastName, forKey: "lastName")
+                               defaults.set(points, forKey: "points")
 
                            }
                            defaults.set(username, forKey: "logname")
