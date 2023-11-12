@@ -22,12 +22,20 @@ struct ActiveQuestLocationCard: View {
     
     var body: some View {
         ZStack {
-            Image("dow_building")
-                .resizable()
-                .aspectRatio(contentMode: .fit)
-                .frame(maxWidth: .infinity)
-                .foregroundStyle(.tint)
-                .cornerRadius(10.0)
+            if let imageUrl = URL(string: data.thumbnail) {
+                AsyncImage(url: imageUrl){
+                    $0.resizable()
+                        .scaledToFit()
+                        .aspectRatio(contentMode: .fit)
+                        .frame(maxWidth: .infinity)
+                        .foregroundStyle(.tint)
+                        .cornerRadius(10.0)
+                } placeholder: {
+                    ProgressView()
+                }
+                
+            }
+
 
             RoundedRectangle(cornerRadius: 10.0)
                 .foregroundColor(Color.black.opacity(0.30))

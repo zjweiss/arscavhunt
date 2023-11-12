@@ -43,8 +43,8 @@ struct ActiveQuestPage: View {
     @State private var response: ActiveQuestLocationsResponseWrapper?
    
     func getActiveQuestLocations() async throws -> ActiveQuestLocationsResponseWrapper {
-        // TODO: Don't hard code here
-        let endpoint = "https://3.142.74.134/users/" + "1" + "/quests/" + String(questId) + "/"
+        let userID = UserDefaults.standard.integer(forKey: "userID")
+        let endpoint = "https://3.142.74.134/users/" + String(userID) + "/quests/" + String(questId) + "/"
         print(endpoint)
         
         guard let url = URL(string: endpoint) else {
@@ -54,6 +54,7 @@ struct ActiveQuestPage: View {
         let (data, response) = try await URLSession.shared.data(from: url)
         
         guard let response = response as? HTTPURLResponse, response.statusCode == 200 else {
+            print("IR")
             throw RequestError.invalidResponse
         }
         
