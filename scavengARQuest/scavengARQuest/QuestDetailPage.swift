@@ -7,27 +7,10 @@
 
 import SwiftUI
 
-struct Quest: Codable, Identifiable {
-    let quest_id: Int
-    let quest_name: String
-    let quest_thumbnail: String
-    let quest_description: String
-    let quest_rating: String
-    let estimated_time: String
-    let incomplete: Int
-    let complete: Int
-    let quest_status: String
-    
-    var id: Int { return quest_id }
-}
-
-
-
 struct QuestDetailPage: View {
     
     //TODO remove this
-    let quest: Quest = Quest(quest_id: 1, quest_name: "Campus Study Spots", quest_thumbnail: "https://3.142.74.134/media/campus-study-spots-main1699759724.7242055.jpeg", quest_description: "Uncover the hidden gems of the University of Michigans study spots on this mysterious scavenger hunt! Solve cryptic clues, explore secret locations, and take creative photos to win prizes. But be warned: these study spots are well-hidden, and only the most resourceful scavengers will find them all.", quest_rating: "4.8", estimated_time: "5400", incomplete: 6, complete: 1, quest_status: "active")
-    
+    let quest: Quest
     @State private var teamId = ""
     @State var questAccepted: Bool = false
     let serverUrl = "https://3.142.74.134"
@@ -181,8 +164,10 @@ struct QuestDetailPage: View {
     }
 }
 
+/*
 struct QuestDetailPage_Preview: PreviewProvider {
     static var previews: some View {
         QuestDetailPage()
     }
 }
+*/

@@ -9,6 +9,22 @@ import Foundation
 import SwiftUI
 import _MapKit_SwiftUI
 
+struct Location: Codable {
+    let questId: Int
+    let locationId: Int
+    let name: String
+    let latitude: String
+    let longitude: String
+    let description: String
+    let thumbnail: String
+    let arEnabled: Bool
+    let ar_enabled: Bool
+    let distance_threshold: String
+    let status: String
+    let points: String
+    let tags: String
+}
+
 struct LocationDetails: View {
     
     

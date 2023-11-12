@@ -7,12 +7,6 @@
 
 import SwiftUI
 
-enum RequestError: Error {
-    case invalidUrl
-    case invalidResponse
-    case invalidData
-}
-
 struct UsersResponseWrapper: Codable {
     let data: [User]
 }
