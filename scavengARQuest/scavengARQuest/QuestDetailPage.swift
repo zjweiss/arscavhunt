@@ -7,42 +7,95 @@
 
 import SwiftUI
 
-struct CurrentQuest: Codable, Hashable, Identifiable {
-    let id: String?
-    let title: String?
-    let image: String
-    let subquest_id: String
-    let status: String
-    let time_estimate: String
-    let total_quests: String
+struct Quest: Codable, Identifiable {
+    let quest_id: Int
+    let quest_name: String
+    let quest_thumbnail: String
+    let quest_description: String
+    let quest_rating: String
+    let estimated_time: String
+    let incomplete: Int
+    let complete: Int
+    let quest_status: String
     
-    static func preview() -> CurrentQuest {
-        CurrentQuest(
-             id: "1",
-             title: "Campus Study Spots",
-             image: "study_title",
-             subquest_id: "1",
-             status: "incomplete",
-             time_estimate: "1 hr 30 min",
-             total_quests: "6"
-        )
-    }
+    var id: Int { return quest_id }
 }
 
-struct QuestDetailPage: View {
-    let currentQuest: CurrentQuest = CurrentQuest.preview()
-    @State private var username = ""
 
+
+struct QuestDetailPage: View {
+    
+    //TODO remove this
+    let quest: Quest = Quest(quest_id: 1, quest_name: "Campus Study Spots", quest_thumbnail: "https://3.142.74.134/media/campus-study-spots-main1699759724.7242055.jpeg", quest_description: "Uncover the hidden gems of the University of Michigans study spots on this mysterious scavenger hunt! Solve cryptic clues, explore secret locations, and take creative photos to win prizes. But be warned: these study spots are well-hidden, and only the most resourceful scavengers will find them all.", quest_rating: "4.8", estimated_time: "5400", incomplete: 6, complete: 1, quest_status: "active")
+    
+    @State private var teamId = ""
+    @State var questAccepted: Bool = false
+    let serverUrl = "https://3.142.74.134"
+    
+    func submitQuestAcceptance(userID: Int, questID: Int) async {
+
+        //format of api endpoint: BASE/users/<user_id>/quests/<quest_id>/accept
+        guard let apiUrl = URL(string: serverUrl+"/users/" + String(userID) + "/quests/" + String(questID) + "/accept/") else {
+            print("login: Bad URL")
+            return
+        }
+        
+        var request = URLRequest(url: apiUrl)
+        request.setValue("application/json; charset=utf-8", forHTTPHeaderField: "Content-Type")
+        request.httpMethod = "POST"
+        
+        do {
+            let (_, response) = try await URLSession.shared.data(for: request)
+            if let http = response as? HTTPURLResponse, http.statusCode != 200 {
+                print("accept quest: \(HTTPURLResponse.localizedString(forStatusCode: http.statusCode))")
+                return
+            }
+        } catch {
+            print("login: NETWORKING ERROR")
+        }
+        questAccepted.toggle()
+        return
+    }
+
+
+    @ViewBuilder
+    @MainActor
+    func AcceptQuest(teamAccept: Bool, teamId: String) -> some View {
+            ZStack{
+                Button {
+                    //do something
+                    Task{
+                        if (teamAccept == true){
+                            // do multi user quest acceptance stuff
+                            // to be implemented in MVP
+                        } else {
+                         // do single user quest acceptance
+                            let userID = UserDefaults.standard.integer(forKey: "userID")
+                            await submitQuestAcceptance(userID: userID, questID: quest.quest_id)
+                        }
+                    }
+                } label: {
+                    Text("Accept Quest")
+                        .padding(EdgeInsets(top: 8, leading: 8, bottom: 8, trailing: 8))
+                        .background(Color(red: 23 / 255.0, green: 37 / 255.0, blue: 84 / 255.0))
+                        .foregroundColor(.white)
+                        .cornerRadius(8)
+                        .frame(width: 128, height: 28)
+                }
+            }
+        }
+
+    
     
     var body: some View {
         NavigationView{
             VStack{
                 HStack{
-                    //                    NavigationLink(destination: HomePage()) {
-                    // Do we need this if it is a main page?
-                    // Label("", systemImage: "lessthan")
-                    //                    }
-                    Spacer()
+                    Text("Campus Study Spots")
+                        .font(.title)
+                        .frame(maxWidth: .infinity, alignment: .leading)
+                        .foregroundColor(Color.black)
+                        .padding()
                     Image(systemName: "app.gift")
                         .imageScale(.large)
                         .foregroundStyle(.tint)
@@ -50,20 +103,21 @@ struct QuestDetailPage: View {
                         .imageScale(.large)
                         .foregroundStyle(.tint)
                 }
-                .padding(.horizontal)
-                Text("Campus Study Spots")
-                    .font(.largeTitle)
-                    .frame(maxWidth: .infinity, alignment: .leading)
-                    .foregroundColor(Color.black)
-                    .padding()
-                Image("study_title")
-                    .resizable()
+                if let imageUrl = URL(string: quest.quest_thumbnail) {
+                    AsyncImage(url: imageUrl){
+                        $0.resizable().scaledToFit()
+                    } placeholder: {
+                        ProgressView()
+                    }
                     .frame(width: 392, height: 174)
-                    .foregroundStyle(.tint)
                     .cornerRadius(5.0)
+                }
                 HStack{
                     VStack{
-                        Text(currentQuest.time_estimate)
+                        // try and get the time, or set it to 1 hour default
+                        let timeEstimate: String = quest.estimated_time
+                        let timeString = String(Int(floor((Double(timeEstimate) ?? 3600.00) / 60))) + " Minutes"
+                        Text(timeString)
                             .font(.title2)
                         Text("Total Time")
                             .font(.title3)
@@ -73,18 +127,21 @@ struct QuestDetailPage: View {
                         .frame(height: 70)
                         .padding(.horizontal, 30)
                     VStack{
-                        Text(currentQuest.total_quests)
+                        // We know that the total quests = incomplete quests
+                        // because the only way you can be on this screen is if you
+                        // haven't done any quests
+                        Text(String(quest.incomplete))
                             .font(.title2)
                         Text("Total Quests")
                             .font(.title3)
                     }
                 }
-                .padding(.bottom, 25)
+                .padding(.bottom, 5)
                 Text("What Awaits?")
                     .font(.title)
                     .frame(maxWidth: .infinity, alignment: .leading)
                     .padding(.bottom, 10)
-                Text("Embark on a captivating journey to discover the artistic treasures scattered around the University of Michigan campus!")
+                Text(quest.quest_description)
                     .font(.body) // Set the font size
                     .foregroundColor(Color.gray) // Set the text color
                     .lineSpacing(8)
@@ -92,9 +149,10 @@ struct QuestDetailPage: View {
                 HStack{
                     VStack{
                         Text("JOIN A TEAM.")
-                        TextField("Enter Team Id...", text: $username)
+                        TextField("Enter Team Id...", text: $teamId)
                             .frame(width: 132, height: 32)
                             .background(Color(red: 235 / 255.0, green: 232 / 255.0, blue: 232 / 255.0))
+                        AcceptQuest(teamAccept: true, teamId: teamId)
                     }
                     VStack {
                         HStack{
@@ -112,14 +170,8 @@ struct QuestDetailPage: View {
                     .padding(.horizontal)
                     VStack{
                         Text("GO SOLO.")
-                        Button(action: {}) {
-                            Text("Accept Quest")
-                                .padding(EdgeInsets(top: 8, leading: 8, bottom: 8, trailing: 8))
-                                .background(Color(red: 23 / 255.0, green: 37 / 255.0, blue: 84 / 255.0))
-                                .foregroundColor(.white)
-                                .cornerRadius(8)
-                                .frame(width: 128, height: 28)
-                        }
+                        // teamID isn't used unless teamAccept is true
+                        AcceptQuest(teamAccept: false, teamId: teamId)
                     }
                 }
                 Spacer()
