@@ -9,9 +9,6 @@ import SwiftUI
 
 @main
 struct ScavengARQuestApp: App {
-//    init() {
-//        HomePage.shared.getQuests()
-//    }
     var body: some Scene {
         WindowGroup {
             LoginView()
