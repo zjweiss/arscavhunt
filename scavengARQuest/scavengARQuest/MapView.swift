@@ -3,15 +3,16 @@ import MapKit
 
 struct MapView: View {
     @Binding var cameraPosition: MapCameraPosition
-    let locationDetails: LocationDetailsStore
+    let locationDetails: Location
     
     var body: some View {
+        let lat  = Double(locationDetails.latitude) ?? 0
+        let lon  = Double(locationDetails.longitude) ?? 0
+
         Map(position: $cameraPosition) {
-                if let geodata = locationDetails.geodata {
-                    Marker(locationDetails.name ?? "ERROR TITLE", systemImage: "mappin",
-                           coordinate: CLLocationCoordinate2D(latitude: geodata.lat, longitude: geodata.lon))
+                    Marker(locationDetails.name, systemImage: "mappin",
+                           coordinate: CLLocationCoordinate2D(latitude: lat, longitude: lon))
                     .tint(.red)
-                }
             
             UserAnnotation() // shows user location
         }
