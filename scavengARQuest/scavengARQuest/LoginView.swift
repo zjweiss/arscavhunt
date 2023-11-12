@@ -29,7 +29,7 @@ struct LoginView: View {
     
     
     func submitLogin() async {
-               let jsonObj = ["username": username]
+        let jsonObj = ["username": username.lowercased()]
                guard let jsonData = try? JSONSerialization.data(withJSONObject: jsonObj) else {
                    print("login: jsonData serialization error")
                    return
