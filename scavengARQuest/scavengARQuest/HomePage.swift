@@ -32,6 +32,7 @@ struct HomePage: View {
     @State private var quests: [Quest] = []
     @State private var active_quests: [Quest] = []
     @State private var inactive_quests: [Quest] = []
+    @State private var isAcceptingQuest = false
     private let nFields = Mirror(reflecting: Quest.self).children.count
 
     private let serverUrl = "https://3.142.74.134"
@@ -49,6 +50,72 @@ struct HomePage: View {
 //            return contains
 //        }
 //    }
+    
+    @ViewBuilder
+    func ActiveQuestButton(quest: Quest) -> some View {
+        ZStack{
+            Button {
+                //do something
+                Task{
+                    print("in active quest button")
+                }
+            } label: {
+                VStack {
+                    if let imageUrl = URL(string: quest.quest_thumbnail) {
+                        AsyncImage(url: imageUrl){
+                            $0.resizable()
+                                .scaledToFit()
+                                .foregroundStyle(.tint)
+                                .cornerRadius(5.0)
+                        } placeholder: {
+                            ProgressView()
+                        }
+                        .frame(width: 300, height: 200)
+                    }
+                    Spacer()
+                    Text(quest.quest_name)
+                        .font(.title2)
+                        .frame(maxWidth: .infinity, alignment: .leading)
+                }
+            }
+        }
+    }
+    
+    
+    @ViewBuilder
+    func InactiveQuestButton(quest: Quest) -> some View {
+        ZStack{
+            Button {
+                //do something
+                Task{
+                    print("in inactive quest button")
+                    isAcceptingQuest.toggle()
+                }
+            } label: {
+                VStack {
+                    if let imageUrl = URL(string: quest.quest_thumbnail) {
+                        AsyncImage(url: imageUrl){
+                            $0.resizable()
+                                .scaledToFit()
+                                .foregroundStyle(.tint)
+                                .cornerRadius(5.0)
+                        } placeholder: {
+                            ProgressView()
+                        }
+                        .frame(width: 300, height: 200)
+                    }
+                    Spacer()
+                    Text(quest.quest_name)
+                        .font(.title2)
+                        .frame(maxWidth: .infinity, alignment: .leading)
+                }
+            }
+        }
+        .navigationDestination(isPresented: $isAcceptingQuest){
+            
+        }
+    }
+    
     
     func getQuests() async throws -> [Quest] {
         let user_id = "1"
@@ -127,17 +194,7 @@ struct HomePage: View {
                                 .padding(.vertical)
                             //  Active Quests
                             ForEach(active_quests) { quest in
-                                VStack {
-                                    Image(systemName: "app.gift")
-                                        .resizable()
-                                        .frame(width: 236, height: 174)
-                                        .foregroundStyle(.tint)
-                                        .cornerRadius(5.0)
-                                    Spacer()
-                                    Text(quest.quest_name)
-                                        .font(.title2)
-                                        .frame(maxWidth: .infinity, alignment: .leading)
-                                }
+                                ActiveQuestButton(quest: quest)
                             }
                             Text("Trending")
                                 .font(.largeTitle)
@@ -145,17 +202,7 @@ struct HomePage: View {
                                 .padding(.vertical)
                             .padding(.trailing, 20)
                             ForEach(inactive_quests) { quest in
-                                VStack {
-                                    Image(systemName: "app.gift")
-                                        .resizable()
-                                        .frame(width: 236, height: 174)
-                                        .foregroundStyle(.tint)
-                                        .cornerRadius(5.0)
-                                    Spacer()
-                                    Text(quest.quest_name)
-                                        .font(.title2)
-                                        .frame(maxWidth: .infinity, alignment: .leading)
-                                }
+                                InactiveQuestButton(quest: quest)
                             }
                             
                         //}
