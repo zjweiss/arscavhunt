@@ -19,6 +19,14 @@ from django.urls import path
 from app import views
 
 urlpatterns = [
-    path('admin/', admin.site.urls),
-    path('getchatts/', views.getchatts, name='getchatts'),
+    # USER API
+    path('users/', views.users, name='Get users'),
+    path('login/', views.login, name='Login'),
+    path('users/<int:user_id>/quests/', views.get_user_quest_feed, name='Get active and available quests'),
+    path('users/<int:user_id>/quests/<int:quest_id>/', views.get_active_quest_details, name='Get active quest'),
+    path('users/<int:user_id>/quests/<int:quest_id>/accept/', views.accept_quest, name='Accept quest'),
+    path('users/<int:user_id>/quests/<int:quest_id>/locations/<int:location_id>/submit_checkpoint', views.submit_checkpoint, name='Submit checkpoint'),
+    
+    # MISC. API
+    path('postmedia/', views.postmedia, name="Post an image"),
 ]
