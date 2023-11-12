@@ -99,8 +99,8 @@ def get_user_quest_feed(req, user_id):
                   q.description as quest_description,
                   q.rating as quest_rating,
                   q.estimated_time,
-                  0 as complete,
-                  (SELECT COUNT(*) FROM quest_locations ql WHERE ql.quest_id = q.id) AS incomplete
+                  (SELECT COUNT(*) FROM quest_locations ql WHERE ql.quest_id = q.id) AS incomplete,
+                  0 as complete
                 FROM
                   quests q
                 WHERE
