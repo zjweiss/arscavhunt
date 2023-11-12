@@ -29,19 +29,23 @@ struct QuestListRowContent: View {
         ScrollView(.horizontal) {
             LazyHStack {
                 ForEach(quests, id: \.id) { quest in
-                    VStack {
-                        Image(quest.image)
-                            .resizable()
-                            .frame(width: 236, height: 174)
-                            .foregroundStyle(.tint)
-                            .cornerRadius(5.0)
-                        Spacer()
-                        if let title = quest.title {
-                            Text(title)
-                                .font(.title2)
-                                .frame(maxWidth: .infinity, alignment: .leading)
+                    NavigationLink(destination: QuestDetailPage()) {
+                        VStack {
+                            Image(quest.image)
+                                .resizable()
+                                .frame(width: 236, height: 174)
+                                .foregroundStyle(.tint)
+                                .cornerRadius(5.0)
+                            Spacer()
+                            if let title = quest.title {
+                                Text(title)
+                                    .font(.title2)
+                                    .frame(maxWidth: .infinity, alignment: .leading)
+                                    .foregroundColor(Color.black)
+                            }
                         }
                     }
+                    .id(quest.id)
                     .padding(.trailing, 20)
                 }
             }
