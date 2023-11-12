@@ -35,20 +35,20 @@ struct HomePage: View {
     private let nFields = Mirror(reflecting: Quest.self).children.count
 
     private let serverUrl = "https://3.142.74.134"
-    @State private var filteredQuests: [Quest] = []
+    // @State private var filteredQuests: [Quest] = []
 
     // Function to filter quests based on the search text
-    private func filterQuests() {
-        filteredQuests = quests.filter { quest in
-            let questNameLowercased = quest.quest_name.lowercased()
-            let searchTextLowercased = searchText.lowercased()
-            let contains = questNameLowercased.contains(searchTextLowercased)
-            
-            print("Quest Name: \(questNameLowercased), Search Text: \(searchTextLowercased), Contains: \(contains)")
-            
-            return contains
-        }
-    }
+//    private func filterQuests() {
+//        filteredQuests = quests.filter { quest in
+//            let questNameLowercased = quest.quest_name.lowercased()
+//            let searchTextLowercased = searchText.lowercased()
+//            let contains = questNameLowercased.contains(searchTextLowercased)
+//
+//            print("Quest Name: \(questNameLowercased), Search Text: \(searchTextLowercased), Contains: \(contains)")
+//
+//            return contains
+//        }
+//    }
     
     func getQuests() async throws -> [Quest] {
         let user_id = "1"
@@ -120,7 +120,7 @@ struct HomePage: View {
                         TextField("Search for quest...", text: $searchText)
                             .textFieldStyle(RoundedBorderTextFieldStyle())
                             .padding()
-                        if searchText.isEmpty {
+                        //if searchText.isEmpty {
                             Text("Active")
                                 .font(.largeTitle)
                                 .frame(maxWidth: .infinity, alignment: .leading)
@@ -158,23 +158,23 @@ struct HomePage: View {
                                 }
                             }
                             
-                        }
-                        else{
-                            ForEach(filteredQuests) { quest in
-                                VStack {
-                                    Image(systemName: "app.gift")
-                                        .resizable()
-                                        .frame(width: 236, height: 174)
-                                        .foregroundStyle(.tint)
-                                        .cornerRadius(5.0)
-                                    Spacer()
-                                    Text(quest.quest_name)
-                                        .font(.title2)
-                                        .frame(maxWidth: .infinity, alignment: .leading)
-                                }
-                            }
-                        }
-                        
+                        //}
+//                        else{
+//                            ForEach(filteredQuests) { quest in
+//                                VStack {
+//                                    Image(systemName: "app.gift")
+//                                        .resizable()
+//                                        .frame(width: 236, height: 174)
+//                                        .foregroundStyle(.tint)
+//                                        .cornerRadius(5.0)
+//                                    Spacer()
+//                                    Text(quest.quest_name)
+//                                        .font(.title2)
+//                                        .frame(maxWidth: .infinity, alignment: .leading)
+//                                }
+//                            }
+//                        }
+//                        
                     }
                     .task {
                         do {
