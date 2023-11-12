@@ -19,11 +19,13 @@ struct Location: Codable {
     let longitude: String
     let description: String
     let thumbnail: String
-    let arEnabled: Bool
+    let ar_enabled: Bool
+    let distance_threshold: String
     let status: String
     let points: String
     let tags: String
 }
+
 
 enum RequestError: Error {
     case invalidUrl
