@@ -37,7 +37,8 @@ struct LocationVerification: View {
         }
     
     func verifyLocation(landmark: GeoData, userLocation: GeoData, thresh: Double = 1, locactionId: Int) async {
-        let locationValid = distanceBetweenPoints(point1: landmark, point2: userLocation) < thresh
+        // distanceBetweenPoints returns the distance in km
+        let locationValid = distanceBetweenPoints(point1: landmark, point2: userLocation) * 1000 < thresh
         
         if locationValid{
             await submitValidLocation()
@@ -94,7 +95,8 @@ struct LocationVerification: View {
     
     @ViewBuilder
     @MainActor
-        func VerifyButton() -> some View {
+    func VerifyButton() -> some View {
+        NavigationView{
             ZStack{
                 Button {
                     //do something
@@ -116,6 +118,7 @@ struct LocationVerification: View {
                 }
             }
         }
+        }
     
     
     
@@ -128,10 +131,15 @@ struct LocationVerification: View {
             }
             Spacer()
             if locationVerified {
-                Text("Locaton verified").font(.title2)              .foregroundColor(.green).bold()
+                Text("Locaton verified")
+                    .font(.title2)
+                    .foregroundColor(.green)
+                    .bold()
             }
             if badLocation && !locationVerified {
-                Text("You are in the correct location\nLets try again!").font(.title2)              .foregroundColor(.red).bold()
+                Text("You are in the correct location\nLets try again!").font(.title2)
+                    .foregroundColor(.red)
+                    .bold()
             }
             Spacer()
             if let hasAR = locationDetailStore.hasAR{
