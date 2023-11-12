@@ -29,7 +29,9 @@ struct LoginView: View {
     
     
     func submitLogin() async {
-        let jsonObj = ["username": username.lowercased()]
+        let usernameLowercase = username.lowercased()
+        print(usernameLowercase)
+        let jsonObj = ["username": usernameLowercase]
                guard let jsonData = try? JSONSerialization.data(withJSONObject: jsonObj) else {
                    print("login: jsonData serialization error")
                    return
@@ -47,7 +49,7 @@ struct LoginView: View {
 
                do {
                    let (data, response) = try await URLSession.shared.data(for: request)
-                   if let http = response as? HTTPURLResponse, http.statusCode != 200 {
+                   if let http = response as? HTTPURLResponse, http.statusCode != 200 && http.statusCode != 404 {
                        print("login: \(HTTPURLResponse.localizedString(forStatusCode: http.statusCode))")
                    } else {
                        //process the returned response
