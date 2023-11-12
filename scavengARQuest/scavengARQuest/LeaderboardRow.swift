@@ -12,9 +12,10 @@
      var user: User
      
     var body: some View {
-        HStack {
+        HStack(alignment: .center) {
             Text(String(index+1))
                 .font(.system(size: 20).monospacedDigit())
+                .foregroundStyle(Color.gray)
                 .padding(.trailing, 8)
             
             Text(user.firstName + " " + user.lastName)
@@ -22,16 +23,12 @@
             
             Spacer()
             
-            if (Int(user.totalPoints) == 1) {
-                Text(user.totalPoints + " pt")
-                    .font(.system(size: 20))
-                    .foregroundColor(Color.gray) // Set the text color to gray
-            } else {
-                Text(user.totalPoints + " pts")
-                    .font(.system(size: 20))
-                    .foregroundColor(Color.gray) // Set the text color to gray
-            }
+            Text(user.totalPoints)
+                .font(.system(size: 25))
+                .fontWeight(.semibold)
         }
-        .padding(.vertical, 8)
+        .padding(8)
+        .background(currentUserId == user.userId ? Color.yellow.opacity(0.1) : nil)
+        .cornerRadius(10.0)
     }
 }
