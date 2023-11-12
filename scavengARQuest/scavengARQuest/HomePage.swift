@@ -111,6 +111,24 @@ struct HomePage: View {
                             .frame(maxWidth: .infinity, alignment: .leading)
                             .padding(.vertical)
                         //  Active Quests
+                        ForEach(active_quests) { quest in
+                            VStack {
+                                Image(systemName: "app.gift")
+                                    .resizable()
+                                    .frame(width: 236, height: 174)
+                                    .foregroundStyle(.tint)
+                                    .cornerRadius(5.0)
+                                Spacer()
+                                Text(quest.quest_name)
+                                    .font(.title2)
+                                    .frame(maxWidth: .infinity, alignment: .leading)
+                            }
+                        }
+                        Text("Trending")
+                            .font(.largeTitle)
+                            .frame(maxWidth: .infinity, alignment: .leading)
+                            .padding(.vertical)
+                        .padding(.trailing, 20)
                         ForEach(inactive_quests) { quest in
                             VStack {
                                 Image(systemName: "app.gift")
@@ -118,14 +136,29 @@ struct HomePage: View {
                                     .frame(width: 236, height: 174)
                                     .foregroundStyle(.tint)
                                     .cornerRadius(5.0)
-                                
                                 Spacer()
-                                
                                 Text(quest.quest_name)
                                     .font(.title2)
                                     .frame(maxWidth: .infinity, alignment: .leading)
                             }
-                            .padding(.trailing, 20)
+                        }
+                        Text("Difficult")
+                            .font(.largeTitle)
+                            .frame(maxWidth: .infinity, alignment: .leading)
+                            .padding(.vertical)
+                        .padding(.trailing, 20)
+                        ForEach(inactive_quests) { quest in
+                            VStack {
+                                Image(systemName: "app.gift")
+                                    .resizable()
+                                    .frame(width: 236, height: 174)
+                                    .foregroundStyle(.tint)
+                                    .cornerRadius(5.0)
+                                Spacer()
+                                Text(quest.quest_name)
+                                    .font(.title2)
+                                    .frame(maxWidth: .infinity, alignment: .leading)
+                            }
                         }
                     }
                     .task {
