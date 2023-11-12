@@ -33,6 +33,7 @@ struct HomePage: View {
     @State private var active_quests: [Quest] = []
     @State private var inactive_quests: [Quest] = []
     @State private var isAcceptingQuest = false
+    @State private var questAcceptance = Quest(quest_id: -1, quest_name: "", quest_thumbnail: "", quest_description: "", quest_rating: "", estimated_time: "", incomplete: -1, complete: -1, quest_status: "")
     private let nFields = Mirror(reflecting: Quest.self).children.count
 
     private let serverUrl = "https://3.142.74.134"
@@ -84,36 +85,38 @@ struct HomePage: View {
     
     @ViewBuilder
     func InactiveQuestButton(quest: Quest) -> some View {
-        ZStack{
-            Button {
-                //do something
-                Task{
-                    print("in inactive quest button")
-                    isAcceptingQuest.toggle()
-                }
-            } label: {
-                VStack {
-                    if let imageUrl = URL(string: quest.quest_thumbnail) {
-                        AsyncImage(url: imageUrl){
-                            $0.resizable()
-                                .scaledToFit()
-                                .foregroundStyle(.tint)
-                                .cornerRadius(5.0)
-                        } placeholder: {
-                            ProgressView()
-                        }
-                        .frame(width: 300, height: 200)
+        NavigationLink(destination: QuestDetailPage(quest: quest)){
+            ZStack{
+                Button {
+                    //do something
+                    Task{
+                        isAcceptingQuest.toggle()
+                        questAcceptance = quest
+                        print(String(isAcceptingQuest))
+                        print("in inactive quest button")
                     }
-                    Spacer()
-                    Text(quest.quest_name)
-                        .font(.title2)
-                        .frame(maxWidth: .infinity, alignment: .leading)
+                } label: {
+                    VStack {
+                        if let imageUrl = URL(string: quest.quest_thumbnail) {
+                            AsyncImage(url: imageUrl){
+                                $0.resizable()
+                                    .scaledToFit()
+                                    .foregroundStyle(.tint)
+                                    .cornerRadius(5.0)
+                            } placeholder: {
+                                ProgressView()
+                            }
+                            .frame(width: 300, height: 200)
+                        }
+                        Spacer()
+                        Text(quest.quest_name)
+                            .font(.title2)
+                            .frame(maxWidth: .infinity, alignment: .leading)
+                    }
                 }
             }
         }
-        .navigationDestination(isPresented: $isAcceptingQuest){
-            
-        }
+        .id(quest.id)
     }
     
     
@@ -204,24 +207,6 @@ struct HomePage: View {
                             ForEach(inactive_quests) { quest in
                                 InactiveQuestButton(quest: quest)
                             }
-                            
-                        //}
-//                        else{
-//                            ForEach(filteredQuests) { quest in
-//                                VStack {
-//                                    Image(systemName: "app.gift")
-//                                        .resizable()
-//                                        .frame(width: 236, height: 174)
-//                                        .foregroundStyle(.tint)
-//                                        .cornerRadius(5.0)
-//                                    Spacer()
-//                                    Text(quest.quest_name)
-//                                        .font(.title2)
-//                                        .frame(maxWidth: .infinity, alignment: .leading)
-//                                }
-//                            }
-//                        }
-//                        
                     }
                     .task {
                         do {

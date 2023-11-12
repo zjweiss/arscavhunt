@@ -29,6 +29,8 @@
 //  Created by Abbie Tooman on 10/29/23.
 //
 
+
+/*
 import SwiftUI
 
 struct QuestInfo: Codable, Hashable, Identifiable {
@@ -76,3 +78,4 @@ struct QuestListRowContent: View {
         }
     }
 }
+*/
