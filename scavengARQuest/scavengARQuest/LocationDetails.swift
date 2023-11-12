@@ -15,7 +15,7 @@ struct LocationDetails: View {
     @State var cameraPosition: MapCameraPosition = .userLocation(fallback: .automatic)
     @State var isMapping = false
     @State var hasArrived = false
-    var locationDetailStore: LocationDetailsStore;
+    var locationDetailStore: Location;
     // This should be the full
     
     // This is to be used by the user once they get their location verified to
@@ -50,16 +50,12 @@ struct LocationDetails: View {
     
     
     var body: some View {
+        NavigationView{
         VStack{
-            HStack{
-                
-            }
             Spacer()
-            if let locationName = locationDetailStore.name {
-                Text(locationName).bold().font(.title).padding(.vertical, 20)
-            }
+            Text(locationDetailStore.name).bold().font(.title).padding(.vertical, 20)
             Spacer()
-            if let urlString = locationDetailStore.imageUrl, let imageUrl = URL(string: urlString) {
+            if let imageUrl = URL(string: locationDetailStore.thumbnail) {
                 AsyncImage(url: imageUrl){
                     $0.resizable().scaledToFit()
                 } placeholder: {
@@ -68,18 +64,13 @@ struct LocationDetails: View {
                 .frame(width: 300, height: 200)
             }
             Spacer()
-            if let keywords = locationDetailStore.labels {
-                KeywordTag(keywords: keywords)
-            }
+                KeywordTag(keywords: locationDetailStore.tags )
             Spacer()
-            if let description = locationDetailStore.description{
-                Text(description)
-            }
+                Text(locationDetailStore.description)
             Spacer()
-            if let geodata = locationDetailStore.geodata {
                                     Button {
                                         cameraPosition = .camera(MapCamera(
-                                            centerCoordinate: CLLocationCoordinate2D(latitude: geodata.lat, longitude: geodata.lon), distance: 500, heading: 0, pitch: 60))
+                                            centerCoordinate: CLLocationCoordinate2D(latitude: Double(locationDetailStore.latitude) ?? 0, longitude: Double(locationDetailStore.longitude) ?? 0), distance: 500, heading: 0, pitch: 60))
                                         isMapping.toggle()
                                     } label: {
                                         Image(systemName: "mappin.and.ellipse").scaleEffect(2.5).padding(.top, 20)
@@ -88,10 +79,10 @@ struct LocationDetails: View {
                                                 MapView(cameraPosition: $cameraPosition, locationDetails: locationDetailStore)
                                             }
                                     
-                                                          } // end chat geodata
             Spacer()
             ArrivedButton()
-                            }
+        }
+    }
       
         }
         
