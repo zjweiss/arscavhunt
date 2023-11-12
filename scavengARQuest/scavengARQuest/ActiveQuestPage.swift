@@ -26,13 +26,6 @@ struct Location: Codable {
     let tags: String
 }
 
-
-enum RequestError: Error {
-    case invalidUrl
-    case invalidResponse
-    case invalidData
-}
-
 struct ActiveQuestPage: View {
     // This needs to be passed in from the Home Page card, so
     // that way I can make a request to the server.
