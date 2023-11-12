@@ -50,10 +50,8 @@ struct LocationDetails: View {
     
     
     var body: some View {
+        NavigationView{
         VStack{
-            HStack{
-                
-            }
             Spacer()
             if let locationName = locationDetailStore.name {
                 Text(locationName).bold().font(.title).padding(.vertical, 20)
@@ -77,21 +75,22 @@ struct LocationDetails: View {
             }
             Spacer()
             if let geodata = locationDetailStore.geodata {
-                                    Button {
-                                        cameraPosition = .camera(MapCamera(
-                                            centerCoordinate: CLLocationCoordinate2D(latitude: geodata.lat, longitude: geodata.lon), distance: 500, heading: 0, pitch: 60))
-                                        isMapping.toggle()
-                                    } label: {
-                                        Image(systemName: "mappin.and.ellipse").scaleEffect(2.5).padding(.top, 20)
-                                    }
-                                    .fullScreenCover(isPresented: $isMapping) {
-                                                MapView(cameraPosition: $cameraPosition, locationDetails: locationDetailStore)
-                                            }
-                                    
-                                                          } // end chat geodata
+                Button {
+                    cameraPosition = .camera(MapCamera(
+                        centerCoordinate: CLLocationCoordinate2D(latitude: geodata.lat, longitude: geodata.lon), distance: 500, heading: 0, pitch: 60))
+                    isMapping.toggle()
+                } label: {
+                    Image(systemName: "mappin.and.ellipse").scaleEffect(2.5).padding(.top, 20)
+                }
+                .fullScreenCover(isPresented: $isMapping) {
+                    MapView(cameraPosition: $cameraPosition, locationDetails: locationDetailStore)
+                }
+                
+            } // end chat geodata
             Spacer()
             ArrivedButton()
-                            }
+        }
+    }
       
         }
         

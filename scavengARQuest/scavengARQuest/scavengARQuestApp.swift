@@ -16,12 +16,7 @@ struct ScavengARQuestApp: App {
     
     var body: some Scene {
         WindowGroup {
-            ActiveQuestPage(
-                questId: $questId,
-                questName: $questName,
-                incomplete: $incomplete,
-                complete: $complete
-            )
+            LoginView()
         }
     }
 }
