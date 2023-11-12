@@ -18,11 +18,11 @@ final class QuestList {
     private(set) var quests = [Quest]()
     private let nFields = Mirror(reflecting: Quest.self).children.count
 
-    private let serverUrl = "https://3.142.74.134/"
+    private let serverUrl = "https://3.142.74.134"
     
     func getQuests() {
         let user_id = "1"
-        guard let apiUrl = URL(string: "\(serverUrl)/users/\(user_id)/quests") else {
+        guard let apiUrl = URL(string: serverUrl+"/users/" + String(user_id) + "/quests/") else {
             print("getQuests: Bad URL")
             return
         }
@@ -38,6 +38,9 @@ final class QuestList {
             }
             if let httpStatus = response as? HTTPURLResponse, httpStatus.statusCode != 200 {
                 print("getQuests: HTTP STATUS: \(httpStatus.statusCode)")
+                if httpStatus.statusCode == 404 {
+                    print("URL: \(apiUrl)")
+                }
                 return
             }
             
@@ -45,6 +48,7 @@ final class QuestList {
                 print("getQuests: failed JSON deserialization")
                 return
             }
+            print("API Response JSON Data: \(jsonObj)")
             let questsReceived = jsonObj["data"] as? [[String?]] ?? []
             
             DispatchQueue.main.async {
