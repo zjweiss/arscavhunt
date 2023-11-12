@@ -50,10 +50,8 @@ struct LocationDetails: View {
     
     
     var body: some View {
+        NavigationView{
         VStack{
-            HStack{
-                
-            }
             Spacer()
             Text(locationDetailStore.name).bold().font(.title).padding(.vertical, 20)
             Spacer()
@@ -83,7 +81,8 @@ struct LocationDetails: View {
                                     
             Spacer()
             ArrivedButton()
-                            }
+        }
+    }
       
         }
         
