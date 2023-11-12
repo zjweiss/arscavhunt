@@ -1,3 +1,8 @@
+-- How to Run:
+-- sudo -u postgres psql
+-- \c scavangardb
+-- \i arscavhunt/db/seed.sql
+
 DROP TABLE IF EXISTS users CASCADE;
 DROP TABLE IF EXISTS locations CASCADE;
 DROP TABLE IF EXISTS quests CASCADE;
@@ -29,7 +34,7 @@ CREATE TABLE locations (
   latitude decimal NOT NULL,
   longitude decimal NOT NULL,
   description text NOT NULL,
-  thumbnail text NOT NULL, -- base64 encoded
+  thumbnail text NOT NULL,
   ar_enabled boolean NOT NULL,
   distance_threshold decimal NOT NULL -- meters
 );
@@ -71,11 +76,12 @@ VALUES
   (5, 1),
   (6, 1),
   (7, 1);
+);
 
 CREATE TABLE quests (
   id serial PRIMARY KEY,
   name varchar NOT NULL,
-  thumbnail text NOT NULL, -- base64 encoded
+  thumbnail text NOT NULL,
   description text NOT NULL,
   rating decimal NOT NULL,
   estimated_time decimal NOT NULL -- stored in seconds
@@ -83,7 +89,7 @@ CREATE TABLE quests (
 
 INSERT INTO quests (name, thumbnail, description, rating, estimated_time)
 VALUES
-('Campus Study Spots', 'https://3.142.74.134/media/campus-study-spots-main1699759724.7242055.jpeg', 'Uncover the hidden gems of the University of Michigans study spots on this mysterious scavenger hunt! Solve cryptic clues, explore secret locations, and take creative photos to win prizes. But be warned: these study spots are well-hidden, and only the most resourceful scavengers will find them all.', 4.8, 5400),
+  ('Campus Study Spots', 'https://3.142.74.134/media/campus-study-spots-main1699759724.7242055.jpeg', 'Uncover the hidden gems of the University of Michigans study spots on this mysterious scavenger hunt! Solve cryptic clues, explore secret locations, and take creative photos to win prizes. But be warned: these study spots are well-hidden, and only the most resourceful scavengers will find them all.', 4.8, 5400),
   ('Campus Art & Murals', 'https://3.142.74.134/media/campus-art-murals-main1699759825.0103273.jpeg', 'Embark on a journey to discover the vibrant art and murals that adorn the University of Michigan campus! From hidden gems to iconic landmarks, this scavenger hunt will take you on a tour of the universitys rich artistic heritage. Find hidden landmars and complete challenges to reveal the hidden stories behind these stunning works of art. But be prepared for a surprise or two along the way...', 4.0, 3000);
 
 CREATE TABLE quest_locations (

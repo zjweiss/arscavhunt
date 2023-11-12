@@ -9,9 +9,7 @@ import SwiftUI
 
 struct QuestPage: View {
     var body: some View {
-        ZStack{
-            Text("This is the Quest Page")
-        }
+            Text("hello")
     }
 }
 
