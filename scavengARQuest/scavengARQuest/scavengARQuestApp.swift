@@ -9,11 +9,6 @@ import SwiftUI
 
 @main
 struct ScavengARQuestApp: App {
-    @State var questId: Int = 1
-    @State var questName: String = "Campus Study Spots"
-    @State var complete: Int = 1
-    @State var incomplete: Int = 6
-    
     var body: some Scene {
         WindowGroup {
             LoginView()

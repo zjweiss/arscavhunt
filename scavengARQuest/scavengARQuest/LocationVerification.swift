@@ -10,7 +10,7 @@ import SwiftUI
 struct LocationVerification: View {
     
     let serverUrl = "https://3.142.74.134"
-    var locationDetailStore: LocationDetailsStore;
+    var locationDetailStore: Location;
     @State var locationVerified: Bool = false;
     @State var badLocation  = false;
     @Binding var returnBinding: Bool;
@@ -56,8 +56,8 @@ struct LocationVerification: View {
         // get the required params
         let logname = UserDefaults.standard.string(forKey: "logname") ?? "unknown user"
         let userID: Int  = UserDefaults.standard.integer(forKey: "userID")
-        let questID: Int = locationDetailStore.questID ?? 0
-        let locationID: Int = locationDetailStore.locationID ?? 0
+        let questID: Int = locationDetailStore.questId
+        let locationID: Int = locationDetailStore.locationId
         
         // form json object
         let jsonObj = [
@@ -101,8 +101,12 @@ struct LocationVerification: View {
                 Button {
                     //do something
                     Task{
+                        let lat  = Double(locationDetailStore.latitude) ?? 0
+                        let lon  = Double(locationDetailStore.longitude) ?? 0
+                        let landmarkLocation = GeoData(lat: lat, lon: lon)
                         let userLocation = GeoData(lat: LocManager.shared.location.coordinate.latitude, lon: LocManager.shared.location.coordinate.longitude)
-                        await verifyLocation(landmark: locationDetailStore.geodata!, userLocation: userLocation, thresh: locationDetailStore.distanceThresh ?? 1, locactionId: locationDetailStore.locationID!)
+                        
+                        await verifyLocation(landmark: landmarkLocation, userLocation: userLocation, thresh: (Double(locationDetailStore.distance_threshold) ?? 300.0), locactionId: locationDetailStore.locationId)
                     }
                 } label: {
                     Text("Verify Location")
@@ -124,11 +128,9 @@ struct LocationVerification: View {
     
     var body: some View {
         VStack{
-            if let name = locationDetailStore.name {
                 Spacer()
-                Text(name).font(.title).bold()
+                Text(locationDetailStore.name).font(.title).bold()
                 Spacer()
-            }
             Spacer()
             if locationVerified {
                 Text("Locaton verified")
@@ -142,15 +144,14 @@ struct LocationVerification: View {
                     .bold()
             }
             Spacer()
-            if let hasAR = locationDetailStore.hasAR{
-                if hasAR{
+            if locationDetailStore.ar_enabled{
                  // do AR stuff
                  // will be implemented in MVP
                 } else {
                  // show an image if there is no AR stuff
-                    let displayString: String = "This is what the " +  (locationDetailStore.name ?? "location") + " looks like.\nHave you found it?";
+                    let displayString: String = "This is what the " +  (locationDetailStore.name) + " looks like.\nHave you found it?";
                     Text(displayString).font(.title2)
-                 if let urlString = locationDetailStore.imageUrl, let imageUrl = URL(string: urlString) {
+                    if let imageUrl = URL(string: locationDetailStore.thumbnail) {
                         AsyncImage(url: imageUrl){
                             $0.resizable().scaledToFit()
                         } placeholder: {
@@ -159,7 +160,6 @@ struct LocationVerification: View {
                         .frame(width: 300, height: 200)
                     }
                 }
-            }
             Spacer()
             if locationVerified{
                 // show done button
