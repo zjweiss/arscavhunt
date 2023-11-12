@@ -18,7 +18,9 @@ struct QuestDetailPage: View {
     func submitQuestAcceptance(userID: Int, questID: Int) async {
 
         //format of api endpoint: BASE/users/<user_id>/quests/<quest_id>/accept
-        guard let apiUrl = URL(string: serverUrl+"/users/" + String(userID) + "/quests/" + String(questID) + "/accept/") else {
+        let urlString = serverUrl+"/users/" + String(userID) + "/quests/" + String(questID) + "/accept/"
+        print(urlString)
+        guard let apiUrl = URL(string: urlString ) else {
             print("login: Bad URL")
             return
         }
@@ -74,7 +76,7 @@ struct QuestDetailPage: View {
         NavigationView{
             VStack{
                 HStack{
-                    Text("Campus Study Spots")
+                    Text(quest.quest_name)
                         .font(.title)
                         .frame(maxWidth: .infinity, alignment: .leading)
                         .foregroundColor(Color.black)

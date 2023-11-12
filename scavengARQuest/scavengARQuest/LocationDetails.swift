@@ -20,16 +20,16 @@ struct LocationDetails: View {
     
     // This is to be used by the user once they get their location verified to
     // Go back to the quest details page
-    @Binding var returnBinding: Bool;
+    //@Binding var returnBinding: Bool;
     
     
     @ViewBuilder
-        func ArrivedButton() -> some View {
-            ZStack{
-                Button {
-                    hasArrived.toggle()
-                } label: {
-                    Text("I'VE ARRIVED")
+    func ArrivedButton() -> some View {
+        ZStack{
+            Button {
+                hasArrived.toggle()
+            } label: {
+                Text("I'VE ARRIVED")
                     .font(/*@START_MENU_TOKEN@*/.title/*@END_MENU_TOKEN@*/)
                     .foregroundColor(.white)
                     .multilineTextAlignment(.center)
@@ -39,18 +39,14 @@ struct LocationDetails: View {
                     .background(Color.blue)
                     .frame(maxWidth: .infinity)
                     .frame(minHeight: 0, maxHeight: .infinity)
-                } .fullScreenCover(isPresented: $hasArrived) {
-                    LocationVerification(locationDetailStore: locationDetailStore, returnBinding: $hasArrived)
-                }
+            } .fullScreenCover(isPresented: $hasArrived) {
+                LocationVerification(locationDetailStore: locationDetailStore, returnBinding: $hasArrived)
             }
-            .edgesIgnoringSafeArea(.all)
         }
-    
-    
-    
+        .edgesIgnoringSafeArea(.all)
+    }
     
     var body: some View {
-        NavigationView{
         VStack{
             Spacer()
             Text(locationDetailStore.name).bold().font(.title).padding(.vertical, 20)
@@ -64,30 +60,26 @@ struct LocationDetails: View {
                 .frame(width: 300, height: 200)
             }
             Spacer()
-                KeywordTag(keywords: locationDetailStore.tags )
+            KeywordTag(keywords: locationDetailStore.tags )
             Spacer()
-                Text(locationDetailStore.description)
+            Text(locationDetailStore.description)
             Spacer()
-                                    Button {
-                                        cameraPosition = .camera(MapCamera(
-                                            centerCoordinate: CLLocationCoordinate2D(latitude: Double(locationDetailStore.latitude) ?? 0, longitude: Double(locationDetailStore.longitude) ?? 0), distance: 500, heading: 0, pitch: 60))
-                                        isMapping.toggle()
-                                    } label: {
-                                        Image(systemName: "mappin.and.ellipse").scaleEffect(2.5).padding(.top, 20)
-                                    }
-                                    .fullScreenCover(isPresented: $isMapping) {
-                                                MapView(cameraPosition: $cameraPosition, locationDetails: locationDetailStore)
-                                            }
-                                    
+            Button {
+                cameraPosition = .camera(MapCamera(
+                    centerCoordinate: CLLocationCoordinate2D(latitude: Double(locationDetailStore.latitude) ?? 0, longitude: Double(locationDetailStore.longitude) ?? 0), distance: 500, heading: 0, pitch: 60))
+                isMapping.toggle()
+            } label: {
+                Image(systemName: "mappin.and.ellipse").scaleEffect(2.5).padding(.top, 20)
+            }
+            .fullScreenCover(isPresented: $isMapping) {
+                MapView(cameraPosition: $cameraPosition, locationDetails: locationDetailStore)
+            }
+            
             Spacer()
             ArrivedButton()
         }
     }
-      
-        }
-        
-        
-    }
+}
 
 
 

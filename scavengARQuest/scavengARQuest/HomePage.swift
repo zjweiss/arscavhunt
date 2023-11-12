@@ -33,30 +33,16 @@ struct HomePage: View {
     @State private var active_quests: [Quest] = []
     @State private var inactive_quests: [Quest] = []
     @State private var isAcceptingQuest = false
-    @State private var questAcceptance = Quest(quest_id: -1, quest_name: "", quest_thumbnail: "", quest_description: "", quest_rating: "", estimated_time: "", incomplete: -1, complete: -1, quest_status: "")
+    @State private var isOnQuestTab = false
     private let nFields = Mirror(reflecting: Quest.self).children.count
-
     private let serverUrl = "https://3.142.74.134"
-    // @State private var filteredQuests: [Quest] = []
-
-    // Function to filter quests based on the search text
-//    private func filterQuests() {
-//        filteredQuests = quests.filter { quest in
-//            let questNameLowercased = quest.quest_name.lowercased()
-//            let searchTextLowercased = searchText.lowercased()
-//            let contains = questNameLowercased.contains(searchTextLowercased)
-//
-//            print("Quest Name: \(questNameLowercased), Search Text: \(searchTextLowercased), Contains: \(contains)")
-//
-//            return contains
-//        }
-//    }
     
     @ViewBuilder
     func ActiveQuestButton(quest: Quest) -> some View {
         ZStack{
             Button {
                 //do something
+                isOnQuestTab.toggle()
                 Task{
                     print("in active quest button")
                 }
@@ -80,20 +66,19 @@ struct HomePage: View {
                 }
             }
         }
+        .navigationDestination(isPresented: $isOnQuestTab){
+            ActiveQuestPage(quest: quest)
+        }
     }
     
     
     @ViewBuilder
     func InactiveQuestButton(quest: Quest) -> some View {
-        NavigationLink(destination: QuestDetailPage(quest: quest)){
             ZStack{
                 Button {
                     //do something
                     Task{
                         isAcceptingQuest.toggle()
-                        questAcceptance = quest
-                        print(String(isAcceptingQuest))
-                        print("in inactive quest button")
                     }
                 } label: {
                     VStack {
@@ -115,14 +100,15 @@ struct HomePage: View {
                     }
                 }
             }
-        }
-        .id(quest.id)
+            .navigationDestination(isPresented: $isAcceptingQuest){
+                QuestDetailPage(quest: quest)
+            }
     }
     
     
     func getQuests() async throws -> [Quest] {
-        let user_id = "1"
-        let endpoint = serverUrl + "/users/\(user_id)/quests/"
+        let userId = UserDefaults.standard.integer(forKey: "userID")
+        let endpoint = serverUrl + "/users/\(userId)/quests/"
         
         guard let url = URL(string: endpoint) else {
             throw RequestError.invalidUrl
@@ -147,7 +133,6 @@ struct HomePage: View {
             
             // Decode the JSON data into the QuestResponse struct
             let questResponse = try decoder.decode(QuestResponse.self, from: data)
-            print("This is the quest response data", questResponse)
             
             // Access the array of quests
             let quests_all = questResponse.data
@@ -170,7 +155,7 @@ struct HomePage: View {
     
     
     var body: some View {
-            NavigationView {
+            NavigationStack {
                 ScrollView {
                     VStack {
                         HStack {
@@ -210,9 +195,7 @@ struct HomePage: View {
                     }
                     .task {
                         do {
-                            print("this is the response")
                             quests = try await getQuests()
-                            print("this is the response ", quests)
                             // sort quests into active and inactive
                             active_quests = quests.filter { $0.quest_status == "active" }
                             inactive_quests = quests.filter { $0.quest_status == "inactive" }

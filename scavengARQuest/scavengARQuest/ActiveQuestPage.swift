@@ -12,8 +12,8 @@ struct ActiveQuestLocationsResponseWrapper: Codable {
 }
 
 struct Location: Codable {
-    let questId: Int
-    let locationId: Int
+    let quest_id: Int
+    let location_id: Int
     let name: String
     let latitude: String
     let longitude: String
@@ -29,15 +29,23 @@ struct Location: Codable {
 struct ActiveQuestPage: View {
     // This needs to be passed in from the Home Page card, so
     // that way I can make a request to the server.
-    @Binding var questId: Int
-    @Binding var questName: String
-    @Binding var incomplete: Int
-    @Binding var complete: Int
+    var quest : Quest
     
     @State private var userId: Int = UserDefaults.standard.integer(forKey: "userID")
     @State private var response: ActiveQuestLocationsResponseWrapper?
-   
+    @State private  var questId: Int = -1
+    @State private  var questName: String = ""
+    @State private  var incomplete: Int = -1
+    @State private var complete: Int = -1
+    @State private var inLocationDetails: Bool = false
+    @State private var locationState: Location = Location(quest_id: -1, location_id: -1, name: "", latitude: "", longitude: "", description: "", thumbnail: "", ar_enabled: false, distance_threshold: "", status: "", points: "", tags: "")
+    
     func getActiveQuestLocations() async throws -> ActiveQuestLocationsResponseWrapper {
+        questId = quest.quest_id
+        questName = quest.quest_name
+        incomplete = quest.incomplete
+        complete = quest.complete
+        
         let userID = UserDefaults.standard.integer(forKey: "userID")
         let endpoint = "https://3.142.74.134/users/" + String(userID) + "/quests/" + String(questId) + "/"
         print(endpoint)
@@ -55,7 +63,7 @@ struct ActiveQuestPage: View {
         
         do {
             let decoder = JSONDecoder()
-            decoder.keyDecodingStrategy = .convertFromSnakeCase
+            //decoder.keyDecodingStrategy = .useDefaultKeys
             return try decoder.decode(ActiveQuestLocationsResponseWrapper.self, from: data)
         } catch {
             throw RequestError.invalidData
@@ -67,21 +75,6 @@ struct ActiveQuestPage: View {
         NavigationView {
             ScrollView {
                 VStack {
-                    // BACK BUTTON CODE
-                    HStack {
-                        Button(action: {
-                            // TODO: add back button action (goes back to quest detail page)
-                        }) {
-                            Image(systemName: "chevron.left")
-                                .scaleEffect(0.6)
-                                .font(Font.title.weight(.medium))
-                        }
-                        .font(Font.title.weight(.medium))
-                        Spacer()
-                    }
-                    
-                    Spacer()
-                                
                     // QUEST NAME
                     Text(questName)
                         .font(.system(size: 30))
@@ -122,7 +115,15 @@ struct ActiveQuestPage: View {
                     if let unwrapped = response {
                         ForEach(unwrapped.data.indices, id: \.self) { index in
                             let location = unwrapped.data[index]
-                            ActiveQuestLocationCard(data: location)
+                            Button {
+                                locationState = location
+                                inLocationDetails.toggle()
+                            } label: {
+                                ActiveQuestLocationCard(data: location)
+                            }
+                            .sheet(isPresented: $inLocationDetails){
+                                LocationDetails(locationDetailStore: locationState)
+                            }
                         }
                     } else {
                         Text("Loading...")
@@ -149,6 +150,7 @@ struct ActiveQuestPage: View {
     }
 }
 
+/*
 struct ActiveQuestPage_Preview: PreviewProvider {
     static var previews: some View {
         @State var questId: Int = 1
@@ -164,3 +166,4 @@ struct ActiveQuestPage_Preview: PreviewProvider {
         )
     }
 }
+*/

@@ -38,7 +38,10 @@ struct LocationVerification: View {
     
     func verifyLocation(landmark: GeoData, userLocation: GeoData, thresh: Double = 1, locactionId: Int) async {
         // distanceBetweenPoints returns the distance in km
-        let locationValid = distanceBetweenPoints(point1: landmark, point2: userLocation) * 1000 < thresh
+        let distance  = distanceBetweenPoints(point1: landmark, point2: userLocation)
+        print(String(distance))
+        print(String(userLocation.lat) + "  " + String(userLocation.lon))
+        let locationValid = distance * 1000 < thresh
         
         if locationValid{
             await submitValidLocation()
@@ -56,8 +59,8 @@ struct LocationVerification: View {
         // get the required params
         let logname = UserDefaults.standard.string(forKey: "logname") ?? "unknown user"
         let userID: Int  = UserDefaults.standard.integer(forKey: "userID")
-        let questID: Int = locationDetailStore.questId
-        let locationID: Int = locationDetailStore.locationId
+        let questID: Int = locationDetailStore.quest_id
+        let locationID: Int = locationDetailStore.location_id
         
         // form json object
         let jsonObj = [
@@ -106,7 +109,7 @@ struct LocationVerification: View {
                         let landmarkLocation = GeoData(lat: lat, lon: lon)
                         let userLocation = GeoData(lat: LocManager.shared.location.coordinate.latitude, lon: LocManager.shared.location.coordinate.longitude)
                         
-                        await verifyLocation(landmark: landmarkLocation, userLocation: userLocation, thresh: (Double(locationDetailStore.distance_threshold) ?? 300.0), locactionId: locationDetailStore.locationId)
+                        await verifyLocation(landmark: landmarkLocation, userLocation: userLocation, thresh: (Double(locationDetailStore.distance_threshold) ?? 300.0), locactionId: locationDetailStore.location_id)
                     }
                 } label: {
                     Text("Verify Location")
@@ -139,7 +142,7 @@ struct LocationVerification: View {
                     .bold()
             }
             if badLocation && !locationVerified {
-                Text("You are in the correct location\nLets try again!").font(.title2)
+                Text("You are not in the correct location\nLets try again!").font(.title2)
                     .foregroundColor(.red)
                     .bold()
             }
