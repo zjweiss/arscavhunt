@@ -39,7 +39,7 @@ struct LocationDetails: View {
                     .background(Color.blue)
                     .frame(maxWidth: .infinity)
                     .frame(minHeight: 0, maxHeight: .infinity)
-            } .fullScreenCover(isPresented: $hasArrived) {
+            } .navigationDestination(isPresented: $hasArrived) {
                 LocationVerification(locationDetailStore: locationDetailStore, returnBinding: $hasArrived)
             }
         }
@@ -47,6 +47,7 @@ struct LocationDetails: View {
     }
     
     var body: some View {
+        NavigationStack {
         VStack{
             Spacer()
             Text(locationDetailStore.name).bold().font(.title).padding(.vertical, 20)
@@ -71,13 +72,14 @@ struct LocationDetails: View {
             } label: {
                 Image(systemName: "mappin.and.ellipse").scaleEffect(2.5).padding(.top, 20)
             }
-            .fullScreenCover(isPresented: $isMapping) {
+            .navigationDestination(isPresented: $isMapping) {
                 MapView(cameraPosition: $cameraPosition, locationDetails: locationDetailStore)
             }
             
             Spacer()
             ArrivedButton()
         }
+    }
     }
 }
 
