@@ -14,6 +14,8 @@ struct LocationDetails: View {
     @State var isMapping = false
     @State var hasArrived = false
     @Binding var locationDetailStore: Location;
+    @Binding var completedQuests: Int
+
     // This should be the full
     
     // This is to be used by the user once they get their location verified to
@@ -38,7 +40,7 @@ struct LocationDetails: View {
                     .frame(maxWidth: .infinity)
                     .frame(minHeight: 0, maxHeight: .infinity)
             } .navigationDestination(isPresented: $hasArrived) {
-                LocationVerification(locationDetailStore: locationDetailStore, returnBinding: $hasArrived)
+                LocationVerification(locationDetailStore: $locationDetailStore, returnBinding: $hasArrived, completedQuests: $completedQuests)
             }
         }
         .edgesIgnoringSafeArea(.all)

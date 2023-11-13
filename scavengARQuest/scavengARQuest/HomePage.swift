@@ -37,75 +37,6 @@ struct HomePage: View {
     private let nFields = Mirror(reflecting: Quest.self).children.count
     private let serverUrl = "https://3.142.74.134"
     
-    @ViewBuilder
-    func ActiveQuestButton(quest: Quest) -> some View {
-        ZStack{
-            Button {
-                //do something
-                isOnQuestTab.toggle()
-                Task{
-                    print("in active quest button")
-                }
-            } label: {
-                VStack {
-                    if let imageUrl = URL(string: quest.quest_thumbnail) {
-                        AsyncImage(url: imageUrl){
-                            $0.resizable()
-                                .scaledToFit()
-                                .foregroundStyle(.tint)
-                                .cornerRadius(5.0)
-                        } placeholder: {
-                            ProgressView()
-                        }
-                        .frame(width: 300, height: 200)
-                    }
-                    Spacer()
-                    Text(quest.quest_name)
-                        .font(.title2)
-                        .frame(maxWidth: .infinity, alignment: .leading)
-                }
-            }
-        }
-        .navigationDestination(isPresented: $isOnQuestTab){
-            ActiveQuestPage(quest: quest)
-        }
-    }
-    
-    
-    @ViewBuilder
-    func InactiveQuestButton(quest: Quest) -> some View {
-            ZStack{
-                Button {
-                    //do something
-                    Task{
-                        isAcceptingQuest.toggle()
-                    }
-                } label: {
-                    VStack {
-                        if let imageUrl = URL(string: quest.quest_thumbnail) {
-                            AsyncImage(url: imageUrl){
-                                $0.resizable()
-                                    .scaledToFit()
-                                    .foregroundStyle(.tint)
-                                    .cornerRadius(5.0)
-                            } placeholder: {
-                                ProgressView()
-                            }
-                            .frame(width: 300, height: 200)
-                        }
-                        Spacer()
-                        Text(quest.quest_name)
-                            .font(.title2)
-                            .frame(maxWidth: .infinity, alignment: .leading)
-                    }
-                }
-            }
-            .navigationDestination(isPresented: $isAcceptingQuest){
-                QuestDetailPage(quest: quest)
-            }
-    }
-    
-    
     func getQuests() async throws -> [Quest] {
         let userId = UserDefaults.standard.integer(forKey: "userID")
         let endpoint = serverUrl + "/users/\(userId)/quests/"
@@ -182,7 +113,7 @@ struct HomePage: View {
                                 .padding(.vertical)
                             //  Active Quests
                             ForEach(active_quests) { quest in
-                                ActiveQuestButton(quest: quest)
+                                ActiveQuestCard(quest: quest)
                             }
                             Text("Trending")
                                 .font(.largeTitle)
@@ -190,7 +121,7 @@ struct HomePage: View {
                                 .padding(.vertical)
                             .padding(.trailing, 20)
                             ForEach(inactive_quests) { quest in
-                                InactiveQuestButton(quest: quest)
+                                InactiveQuestCard(quest: quest)
                             }
                     }
                     .task {

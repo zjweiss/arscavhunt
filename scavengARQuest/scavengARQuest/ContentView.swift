@@ -1,7 +1,7 @@
 import SwiftUI
 
 struct ContentView: View {
-    @State private var selectedTab: Int = 2
+    @State private var selectedTab: Int = 0
     
     var body: some View {
         TabView(selection: $selectedTab){
@@ -28,7 +28,7 @@ struct ContentView: View {
                     Image(systemName: "person.crop.circle")
                     Text("Profile")
                 }
-                .tag(0)
+                .tag(3)
         }
     }
 }

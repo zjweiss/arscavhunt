@@ -10,10 +10,12 @@ import SwiftUI
 struct LocationVerification: View {
     
     let serverUrl = "https://3.142.74.134"
-    var locationDetailStore: Location;
+    @Binding var locationDetailStore: Location;
     @State var locationVerified: Bool = false;
     @State var badLocation  = false;
     @Binding var returnBinding: Bool;
+    @Binding var completedQuests: Int;
+
     
     @ViewBuilder
         func DoneButton() -> some View {
@@ -44,8 +46,10 @@ struct LocationVerification: View {
         let locationValid = distance * 1000 < thresh
         
         if locationValid{
-            await submitValidLocation()
-            locationVerified = true
+            await submitValidLocation();
+            locationVerified = true;
+            locationDetailStore.status = "complete";
+            completedQuests = completedQuests + 1;
             return
         } else {
             badLocation = true

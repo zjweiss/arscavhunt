@@ -10,6 +10,7 @@ import SwiftUI
 struct ActiveQuestLocationCard: View {
     @State var data: Location
     @State var isPresented: Bool = false
+    @Binding var completedQuests: Int
     
     @ViewBuilder
     func Checkbox() -> some View {
@@ -66,7 +67,7 @@ struct ActiveQuestLocationCard: View {
             Card()
         }
         .sheet(isPresented: $isPresented, content: {
-            LocationDetails(locationDetailStore: $data)
+            LocationDetails(locationDetailStore: $data, completedQuests: $completedQuests)
         })
     }
 }

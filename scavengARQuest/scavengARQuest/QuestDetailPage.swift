@@ -10,7 +10,7 @@ import SwiftUI
 struct QuestDetailPage: View {
     
     //TODO remove this
-    let quest: Quest
+    @Binding var quest: Quest
     @State private var teamId = ""
     @State var questAccepted: Bool = false
     let serverUrl = "https://3.142.74.134"

@@ -93,7 +93,7 @@ struct LeaderboardPage: View {
                                     .frame(maxWidth: .infinity, alignment: .center)
                             }
                             VStack{
-                                Text(UserDefaults.standard.string(forKey: "points") ?? "0")
+                                Text(currentUser?.totalPoints ?? "-1")
                                     .font(.system(size: 25).monospacedDigit())
                                     .fontWeight(.bold)
                                     .frame(maxWidth: .infinity, alignment: .center)

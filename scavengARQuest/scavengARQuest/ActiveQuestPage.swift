@@ -21,7 +21,7 @@ struct Location: Codable {
     let thumbnail: String
     let ar_enabled: Bool
     let distance_threshold: String
-    let status: String
+    var status: String
     let points: String
     let tags: String
 }
@@ -29,7 +29,7 @@ struct Location: Codable {
 struct ActiveQuestPage: View {
     // This needs to be passed in from the Home Page card, so
     // that way I can make a request to the server.
-    var quest : Quest
+    @Binding var quest : Quest
     
     @State private var userId: Int = UserDefaults.standard.integer(forKey: "userID")
     @State private var response: ActiveQuestLocationsResponseWrapper?
@@ -57,7 +57,6 @@ struct ActiveQuestPage: View {
         let (data, response) = try await URLSession.shared.data(from: url)
         
         guard let response = response as? HTTPURLResponse, response.statusCode == 200 else {
-            print("IR")
             throw RequestError.invalidResponse
         }
         
@@ -80,7 +79,7 @@ struct ActiveQuestPage: View {
                         .font(.system(size: 30))
                         .fontWeight(/*@START_MENU_TOKEN@*/.bold/*@END_MENU_TOKEN@*/)
                         .frame(maxWidth: /*@START_MENU_TOKEN@*/.infinity/*@END_MENU_TOKEN@*/, alignment: .leading)
-                   
+                    
                     Spacer()
                     
                     // HEADER
@@ -115,7 +114,7 @@ struct ActiveQuestPage: View {
                     if let unwrapped = response {
                         ForEach(unwrapped.data.indices, id: \.self) { index in
                             let location = unwrapped.data[index]
-                            ActiveQuestLocationCard(data: location)
+                            ActiveQuestLocationCard(data: location, completedQuests: $complete)
                         }
                     } else {
                         Text("Loading...")
@@ -123,22 +122,24 @@ struct ActiveQuestPage: View {
                     }
                     
                 }
-                .task {
-                    do {
-                        response = try await getActiveQuestLocations()
-                    } catch RequestError.invalidData {
-                        print("Invalid Data")
-                    } catch RequestError.invalidResponse {
-                        print("Invalid Response")
-                    } catch RequestError.invalidUrl {
-                        print("Invalid URL")
-                    } catch {
-                        print("Unexpected API error")
-                    }
-                }
-                .padding()
             }
         }
+        .onAppear(perform: {
+            Task{
+                do {
+                    response = try await getActiveQuestLocations()
+                } catch RequestError.invalidData {
+                    print("Invalid Data")
+                } catch RequestError.invalidResponse {
+                    print("Invalid Response")
+                } catch RequestError.invalidUrl {
+                    print("Invalid URL")
+                } catch {
+                    print("Unexpected API error")
+                }
+            }
+        })
+        .padding()
     }
 }
 
