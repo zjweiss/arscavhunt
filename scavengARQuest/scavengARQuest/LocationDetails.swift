@@ -10,12 +10,10 @@ import SwiftUI
 import _MapKit_SwiftUI
 
 struct LocationDetails: View {
-    
-    
     @State var cameraPosition: MapCameraPosition = .userLocation(fallback: .automatic)
     @State var isMapping = false
     @State var hasArrived = false
-    var locationDetailStore: Location;
+    @Binding var locationDetailStore: Location;
     // This should be the full
     
     // This is to be used by the user once they get their location verified to

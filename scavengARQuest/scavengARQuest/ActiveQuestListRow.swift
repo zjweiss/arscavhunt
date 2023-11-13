@@ -8,7 +8,8 @@
 import SwiftUI
 
 struct ActiveQuestLocationCard: View {
-    let data: Location
+    @State var data: Location
+    @State var isPresented: Bool = false
     
     @ViewBuilder
     func Checkbox() -> some View {
@@ -20,7 +21,8 @@ struct ActiveQuestLocationCard: View {
             .foregroundColor(isComplete ? Color.green : Color.white)
     }
     
-    var body: some View {
+    @ViewBuilder
+    func Card() -> some View {
         ZStack {
             if let imageUrl = URL(string: data.thumbnail) {
                 AsyncImage(url: imageUrl){
@@ -54,5 +56,17 @@ struct ActiveQuestLocationCard: View {
                 .fontWeight(.bold)
                 .foregroundColor(Color.white)
         }
+    }
+    
+    
+    var body: some View {
+        Button {
+            isPresented.toggle()
+        } label: {
+            Card()
+        }
+        .sheet(isPresented: $isPresented, content: {
+            LocationDetails(locationDetailStore: $data)
+        })
     }
 }
