@@ -115,15 +115,7 @@ struct ActiveQuestPage: View {
                     if let unwrapped = response {
                         ForEach(unwrapped.data.indices, id: \.self) { index in
                             let location = unwrapped.data[index]
-                            Button {
-                                locationState = location
-                                inLocationDetails.toggle()
-                            } label: {
-                                ActiveQuestLocationCard(data: location)
-                            }
-                            .sheet(isPresented: $inLocationDetails){
-                                LocationDetails(locationDetailStore: locationState)
-                            }
+                            ActiveQuestLocationCard(data: location)
                         }
                     } else {
                         Text("Loading...")
