@@ -136,7 +136,7 @@ struct LocationVerification: View {
                     .bold()
             }
             if badLocation && !locationVerified {
-                Text("You are not in the correct location\nLets try again!").font(.title2)
+                Text("You are not in the correct location\nLets try again!\nHint: Check out the map on the previous page to see the location!").font(.title2)
                     .foregroundColor(.red)
                     .bold()
             }
