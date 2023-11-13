@@ -56,23 +56,13 @@ struct LocationVerification: View {
     
     func submitValidLocation() async {
         
-        // get the required params
-        let logname = UserDefaults.standard.string(forKey: "logname") ?? "unknown user"
         let userID: Int  = UserDefaults.standard.integer(forKey: "userID")
         let questID: Int = locationDetailStore.quest_id
         let locationID: Int = locationDetailStore.location_id
+    
         
-        // form json object
-        let jsonObj = [
-            "locationID": locationID,
-            "username" : logname] as [String : Any];
-        
-        guard let jsonData = try? JSONSerialization.data(withJSONObject: jsonObj) else {
-            print("login: jsonData serialization error")
-            return
-        }
-        
-        guard let apiUrl = URL(string: serverUrl+"/users/" + String(userID) + "/quests/" + String(questID) + "/locations/" + String(locationID) + "/submit_checkpoint/") else {
+        print(serverUrl+"/users/" + String(userID) + "/quests/" + String(questID) + "/locations/" + String(locationID) + "/submit_checkpoint")
+        guard let apiUrl = URL(string: serverUrl+"/users/" + String(userID) + "/quests/" + String(questID) + "/locations/" + String(locationID) + "/submit_checkpoint") else {
             print("login: Bad URL")
             return
         }
@@ -80,11 +70,11 @@ struct LocationVerification: View {
         var request = URLRequest(url: apiUrl)
         request.setValue("application/json; charset=utf-8", forHTTPHeaderField: "Content-Type")
         request.httpMethod = "POST"
-        request.httpBody = jsonData
         
         do {
             let (_, response) = try await URLSession.shared.data(for: request)
             if let http = response as? HTTPURLResponse, http.statusCode != 200 {
+                print(String(http.statusCode))
                 print("submit checkpoint: \(HTTPURLResponse.localizedString(forStatusCode: http.statusCode))")
                 return
             }

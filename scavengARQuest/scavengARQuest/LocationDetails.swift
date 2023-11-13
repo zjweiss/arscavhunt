@@ -51,7 +51,7 @@ struct LocationDetails: View {
         VStack{
             Spacer()
             Text(locationDetailStore.name).bold().font(.title).padding(.vertical, 20)
-            Spacer()
+            Text(locationDetailStore.points + " Points").font(.title2).foregroundColor(.gray).bold()
             if let imageUrl = URL(string: locationDetailStore.thumbnail) {
                 AsyncImage(url: imageUrl){
                     $0.resizable().scaledToFit()
