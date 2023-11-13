@@ -27,7 +27,7 @@ struct LocationDetails: View {
             Button {
                 hasArrived.toggle()
             } label: {
-                Text("I'VE ARRIVED")
+                Text("I'VE ARRIVED?")
                     .font(/*@START_MENU_TOKEN@*/.title/*@END_MENU_TOKEN@*/)
                     .foregroundColor(.white)
                     .multilineTextAlignment(.center)
@@ -75,7 +75,9 @@ struct LocationDetails: View {
             }
             
             Spacer()
-            ArrivedButton()
+            if (locationDetailStore.status != "complete"){
+                ArrivedButton()
+            }
         }
     }
     }

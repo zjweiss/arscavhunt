@@ -5,10 +5,10 @@ struct ContentView: View {
     
     var body: some View {
         TabView(selection: $selectedTab){
-            QuestPage()
+            HomePage()
                 .tabItem() {
-                    Image(systemName: "map")
-                    Text("Quests")
+                    Image(systemName: "house")
+                    Text("Home")
                 }
                 .tag(0)
             LeaderboardPage()
@@ -17,24 +17,18 @@ struct ContentView: View {
                     Text("Leaderboard")
                 }
                 .tag(1)
-            HomePage()
-                .tabItem() {
-                    Image(systemName: "house")
-                    Text("Home")
-                }
-                .tag(2)
             ChatPage()
                 .tabItem() {
                     Image(systemName: "ellipsis.message")
                     Text("Chat")
                 }
-                .tag(3)
+                .tag(2)
             ProfilePage()
                 .tabItem() {
                     Image(systemName: "person.crop.circle")
                     Text("Profile")
                 }
-                .tag(4)
+                .tag(0)
         }
     }
 }
