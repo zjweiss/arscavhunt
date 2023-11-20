@@ -99,7 +99,7 @@ def get_user_quest_feed(req, user_id):
                   q.description as quest_description,
                   q.rating as quest_rating,
                   q.estimated_time,
-                  (SELECT COUNT(*) FROM quest_locations ql WHERE ql.quest_id = q.id) AS incomplete,
+                  5 AS incomplete,
                   0 as complete
                 FROM
                   quests q
@@ -238,7 +238,11 @@ def accept_quest(req, user_id: int, quest_id: int):
         with connection.cursor() as cursor:
             cursor.execute("""
                 WITH sub_qs AS (
-                  SELECT quest_id, location_id FROM quest_locations WHERE quest_id = %s
+                    SELECT quest_id, location_id
+                    FROM quest_locations
+                    WHERE quest_id = %s
+                    ORDER BY RANDOM()
+                    LIMIT 5
                 )
                 INSERT INTO user_quest_locations_status (user_id, quest_id, location_id)
                 SELECT %s as user_id, sub_qs.quest_id, sub_qs.location_id
