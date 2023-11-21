@@ -15,6 +15,8 @@ struct LocationVerification: View {
     @State var badLocation  = false;
     @Binding var returnBinding: Bool;
     @Binding var completedQuests: Int;
+    private let store = ScavengarStore.shared
+
 
     
     @ViewBuilder
@@ -60,7 +62,7 @@ struct LocationVerification: View {
     
     func submitValidLocation() async {
         
-        let userID: Int  = UserDefaults.standard.integer(forKey: "userID")
+        let userID: Int  = store.userID
         let questID: Int = locationDetailStore.quest_id
         let locationID: Int = locationDetailStore.location_id
     

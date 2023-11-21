@@ -23,7 +23,7 @@ struct ContentView: View {
                     Text("Chat")
                 }
                 .tag(2)
-            ProfilePage()
+            LoginView()
                 .tabItem() {
                     Image(systemName: "person.crop.circle")
                     Text("Profile")

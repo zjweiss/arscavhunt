@@ -24,6 +24,8 @@ struct LeaderboardPage: View {
     @State private var currentUser: User? = nil
     @State private var currentUserPlace: Int?
     private var serverUrl: String = "https://3.142.74.134"
+    private let store = ScavengarStore.shared
+
     
     func getUsers() async throws -> UsersResponseWrapper {
         let endpoint = serverUrl + "/users/"
@@ -72,8 +74,8 @@ struct LeaderboardPage: View {
                             .frame(maxWidth: .infinity, alignment: .leading)
                         
                         Spacer(minLength: 20)
-                        
-                        Text(UserDefaults.standard.string(forKey: "canName") ?? "testUser")
+
+                        Text(store.username.isEmpty ? "testUser" : store.username)
                             .font(.system(size: 25))
                             .fontWeight(.semibold)
                             .frame(maxWidth: .infinity, alignment: .center)
@@ -119,7 +121,7 @@ struct LeaderboardPage: View {
                                 let user = unwrappedResponse.data[index]
                                 LeaderboardRow(
                                     index: index,
-                                    currentUserId: UserDefaults.standard.integer(forKey: "userID"),
+                                    currentUserId: store.userID,
                                     user: user
                                 )
                             }
@@ -136,7 +138,7 @@ struct LeaderboardPage: View {
                             if let unwrappedResponse = response {
                                 for idx in 0..<unwrappedResponse.data.count {
                                     let user: User = unwrappedResponse.data[idx]
-                                    if user.userId == UserDefaults.standard.integer(forKey: "userID") {
+                                    if user.userId == store.userID {
                                         currentUser = user
                                         currentUserPlace = idx + 1
                                     }

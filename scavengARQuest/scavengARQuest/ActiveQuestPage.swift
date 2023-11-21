@@ -31,7 +31,7 @@ struct ActiveQuestPage: View {
     // that way I can make a request to the server.
     @Binding var quest : Quest
     
-    @State private var userId: Int = UserDefaults.standard.integer(forKey: "userID")
+    private let store = ScavengarStore.shared
     @State private var response: ActiveQuestLocationsResponseWrapper?
     @State private  var questId: Int = -1
     @State private  var questName: String = ""
@@ -46,7 +46,7 @@ struct ActiveQuestPage: View {
         incomplete = quest.incomplete
         complete = quest.complete
         
-        let userID = UserDefaults.standard.integer(forKey: "userID")
+        let userID = store.userID
         let endpoint = "https://3.142.74.134/users/" + String(userID) + "/quests/" + String(questId) + "/"
         print(endpoint)
         
