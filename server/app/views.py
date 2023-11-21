@@ -56,6 +56,7 @@ def users(req):
                   u.first_name,
                   u.last_name,
                   u.username,
+                  u.avatar_url,
                   COALESCE(SUM(CASE WHEN uqls.status = 'complete' THEN qpl.points ELSE 0 END), 0) AS total_points
                 FROM
                   users u
