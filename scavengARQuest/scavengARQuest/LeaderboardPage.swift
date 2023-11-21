@@ -16,6 +16,7 @@ struct User: Codable {
     let firstName: String
     let lastName: String
     let username: String
+    let avatarUrl: String
     let totalPoints: String
     let ranking: Int
 }
@@ -72,6 +73,16 @@ struct LeaderboardPage: View {
                         .frame(maxWidth: .infinity, alignment: .leading)
                     
                     Spacer(minLength: 20)
+                    
+                    AsyncImage(url: URL(string: user.avatarUrl)) { image in
+                            image
+                                .resizable()
+                        } placeholder: {
+                            Image(systemName: "photo.fill")
+                                .foregroundColor(.gray)
+                        }
+                        .frame(width: 50, height: 50) // Adjust the width and height as needed
+                        .cornerRadius(5.0)
                     
                     Text(user.firstName + " " + user.lastName)
                         .font(.system(size: 25))
