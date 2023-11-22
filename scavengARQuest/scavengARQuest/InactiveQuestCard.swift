@@ -8,12 +8,13 @@
 import SwiftUI
 
 struct InactiveQuestCard: View {
-    @State  var quest: Quest = Quest(quest_id: -1, quest_name: "", quest_thumbnail: "", quest_description: "", quest_rating: "", estimated_time: "", incomplete: -1, complete: -1, quest_status: "")
+    var questId: Int
     @State private var isAcceptingQuest = false
-
+    private let store = ScavengarStore.shared
     
     
     var body: some View {
+        let quest: Quest = store.questDict[questId] ?? Quest(quest_id: 0, quest_name: "", quest_thumbnail: "", quest_description: "", quest_rating: "", estimated_time: "", incomplete: -1, complete: -1, quest_status: "active")
         ZStack{
             Button {
                 isAcceptingQuest.toggle()
@@ -38,7 +39,7 @@ struct InactiveQuestCard: View {
             }
         }
         .navigationDestination(isPresented: $isAcceptingQuest){
-            QuestDetailPage(quest: $quest)
+            QuestDetailPage(questID: questId)
         }    }
 }
 

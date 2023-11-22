@@ -15,7 +15,8 @@ final class ScavengarStore {
     
     private(set) var quests = [Quest]()
     private(set) var questDict = [Int: Quest]()
-    private(set) var questLocationDict = [Int: [Location]]()
+    private(set) var questLocationDict = [Int: [Int]]()
+    private(set) var locationDict = [Int: Location]()
     private(set) var username = ""
     private(set) var canName = ""
     private(set) var userID = 0
@@ -44,7 +45,13 @@ final class ScavengarStore {
             let decoder = JSONDecoder()
             //decoder.keyDecodingStrategy = .useDefaultKeys
             let decoded = try decoder.decode(ActiveQuestLocationsResponseWrapper.self, from: data)
-            questLocationDict[questID] =  decoded.
+            questLocationDict[questID] = []
+            for location in decoded.data {
+                locationDict[location.location_id] = location
+                questLocationDict[questID]?.append(location.location_id)
+            }
+            
+            print(questLocationDict[questID])
         } catch {
             throw RequestError.invalidData
         }
@@ -53,6 +60,7 @@ final class ScavengarStore {
 
     func getQuests() async throws {
         let endpoint = serverUrl + "/users/\(userID)/quests/"
+        print(endpoint)
         
         guard let url = URL(string: endpoint) else {
             throw RequestError.invalidUrl

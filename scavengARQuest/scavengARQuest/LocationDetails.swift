@@ -13,9 +13,10 @@ struct LocationDetails: View {
     @State var cameraPosition: MapCameraPosition = .userLocation(fallback: .automatic)
     @State var isMapping = false
     @State var hasArrived = false
-    @Binding var locationDetailStore: Location;
-    @Binding var completedQuests: Int
+    let locationID: Int
+    private let store = ScavengarStore.shared
 
+    
     // This should be the full
     
     // This is to be used by the user once they get their location verified to
@@ -24,7 +25,7 @@ struct LocationDetails: View {
     
     
     @ViewBuilder
-    func ArrivedButton() -> some View {
+    func ArrivedButton(locationID: Int) -> some View {
         ZStack{
             Button {
                 hasArrived.toggle()
@@ -40,7 +41,7 @@ struct LocationDetails: View {
                     .frame(maxWidth: .infinity)
                     .frame(minHeight: 0, maxHeight: .infinity)
             } .navigationDestination(isPresented: $hasArrived) {
-                LocationVerification(locationDetailStore: $locationDetailStore, returnBinding: $hasArrived, completedQuests: $completedQuests)
+                LocationVerification(locationID: locationID)
             }
         }
         .edgesIgnoringSafeArea(.all)
@@ -49,6 +50,7 @@ struct LocationDetails: View {
     var body: some View {
         NavigationStack {
         VStack{
+            let locationDetailStore: Location = store.locationDict[locationID] ?? Location(quest_id: -1, location_id: -1, name: "", latitude: "", longitude: "", description: "", thumbnail: "", ar_enabled: false, distance_threshold: "", status: "", points: "", tags: "")
             Spacer()
             Text(locationDetailStore.name).bold().font(.title).padding(.vertical, 20)
             Text(locationDetailStore.points + " Points").font(.title2).foregroundColor(.gray).bold()
@@ -78,7 +80,7 @@ struct LocationDetails: View {
             
             Spacer()
             if (locationDetailStore.status != "complete"){
-                ArrivedButton()
+                ArrivedButton(locationID: locationID)
             }
         }
     }

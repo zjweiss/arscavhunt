@@ -27,12 +27,8 @@ struct Location: Codable {
 }
 
 struct ActiveQuestPage: View {
-    // This needs to be passed in from the Home Page card, so
-    // that way I can make a request to the server.
-    @Binding var quest : Quest
-    
     private let store = ScavengarStore.shared
-    @State private  var questId: Int = -1
+    let questId: Int
     @State private var inLocationDetails: Bool = false
     @State private var locationState: Location = Location(quest_id: -1, location_id: -1, name: "", latitude: "", longitude: "", description: "", thumbnail: "", ar_enabled: false, distance_threshold: "", status: "", points: "", tags: "")
     
@@ -41,48 +37,48 @@ struct ActiveQuestPage: View {
         NavigationView {
             ScrollView {
                 VStack {
-                    let questStruct: Quest = store.questDict[questId] ?? Quest(quest_id: -1, quest_name: "testQuest", quest_thumbnail: "", quest_description: "", quest_rating: "5", estimated_time: "1200", incomplete: 0, complete: 0, quest_status: "complete")
                     // QUEST NAME
-                    Text(questStruct.quest_name)
-                        .font(.system(size: 30))
-                        .fontWeight(/*@START_MENU_TOKEN@*/.bold/*@END_MENU_TOKEN@*/)
-                        .frame(maxWidth: /*@START_MENU_TOKEN@*/.infinity/*@END_MENU_TOKEN@*/, alignment: .leading)
-                    
-                    Spacer()
-                    
-                    // HEADER
-                    HStack(spacing: 75) {
-                        VStack(alignment: /*@START_MENU_TOKEN@*/.center/*@END_MENU_TOKEN@*/) {
-                            Text(String(questStruct.complete))
-                                .font(.system(size: 28))
-                                .fontWeight(.semibold)
-                            
-                            Text("Completed")
-                                .font(.system(size: 16))
-                                .fontWeight(.bold)
-                                .foregroundColor(Color.gray) // Set the text color to gray
-                        }
+                    if let questStruct = store.questDict[questId] {
+                        Text(questStruct.quest_name)
+                            .font(.system(size: 30))
+                            .fontWeight(/*@START_MENU_TOKEN@*/.bold/*@END_MENU_TOKEN@*/)
+                            .frame(maxWidth: /*@START_MENU_TOKEN@*/.infinity/*@END_MENU_TOKEN@*/, alignment: .leading)
                         
-                        Divider()
+                        Spacer()
                         
-                        VStack(alignment: /*@START_MENU_TOKEN@*/.center/*@END_MENU_TOKEN@*/) {
-                            Text(String(questStruct.incomplete))
-                                .font(.system(size: 28))
-                                .fontWeight(.semibold)
+                        // HEADER
+                        HStack(spacing: 75) {
+                            VStack(alignment: /*@START_MENU_TOKEN@*/.center/*@END_MENU_TOKEN@*/) {
+                                Text(String(questStruct.complete))
+                                    .font(.system(size: 28))
+                                    .fontWeight(.semibold)
+                                
+                                Text("Completed")
+                                    .font(.system(size: 16))
+                                    .fontWeight(.bold)
+                                    .foregroundColor(Color.gray) // Set the text color to gray
+                            }
                             
-                            Text("To Go")
-                                .font(.system(size: 16))
-                                .fontWeight(.bold)
-                                .foregroundColor(Color.gray) // Set the text color to gray
+                            Divider()
+                            
+                            VStack(alignment: /*@START_MENU_TOKEN@*/.center/*@END_MENU_TOKEN@*/) {
+                                Text(String(questStruct.incomplete))
+                                    .font(.system(size: 28))
+                                    .fontWeight(.semibold)
+                                
+                                Text("To Go")
+                                    .font(.system(size: 16))
+                                    .fontWeight(.bold)
+                                    .foregroundColor(Color.gray) // Set the text color to gray
+                            }
                         }
+                        .padding(.vertical, 25)
                     }
-                    .padding(.vertical, 25)
-                    
                     // LIST OF SUBQUESTS / LOCATIONS
                     if let unwrapped = store.questLocationDict[questId] {
-                        ForEach(unwrapped.data.indices, id: \.self) { index in
-                            let location = unwrapped.data[index]
-                            ActiveQuestLocationCard(data: location)
+                        ForEach(unwrapped.indices, id: \.self) { index in
+                            let location = unwrapped[index]
+                            ActiveQuestLocationCard(locationID: location)
                         }
                     } else {
                         Text("Loading...")
@@ -95,7 +91,7 @@ struct ActiveQuestPage: View {
         .onAppear(perform: {
             Task{
                 do {
-                    try await store.getActiveQuestLocations()
+                    try await store.getActiveQuestLocations(questID: questId)
                 } catch RequestError.invalidData {
                     print("Invalid Data")
                 } catch RequestError.invalidResponse {

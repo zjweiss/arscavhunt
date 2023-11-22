@@ -10,7 +10,7 @@ import SwiftUI
 struct QuestDetailPage: View {
     
     //TODO remove this
-    @Binding var quest: Quest
+    let questID: Int
     @State private var teamId = ""
     @State private var showAlert = false
     @State var questAccepted: Bool = false
@@ -61,7 +61,7 @@ struct QuestDetailPage: View {
                                 // to be implemented in MVP
                             } else {
                                 // do single user quest acceptance
-                                await submitQuestAcceptance(userID: store.userID, questID: quest.quest_id)
+                                await submitQuestAcceptance(userID: store.userID, questID: questID)
                             }
                         }
                     }
@@ -85,6 +85,7 @@ struct QuestDetailPage: View {
     
     
     var body: some View {
+        let quest: Quest = store.questDict[questID] ?? Quest(quest_id: 0, quest_name: "", quest_thumbnail: "", quest_description: "", quest_rating: "", estimated_time: "", incomplete: -1, complete: -1, quest_status: "active")
         NavigationView{
             VStack{
                 HStack{

@@ -74,43 +74,53 @@ struct LeaderboardPage: View {
                             .frame(maxWidth: .infinity, alignment: .leading)
                         
                         Spacer(minLength: 20)
-
-                        Text(store.username.isEmpty ? "testUser" : store.username)
-                            .font(.system(size: 25))
-                            .fontWeight(.semibold)
-                            .frame(maxWidth: .infinity, alignment: .center)
-                        
-                        Spacer(minLength: 10)
-                        
-                        HStack {
-                            VStack{
-                                // TODO: loading indicator // UI: skeleton loader
-                                Text(getUserPlaceString(place: currentUserPlace ?? -1))
-                                    .font(.system(size: 25))
-                                    .fontWeight(.bold)
-                                Text("Place")
-                                    .font(.system(size: 16))
-                                    .fontWeight(.bold)
-                                    .foregroundColor(Color.gray) // Set the text color to gray
-                                    .frame(maxWidth: .infinity, alignment: .center)
+                        if (!store.username.isEmpty) {
+                            Text(store.username.isEmpty ? "testUser" : store.username)
+                                .font(.system(size: 25))
+                                .fontWeight(.semibold)
+                                .frame(maxWidth: .infinity, alignment: .center)
+                            
+                            Spacer(minLength: 10)
+                            
+                            HStack {
+                                VStack{
+                                    // TODO: loading indicator // UI: skeleton loader
+                                    Text(getUserPlaceString(place: currentUserPlace ?? -1))
+                                        .font(.system(size: 25))
+                                        .fontWeight(.bold)
+                                    Text("Place")
+                                        .font(.system(size: 16))
+                                        .fontWeight(.bold)
+                                        .foregroundColor(Color.gray) // Set the text color to gray
+                                        .frame(maxWidth: .infinity, alignment: .center)
+                                }
+                                VStack{
+                                    Text(currentUser?.totalPoints ?? "-1")
+                                        .font(.system(size: 25).monospacedDigit())
+                                        .fontWeight(.bold)
+                                        .frame(maxWidth: .infinity, alignment: .center)
+                                    Text("Points")
+                                        .font(.system(size: 16))
+                                        .fontWeight(.bold)
+                                        .foregroundColor(Color.gray) // Set the text color to gray
+                                        .frame(maxWidth: .infinity, alignment: .center)
+                                }
                             }
+                            
+                            Divider() // Create a horizontal line
+                            
+                            Spacer(minLength: 20)
+                        } else {
                             VStack{
-                                Text(currentUser?.totalPoints ?? "-1")
-                                    .font(.system(size: 25).monospacedDigit())
-                                    .fontWeight(.bold)
+                                Text("Sign in now to start earning points!")
+                                    .font(.system(size: 22))
+                                    .fontWeight(.semibold)
+                                    .foregroundColor(Color.black) // Set the text color to gray
                                     .frame(maxWidth: .infinity, alignment: .center)
-                                Text("Points")
-                                    .font(.system(size: 16))
-                                    .fontWeight(.bold)
-                                    .foregroundColor(Color.gray) // Set the text color to gray
-                                    .frame(maxWidth: .infinity, alignment: .center)
+                                Divider() // Create a horizontal line
+                                Spacer()
                             }
                         }
-                        
-                        Divider() // Create a horizontal line
-                        
-                        Spacer(minLength: 20)
-                        
                         Text("Ranking")
                             .font(.system(size: 25))
                             .fontWeight(.bold)

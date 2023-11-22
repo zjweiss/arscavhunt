@@ -30,7 +30,6 @@ enum RequestError: Error {
 struct HomePage: View {
     private let store = ScavengarStore.shared
     @State private var searchText = ""
-    @State private var quests: [Quest] = []
     @State private var active_quests: [Quest] = []
     @State private var inactive_quests: [Quest] = []
     @State private var isAcceptingQuest = false
@@ -67,7 +66,7 @@ struct HomePage: View {
                                 .padding(.vertical)
                             //  Active Quests
                             ForEach(active_quests) { quest in
-                                ActiveQuestCard(quest: quest)
+                                ActiveQuestCard(questId: quest.quest_id)
                             }
                             Text("Trending")
                                 .font(.largeTitle)
@@ -75,7 +74,7 @@ struct HomePage: View {
                                 .padding(.vertical)
                             .padding(.trailing, 20)
                             ForEach(inactive_quests) { quest in
-                                InactiveQuestCard(quest: quest)
+                                InactiveQuestCard(questId: quest.quest_id)
                             }
                     }
                     .task {
