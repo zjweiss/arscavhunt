@@ -153,7 +153,8 @@ def get_active_quest_details(req, user_id, quest_id):
             JOIN location_tag lt ON lt.location_id = ql.location_id
             JOIN tags ON lt.tag_id = tags.id
             WHERE ql.quest_id = %s
-            GROUP BY ql.quest_id, ql.location_id, l.name, latitude, longitude, description, thumbnail, ar_enabled, distance_threshold, status, points;
+            GROUP BY ql.quest_id, ql.location_id, l.name, latitude, longitude, description, thumbnail, ar_enabled, distance_threshold, status, points
+            ORDER BY CAST(status AS CHAR);
             """, [user_id, quest_id])
 
             rows = fetchall(cursor)
