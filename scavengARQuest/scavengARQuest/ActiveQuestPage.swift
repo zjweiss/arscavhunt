@@ -37,6 +37,9 @@ struct ActiveQuestPage: View {
         NavigationView {
             ScrollView {
                 VStack {
+                    Text("Swipe down to refesh!")
+                        .font(.system(size: 15))
+                        .foregroundColor(Color.gray)
                     // QUEST NAME
                     if let questStruct = store.questDict[questId] {
                         Text(questStruct.quest_name)
@@ -85,6 +88,19 @@ struct ActiveQuestPage: View {
                             .foregroundColor(Color.gray)
                     }
                     
+                }
+            }
+            .refreshable{
+                do {
+                    try await store.getQuests()
+                } catch RequestError.invalidData {
+                    print("Invalid Data")
+                } catch RequestError.invalidResponse {
+                    print("Invalid Response")
+                } catch RequestError.invalidUrl {
+                    print("Invalid URL")
+                } catch {
+                    print("Unexpected API error")
                 }
             }
         }
