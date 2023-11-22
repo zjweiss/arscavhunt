@@ -32,50 +32,18 @@ struct ActiveQuestPage: View {
     @Binding var quest : Quest
     
     private let store = ScavengarStore.shared
-    @State private var response: ActiveQuestLocationsResponseWrapper?
     @State private  var questId: Int = -1
-    @State private  var questName: String = ""
-    @State private  var incomplete: Int = -1
-    @State private var complete: Int = -1
     @State private var inLocationDetails: Bool = false
     @State private var locationState: Location = Location(quest_id: -1, location_id: -1, name: "", latitude: "", longitude: "", description: "", thumbnail: "", ar_enabled: false, distance_threshold: "", status: "", points: "", tags: "")
-    
-    func getActiveQuestLocations() async throws -> ActiveQuestLocationsResponseWrapper {
-        questId = quest.quest_id
-        questName = quest.quest_name
-        incomplete = quest.incomplete
-        complete = quest.complete
-        
-        let userID = store.userID
-        let endpoint = "https://3.142.74.134/users/" + String(userID) + "/quests/" + String(questId) + "/"
-        print(endpoint)
-        
-        guard let url = URL(string: endpoint) else {
-            throw RequestError.invalidUrl
-        }
-        
-        let (data, response) = try await URLSession.shared.data(from: url)
-        
-        guard let response = response as? HTTPURLResponse, response.statusCode == 200 else {
-            throw RequestError.invalidResponse
-        }
-        
-        do {
-            let decoder = JSONDecoder()
-            //decoder.keyDecodingStrategy = .useDefaultKeys
-            return try decoder.decode(ActiveQuestLocationsResponseWrapper.self, from: data)
-        } catch {
-            throw RequestError.invalidData
-        }
-    }
     
     
     var body: some View {
         NavigationView {
             ScrollView {
                 VStack {
+                    let questStruct: Quest = store.questDict[questId] ?? Quest(quest_id: -1, quest_name: "testQuest", quest_thumbnail: "", quest_description: "", quest_rating: "5", estimated_time: "1200", incomplete: 0, complete: 0, quest_status: "complete")
                     // QUEST NAME
-                    Text(questName)
+                    Text(questStruct.quest_name)
                         .font(.system(size: 30))
                         .fontWeight(/*@START_MENU_TOKEN@*/.bold/*@END_MENU_TOKEN@*/)
                         .frame(maxWidth: /*@START_MENU_TOKEN@*/.infinity/*@END_MENU_TOKEN@*/, alignment: .leading)
@@ -85,7 +53,7 @@ struct ActiveQuestPage: View {
                     // HEADER
                     HStack(spacing: 75) {
                         VStack(alignment: /*@START_MENU_TOKEN@*/.center/*@END_MENU_TOKEN@*/) {
-                            Text(String(complete))
+                            Text(String(questStruct.complete))
                                 .font(.system(size: 28))
                                 .fontWeight(.semibold)
                             
@@ -98,7 +66,7 @@ struct ActiveQuestPage: View {
                         Divider()
                         
                         VStack(alignment: /*@START_MENU_TOKEN@*/.center/*@END_MENU_TOKEN@*/) {
-                            Text(String(incomplete))
+                            Text(String(questStruct.incomplete))
                                 .font(.system(size: 28))
                                 .fontWeight(.semibold)
                             
@@ -111,10 +79,10 @@ struct ActiveQuestPage: View {
                     .padding(.vertical, 25)
                     
                     // LIST OF SUBQUESTS / LOCATIONS
-                    if let unwrapped = response {
+                    if let unwrapped = store.questLocationDict[questId] {
                         ForEach(unwrapped.data.indices, id: \.self) { index in
                             let location = unwrapped.data[index]
-                            ActiveQuestLocationCard(data: location, completedQuests: $complete)
+                            ActiveQuestLocationCard(data: location)
                         }
                     } else {
                         Text("Loading...")
@@ -127,7 +95,7 @@ struct ActiveQuestPage: View {
         .onAppear(perform: {
             Task{
                 do {
-                    response = try await getActiveQuestLocations()
+                    try await store.getActiveQuestLocations()
                 } catch RequestError.invalidData {
                     print("Invalid Data")
                 } catch RequestError.invalidResponse {

@@ -14,6 +14,7 @@ final class ScavengarStore {
 
     
     private(set) var quests = [Quest]()
+    private(set) var questDict = [Int: Quest]()
     private(set) var questLocationDict = [Int: [Location]]()
     private(set) var username = ""
     private(set) var canName = ""
@@ -22,6 +23,33 @@ final class ScavengarStore {
     private(set) var lastName = ""
     private(set) var points = 0
     private let serverUrl = "https://3.142.74.134"
+    
+    
+    func getActiveQuestLocations(questID: Int) async throws {
+        let userID = userID
+        let endpoint = "https://3.142.74.134/users/" + String(userID) + "/quests/" + String(questID) + "/"
+        print(endpoint)
+        
+        guard let url = URL(string: endpoint) else {
+            throw RequestError.invalidUrl
+        }
+        
+        let (data, response) = try await URLSession.shared.data(from: url)
+        
+        guard let response = response as? HTTPURLResponse, response.statusCode == 200 else {
+            throw RequestError.invalidResponse
+        }
+        
+        do {
+            let decoder = JSONDecoder()
+            //decoder.keyDecodingStrategy = .useDefaultKeys
+            let decoded = try decoder.decode(ActiveQuestLocationsResponseWrapper.self, from: data)
+            questLocationDict[questID] =  decoded.
+        } catch {
+            throw RequestError.invalidData
+        }
+    }
+    
 
     func getQuests() async throws {
         let endpoint = serverUrl + "/users/\(userID)/quests/"
@@ -53,6 +81,11 @@ final class ScavengarStore {
             // Access the array of quests
             let quests_all = questResponse.data
             quests = quests_all
+            
+            // put it in a dict so we can access it elsewhere
+            for quest in quests_all {
+                questDict[quest.id] = quest
+            }
             
         } catch RequestError.invalidData {
             print("Invalid Data")
