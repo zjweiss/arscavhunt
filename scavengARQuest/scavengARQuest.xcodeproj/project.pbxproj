@@ -21,6 +21,10 @@
 		42B0F8F62AFA7B0000FF5DB4 /* LeaderboardRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42B0F8F52AFA7B0000FF5DB4 /* LeaderboardRow.swift */; };
 		42F039F42B01B26B00EA3851 /* ActiveQuestCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42F039F32B01B26B00EA3851 /* ActiveQuestCard.swift */; };
 		42F039F82B01B2F800EA3851 /* InactiveQuestCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42F039F72B01B2F800EA3851 /* InactiveQuestCard.swift */; };
+		42F6642A2B0DD9E30036AA90 /* cube.usdz in Resources */ = {isa = PBXBuildFile; fileRef = 42F664262B0DD9E30036AA90 /* cube.usdz */; };
+		42F6642B2B0DD9E30036AA90 /* football.usdz in Resources */ = {isa = PBXBuildFile; fileRef = 42F664272B0DD9E30036AA90 /* football.usdz */; };
+		42F6642C2B0DD9E30036AA90 /* gavel.usdz in Resources */ = {isa = PBXBuildFile; fileRef = 42F664282B0DD9E30036AA90 /* gavel.usdz */; };
+		42F6642D2B0DD9E30036AA90 /* blockM.usdz in Resources */ = {isa = PBXBuildFile; fileRef = 42F664292B0DD9E30036AA90 /* blockM.usdz */; };
 		8716DE782AF3043700EB5DDE /* ActiveQuestPage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8716DE772AF3043700EB5DDE /* ActiveQuestPage.swift */; };
 		871C64452AF45233008CE4FF /* ActiveQuestListRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 871C64442AF45233008CE4FF /* ActiveQuestListRow.swift */; };
 		8DDBEDF72AEF4E99002B5EB4 /* QuestPage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DDBEDF62AEF4E99002B5EB4 /* QuestPage.swift */; };
@@ -47,6 +51,10 @@
 		42B0F8F52AFA7B0000FF5DB4 /* LeaderboardRow.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = LeaderboardRow.swift; path = scavengARQuest/LeaderboardRow.swift; sourceTree = SOURCE_ROOT; };
 		42F039F32B01B26B00EA3851 /* ActiveQuestCard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = ActiveQuestCard.swift; path = scavengARQuest/ActiveQuestCard.swift; sourceTree = SOURCE_ROOT; };
 		42F039F72B01B2F800EA3851 /* InactiveQuestCard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = InactiveQuestCard.swift; path = scavengARQuest/InactiveQuestCard.swift; sourceTree = SOURCE_ROOT; };
+		42F664262B0DD9E30036AA90 /* cube.usdz */ = {isa = PBXFileReference; lastKnownFileType = file.usdz; name = cube.usdz; path = ../../arFiles/cube.usdz; sourceTree = "<group>"; };
+		42F664272B0DD9E30036AA90 /* football.usdz */ = {isa = PBXFileReference; lastKnownFileType = file.usdz; name = football.usdz; path = ../../arFiles/football.usdz; sourceTree = "<group>"; };
+		42F664282B0DD9E30036AA90 /* gavel.usdz */ = {isa = PBXFileReference; lastKnownFileType = file.usdz; name = gavel.usdz; path = ../../arFiles/gavel.usdz; sourceTree = "<group>"; };
+		42F664292B0DD9E30036AA90 /* blockM.usdz */ = {isa = PBXFileReference; lastKnownFileType = file.usdz; name = blockM.usdz; path = ../../arFiles/blockM.usdz; sourceTree = "<group>"; };
 		8716DE772AF3043700EB5DDE /* ActiveQuestPage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = ActiveQuestPage.swift; path = scavengARQuest/ActiveQuestPage.swift; sourceTree = SOURCE_ROOT; };
 		871C64442AF45233008CE4FF /* ActiveQuestListRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = ActiveQuestListRow.swift; path = scavengARQuest/ActiveQuestListRow.swift; sourceTree = SOURCE_ROOT; };
 		8DDBEDF62AEF4E99002B5EB4 /* QuestPage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = QuestPage.swift; path = scavengARQuest/QuestPage.swift; sourceTree = SOURCE_ROOT; };
@@ -93,6 +101,10 @@
 				420156AB2AEED418007189B5 /* ContentView.swift */,
 				42AC26342AF7DBD0000CF09A /* LoginView.swift */,
 				420156AD2AEED41A007189B5 /* Assets.xcassets */,
+				42F664292B0DD9E30036AA90 /* blockM.usdz */,
+				42F664262B0DD9E30036AA90 /* cube.usdz */,
+				42F664272B0DD9E30036AA90 /* football.usdz */,
+				42F664282B0DD9E30036AA90 /* gavel.usdz */,
 				420156AF2AEED41A007189B5 /* Preview Content */,
 				8DDBEDF62AEF4E99002B5EB4 /* QuestPage.swift */,
 				8DDBEDF82AEFE150002B5EB4 /* LeaderboardPage.swift */,
@@ -179,6 +191,10 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				42F6642B2B0DD9E30036AA90 /* football.usdz in Resources */,
+				42F6642A2B0DD9E30036AA90 /* cube.usdz in Resources */,
+				42F6642C2B0DD9E30036AA90 /* gavel.usdz in Resources */,
+				42F6642D2B0DD9E30036AA90 /* blockM.usdz in Resources */,
 				420156B12AEED41A007189B5 /* Preview Assets.xcassets in Resources */,
 				420156AE2AEED41A007189B5 /* Assets.xcassets in Resources */,
 			);
