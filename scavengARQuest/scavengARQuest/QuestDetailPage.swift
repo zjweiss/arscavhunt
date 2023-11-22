@@ -13,7 +13,7 @@ struct QuestDetailPage: View {
     let questID: Int
     @State private var teamId = ""
     @State private var showAlert = false
-    @State var questAccepted: Bool = false
+    @Binding var returnBool: Bool
     let serverUrl = "https://3.142.74.134"
     private let store = ScavengarStore.shared
 
@@ -41,7 +41,7 @@ struct QuestDetailPage: View {
         } catch {
             print("login: NETWORKING ERROR")
         }
-        questAccepted.toggle()
+        returnBool.toggle()
         return
     }
 

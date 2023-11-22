@@ -28,7 +28,7 @@ struct Location: Codable {
 
 struct ActiveQuestPage: View {
     private let store = ScavengarStore.shared
-    let questId: Int
+    @State var questId: Int
     @State private var inLocationDetails: Bool = false
     @State private var locationState: Location = Location(quest_id: -1, location_id: -1, name: "", latitude: "", longitude: "", description: "", thumbnail: "", ar_enabled: false, distance_threshold: "", status: "", points: "", tags: "")
     

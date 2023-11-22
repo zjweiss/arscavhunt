@@ -39,7 +39,7 @@ struct InactiveQuestCard: View {
             }
         }
         .navigationDestination(isPresented: $isAcceptingQuest){
-            QuestDetailPage(questID: questId)
+            QuestDetailPage(questID: questId, returnBool: $isAcceptingQuest)
         }    }
 }
 
