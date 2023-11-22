@@ -364,6 +364,7 @@
 				DEVELOPMENT_TEAM = 2T4A8QJVU6;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_NSCameraUsageDescription = "Camera is needed to display AR animations";
 				INFOPLIST_KEY_NSLocationAlwaysUsageDescription = "Location is needed to verify your location.";
 				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "Location is needed to verify your location.";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
@@ -395,6 +396,7 @@
 				DEVELOPMENT_TEAM = 2T4A8QJVU6;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_NSCameraUsageDescription = "Camera is needed to display AR animations";
 				INFOPLIST_KEY_NSLocationAlwaysUsageDescription = "Location is needed to verify your location.";
 				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "Location is needed to verify your location.";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
