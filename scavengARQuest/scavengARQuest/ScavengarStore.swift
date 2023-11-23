@@ -50,8 +50,9 @@ final class ScavengarStore {
                 print("join solo: \(HTTPURLResponse.localizedString(forStatusCode: http.statusCode))")
             } else {
                 //process the returned response
+                print(data)
                 guard let jsonResponse = try? JSONSerialization.jsonObject(with: data) as? [String:Any] else {
-                             print("login response: failed JSON deserialization")
+                             print("solo acceptance response: failed JSON deserialization")
                              return
                          }
                 

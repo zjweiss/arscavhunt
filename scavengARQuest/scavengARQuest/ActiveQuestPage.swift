@@ -31,8 +31,8 @@ struct TeamateResponseWrapper: Codable {
     let data: [Teamate]
 }
 
-struct Teamate: Codeable {
-    let id: Int,
+struct Teamate: Codable {
+    let id: Int
     let first_name: String
     let last_name: String
     let username: String
@@ -44,7 +44,7 @@ struct ActiveQuestPage: View {
     private let store = ScavengarStore.shared
     @State var questId: Int
     @State private var inLocationDetails: Bool = false
-    @State private var locationState: Location = Location(quest_id: -1, location_id: -1, name: "", latitude: "", longitude: "", description: "", thumbnail: "", ar_enabled: false, distance_threshold: "", status: "", points: "", tags: "")
+    @State private var locationState: Location = Location(quest_id: -1, location_id: -1, name: "", latitude: "", longitude: "", description: "", thumbnail: "", ar_enabled: false, distance_threshold: "", status: "", points: "", tags: "", team_code: "")
     
     
     var body: some View {
@@ -54,7 +54,7 @@ struct ActiveQuestPage: View {
                     Text("Swipe down to refesh!")
                         .font(.system(size: 15))
                         .foregroundColor(Color.gray)
-                    Text("Team Code: \(store.questTeamDict[questId])")
+                    Text("Team Code: \(store.questTeamDict[questId] ?? "ERROR_CODE")")
                         .font(.system(size: 20))
                         .foregroundColor(Color.gray)
                     
@@ -62,7 +62,8 @@ struct ActiveQuestPage: View {
                     if let teamates = store.questTeamateDict[questId] {
                         if (teamates.count > 1){
                             HStack{
-                                ForEach(teamates.indices, id: \.self) { member in
+                                ForEach(teamates.indices, id: \.self) { index in
+                                    let member = teamates[index]
                                     if let imageUrl = URL(string: member.image_url) {
                                         AsyncImage(url: imageUrl){
                                             $0.resizable()
