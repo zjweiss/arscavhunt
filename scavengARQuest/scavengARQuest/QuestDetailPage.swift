@@ -17,34 +17,6 @@ struct QuestDetailPage: View {
     let serverUrl = "https://3.142.74.134"
     private let store = ScavengarStore.shared
 
-    
-    func submitQuestAcceptance(userID: Int, questID: Int) async {
-
-        //format of api endpoint: BASE/users/<user_id>/quests/<quest_id>/accept
-        let urlString = serverUrl+"/users/" + String(userID) + "/quests/" + String(questID) + "/accept/"
-        print(urlString)
-        guard let apiUrl = URL(string: urlString ) else {
-            print("login: Bad URL")
-            return
-        }
-        
-        var request = URLRequest(url: apiUrl)
-        request.setValue("application/json; charset=utf-8", forHTTPHeaderField: "Content-Type")
-        request.httpMethod = "POST"
-        
-        do {
-            let (_, response) = try await URLSession.shared.data(for: request)
-            if let http = response as? HTTPURLResponse, http.statusCode != 200 {
-                print("accept quest: \(HTTPURLResponse.localizedString(forStatusCode: http.statusCode))")
-                return
-            }
-        } catch {
-            print("login: NETWORKING ERROR")
-        }
-        returnBool.toggle()
-        return
-    }
-
 
     @ViewBuilder
     @MainActor
@@ -58,10 +30,14 @@ struct QuestDetailPage: View {
                         } else {
                             if (teamAccept == true){
                                 // do multi user quest acceptance stuff
-                                // to be implemented in MVP
+                                await store.submitTeamQuestAcceptance(userID: store.userID, questID: questID, teamID: teamId)
+                                returnBool.toggle()
+
                             } else {
                                 // do single user quest acceptance
-                                await submitQuestAcceptance(userID: store.userID, questID: questID)
+                                await store.submitSoloQuestAcceptance(userID: store.userID, questID: questID)
+                                returnBool.toggle()
+
                             }
                         }
                     }

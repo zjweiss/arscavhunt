@@ -24,6 +24,20 @@ struct Location: Codable {
     var status: String
     let points: String
     let tags: String
+    let team_code: String
+}
+
+struct TeamateResponseWrapper: Codable {
+    let data: [Teamate]
+}
+
+struct Teamate: Codeable {
+    let id: Int,
+    let first_name: String
+    let last_name: String
+    let username: String
+    let image_url: String
+
 }
 
 struct ActiveQuestPage: View {
@@ -40,6 +54,34 @@ struct ActiveQuestPage: View {
                     Text("Swipe down to refesh!")
                         .font(.system(size: 15))
                         .foregroundColor(Color.gray)
+                    Text("Team Code: \(store.questTeamDict[questId])")
+                        .font(.system(size: 20))
+                        .foregroundColor(Color.gray)
+                    
+                    // Only display avatars if there are more than 1 person on team.
+                    if let teamates = store.questTeamateDict[questId] {
+                        if (teamates.count > 1){
+                            HStack{
+                                ForEach(teamates.indices, id: \.self) { member in
+                                    if let imageUrl = URL(string: member.image_url) {
+                                        AsyncImage(url: imageUrl){
+                                            $0.resizable()
+                                                .aspectRatio(contentMode: .fit)
+                                                .frame(maxWidth: .infinity)
+                                                .clipShape(Circle())
+                                                .frame(width: 10, height: 10)
+                                                .foregroundStyle(.tint)
+                                        } placeholder: {
+                                            ProgressView()
+                                        }
+                                        
+                                    }
+
+                                }
+                            }
+                        }
+                    }
+                    
                     // QUEST NAME
                     if let questStruct = store.questDict[questId] {
                         Text(questStruct.quest_name)
@@ -93,6 +135,8 @@ struct ActiveQuestPage: View {
             .refreshable{
                 do {
                     try await store.getQuests()
+                    try await store.getActiveQuestLocations(questID: questId)
+                    try await store.getOtherTeamates(questID: questId)
                 } catch RequestError.invalidData {
                     print("Invalid Data")
                 } catch RequestError.invalidResponse {
@@ -107,7 +151,9 @@ struct ActiveQuestPage: View {
         .onAppear(perform: {
             Task{
                 do {
+                    try await store.getQuests()
                     try await store.getActiveQuestLocations(questID: questId)
+                    try await store.getOtherTeamates(questID: questId)
                 } catch RequestError.invalidData {
                     print("Invalid Data")
                 } catch RequestError.invalidResponse {
