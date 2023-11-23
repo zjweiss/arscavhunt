@@ -93,6 +93,7 @@ struct ActiveQuestPage: View {
             .refreshable{
                 do {
                     try await store.getQuests()
+                    try await store.getActiveQuestLocations(questID: questId)
                 } catch RequestError.invalidData {
                     print("Invalid Data")
                 } catch RequestError.invalidResponse {
