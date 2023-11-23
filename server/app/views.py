@@ -2,11 +2,13 @@ from django.http import JsonResponse, HttpResponse
 from django.db import connection
 from django.views.decorators.csrf import csrf_exempt
 import simplejson as json
+import shortuuid
 import time
 import os
 from django.conf import settings
 from django.core.files.storage import FileSystemStorage
 
+short = shortuuid.ShortUUID()
 
 """
 Utils
@@ -18,6 +20,11 @@ def fetchall(cursor):
             dict(zip([col[0] for col in desc], row)) 
             for row in cursor.fetchall() 
     ]
+
+
+def generate_invite_code(n: int = 5):
+    """Generates a cryptographically secure random string for invite codes"""
+    return short.random(length = n)
 
 
 @csrf_exempt
@@ -38,10 +45,6 @@ def postmedia(request):
     return JsonResponse( {"filename" : filename})
 
 
-
-"""
-Users API
-"""
 def users(req):
     if req.method != "GET":
         return HttpResponse(status=404)
@@ -49,19 +52,17 @@ def users(req):
     with connection.cursor() as cursor:
         cursor.execute("""
             SELECT
-              u.id AS user_id,
-              u.first_name,
-              u.last_name,
-              u.username,
-              COALESCE(SUM(CASE WHEN uqls.status = 'complete' THEN qpl.points ELSE 0 END), 0) AS total_points
-            FROM
-              users u
-            LEFT JOIN user_quest_locations_status uqls ON u.id = uqls.user_id
-            LEFT JOIN quest_locations qpl ON uqls.quest_id = qpl.quest_id AND uqls.location_id = qpl.location_id
-            GROUP BY
-              u.id, u.first_name, u.last_name, u.username
-            ORDER BY
-              total_points DESC;
+                u.id AS user_id,
+                u.first_name,
+                u.last_name,
+                u.username,
+                COALESCE(SUM(CASE WHEN tqls.status = 'complete' THEN qpl.points ELSE 0 END), 0) AS total_points
+            FROM users u
+            LEFT JOIN team_users tu ON u.id = tu.user_id
+            LEFT JOIN team_quest_locations_status tqls ON tqls.team_id = tu.team_id
+            LEFT JOIN quest_locations qpl ON tqls.quest_id = qpl.quest_id AND tqls.location_id = qpl.location_id
+            GROUP BY u.id, u.first_name, u.last_name, u.username
+            ORDER BY total_points DESC;
         """)
         rows = fetchall(cursor)
         return JsonResponse({"data": rows})
@@ -73,23 +74,22 @@ def get_user_quest_feed(req, user_id):
     
     with connection.cursor() as cursor:
         cursor.execute("""
-            WITH user_check AS (
-                SELECT 1 FROM users WHERE id = %s
-            ), active_quests AS (
-              SELECT DISTINCT
-                  q.id AS quest_id,
-                  q.name AS quest_name,
-                  q.thumbnail as quest_thumbnail,
-                  q.description as quest_description,
-                  q.rating as quest_rating,
-                  q.estimated_time,
-                  SUM(CASE WHEN uqls.status = 'active' THEN 1 ELSE 0 END) as incomplete,
-                  SUM(CASE WHEN uqls.status = 'complete' THEN 1 ELSE 0 END) as complete
+            WITH active_quests AS (
+                SELECT DISTINCT
+                    q.id AS quest_id,
+                    q.name AS quest_name,
+                    q.thumbnail as quest_thumbnail,
+                    q.description as quest_description,
+                    q.rating as quest_rating,
+                    q.estimated_time,
+                    SUM(CASE WHEN tqls.status = 'active' THEN 1 ELSE 0 END) as incomplete,
+                    SUM(CASE WHEN tqls.status = 'complete' THEN 1 ELSE 0 END) as complete
                 FROM
                   quests q
-                  INNER JOIN user_quest_locations_status uqls ON q.id = uqls.quest_id
+                  INNER JOIN team_quest_locations_status tqls ON q.id = tqls.quest_id
+                  INNER JOIN team_users tu ON tu.team_id = tqls.team_id
                 WHERE
-                  uqls.user_id = %s
+                  tu.user_id = %s
                 GROUP BY q.id, q.name
             ), other_quests AS (
               SELECT DISTINCT
@@ -117,8 +117,7 @@ def get_user_quest_feed(req, user_id):
               'inactive' AS quest_status
             FROM
               other_quests
-            WHERE EXISTS (SELECT 1 FROM user_check);
-        """, [user_id, user_id])
+        """, [user_id])
         rows = fetchall(cursor)
         
         if rows:
@@ -146,14 +145,17 @@ def get_active_quest_details(req, user_id, quest_id):
                 distance_threshold,
                 status,
                 points,
-                STRING_AGG(tags.name, ',') as tags
+                STRING_AGG(tags.name, ',') as tags,
+                code as team_code
             FROM quest_locations ql 
-            JOIN locations l ON ql.location_id = l.id
-            JOIN user_quest_locations_status uqls ON uqls.user_id = %s AND uqls.location_id = ql.location_id AND uqls.quest_id = ql.quest_id
-            JOIN location_tag lt ON lt.location_id = ql.location_id
-            JOIN tags ON lt.tag_id = tags.id
+              JOIN locations l ON ql.location_id = l.id
+              JOIN location_tag lt ON lt.location_id = ql.location_id
+              JOIN tags ON lt.tag_id = tags.id
+              JOIN team_users tu ON tu.user_id = %s
+              JOIN teams ON teams.id = tu.team_id
+              JOIN team_quest_locations_status tqls ON tqls.team_id = tu.team_id AND tqls.location_id = ql.location_id AND tqls.quest_id = ql.quest_id
             WHERE ql.quest_id = %s
-            GROUP BY ql.quest_id, ql.location_id, l.name, latitude, longitude, description, thumbnail, ar_enabled, distance_threshold, status, points;
+            GROUP BY ql.quest_id, ql.location_id, l.name, latitude, longitude, description, thumbnail, ar_enabled, distance_threshold, status, points, code;
             """, [user_id, quest_id])
 
             rows = fetchall(cursor)
@@ -181,14 +183,14 @@ def login(req):
                 WITH user_info AS (
                     SELECT * FROM users WHERE username = %s
                 ), cte2 AS (
-                    -- all the quests and its subquest locations that have been completed by
-                    -- a secific user.
-                    SELECT SUM(ql.points) as points 
-                    FROM user_info, user_quest_locations_status uqls 
-                    JOIN quest_locations ql 
-                        ON uqls.quest_id = ql.quest_id
-                        AND uqls.location_id = ql.location_id
-                    WHERE user_id = user_info.id AND status = 'complete'
+                    SELECT
+                        SUM(points) as points
+                    FROM user_info, team_users
+                    JOIN team_quest_locations_status tqls ON tqls.team_id = team_users.team_id
+                    JOIN quest_locations ql
+                        ON tqls.quest_id = ql.quest_id 
+                        AND tqls.location_id = ql.location_id
+                    WHERE team_users.user_id = user_info.id AND status = 'complete'
                 )
                 SELECT 
                     user_info.id,
@@ -208,23 +210,32 @@ def login(req):
 
 
 @csrf_exempt
-def submit_checkpoint(req, user_id: int, quest_id: int, location_id: int):
+def submit_checkpoint(req, team_code: str, quest_id: int, location_id: int):
     if req.method not in {'POST'}:
         return HttpResponse(status=404)
 
-    if user_id and quest_id and location_id:
+    if quest_id and location_id:
         with connection.cursor() as cursor:
+            # Check if team exists using team_code.
             cursor.execute("""
-                UPDATE user_quest_locations_status AS uql
-                    SET status = 'complete'
-                WHERE
-                    uql.user_id = %s
-                    AND uql.quest_id = %s 
-                    AND uql.location_id = %s
-            """, [user_id, quest_id, location_id])
-            # Do we need to do a validity check to make sure
-            # the ids passed to the call are valid? (i.e. imagine location_id = 8?)
-            return HttpResponse(status=200)
+                SELECT id FROM teams WHERE code = %s;
+            """, [team_code])
+    
+            row = cursor.fetchone() 
+            if row:
+                team_id = row[0]
+                # Update the teams quest status.
+                cursor.execute("""
+                    UPDATE team_quest_locations_status AS tql
+                        SET status = 'complete'
+                    WHERE
+                        tql.team_id = %s
+                        AND tql.quest_id = %s 
+                        AND tql.location_id = %s
+                """, [team_id, quest_id, location_id])
+                return HttpResponse(status=200)
+            else:
+                return HttpResponse(status=404)
     else:
         return HttpResponse(status=400)
 
@@ -234,16 +245,95 @@ def accept_quest(req, user_id: int, quest_id: int):
     if req.method not in {'POST'}:
         return HttpResponse(status=404)
     
+    # If a user wants to accept a quest with a friend, they can provide a 5 character
+    # code as part of the JSON payload.
+    if req.body:
+        body = json.loads(req.body)
+        team_code = body.get("code", None)
+
+        if team_code:
+            with connection.cursor() as cursor:
+                cursor.execute("""
+                  SELECT id FROM teams WHERE code = %s;
+                """, [team_code])
+
+                row = cursor.fetchone()
+                if row:
+                    _id = row[0]
+                    cursor.execute("""
+                        INSERT INTO team_users (team_id, user_id)
+                        VALUES (%s, %s);
+                    """, [_id, user_id])
+                
+                    return JsonResponse(data={"team_code": team_code}, status=200)
+
+                return HttpResponse(status=404)
+    
+    # When a user accepts a quest solo, they will be provided an invite code (or team identification string)
+    # other users can provide this team identification string to join the original user in this quest.
     if user_id and quest_id:
+        team_code = generate_invite_code()
         with connection.cursor() as cursor:
+            # Register the team.
+            cursor.execute("""
+                INSERT INTO teams (code)
+                VALUES (%s)
+                RETURNING id;
+            """, [team_code])
+            
+            # Add the initiating user to the team.
+            row_id = cursor.fetchone()[0]
+            cursor.execute("""
+                INSERT INTO team_users (team_id, user_id)
+                VALUES (%s, %s);
+            """, [row_id, user_id])
+
+            # Add all subquests to the team quest locations status table.
             cursor.execute("""
                 WITH sub_qs AS (
                   SELECT quest_id, location_id FROM quest_locations WHERE quest_id = %s
                 )
-                INSERT INTO user_quest_locations_status (user_id, quest_id, location_id)
-                SELECT %s as user_id, sub_qs.quest_id, sub_qs.location_id
+                INSERT INTO team_quest_locations_status (team_id, quest_id, location_id)
+                SELECT %s as team_id, sub_qs.quest_id, sub_qs.location_id
                 FROM sub_qs;
-            """, [quest_id, user_id])
-        return HttpResponse(status=200)
+            """, [quest_id, row_id])
+            
+            return JsonResponse(data={"team_code": team_code}, status=200)
     else:
         return HttpResponse(status=400)
+
+
+def get_team_members(req, team_code: str):
+    if req.method not in {'GET'}:
+        return HttpResponse(status=404)
+
+    if team_code:
+        with connection.cursor() as cursor:
+            # Check if the team being requested exists
+            cursor.execute("""
+                SELECT id FROM teams WHERE code = %s; 
+            """, [team_code])
+
+            row = cursor.fetchone()
+            if row:
+                team_id = row[0]
+
+                # Return all the users in that team.
+                cursor.execute("""
+                    SELECT 
+                        users.id,
+                        first_name,
+                        last_name,
+                        username
+                    FROM users
+                    JOIN team_users tu ON users.id = tu.user_id
+                    WHERE tu.team_id = %s;
+                """, [team_id])
+
+                rows = fetchall(cursor)
+                return JsonResponse(data={"data": rows})
+            else:
+                return HttpResponse(status=404)
+    else:
+        return HttpResponse(status=400)
+

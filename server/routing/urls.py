@@ -25,7 +25,8 @@ urlpatterns = [
     path('users/<int:user_id>/quests/', views.get_user_quest_feed, name='Get active and available quests'),
     path('users/<int:user_id>/quests/<int:quest_id>/', views.get_active_quest_details, name='Get active quest'),
     path('users/<int:user_id>/quests/<int:quest_id>/accept/', views.accept_quest, name='Accept quest'),
-    path('users/<int:user_id>/quests/<int:quest_id>/locations/<int:location_id>/submit_checkpoint', views.submit_checkpoint, name='Submit checkpoint'),
+    path('teams/<str:team_code>/quests/<int:quest_id>/locations/<int:location_id>/submit_checkpoint', views.submit_checkpoint, name='Submit checkpoint'),
+    path('teams/<str:team_code>/', views.get_team_members, name='Get Team Members'),
     
     # MISC. API
     path('postmedia/', views.postmedia, name="Post an image"),
