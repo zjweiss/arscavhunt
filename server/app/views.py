@@ -12,7 +12,7 @@ from django.core.files.storage import FileSystemStorage
 Utils
 """
 def fetchall(cursor): 
-    "Returns all rows from a cursor as a dict" 
+    """Returns all rows from a cursor as a dict."""
     desc = cursor.description 
     return [
             dict(zip([col[0] for col in desc], row)) 
@@ -22,6 +22,7 @@ def fetchall(cursor):
 
 @csrf_exempt
 def postmedia(request):
+    """Saves files in a /media directory for use by the client."""
     if request.method != 'POST':
         return HttpResponse(status=400)
 
@@ -43,25 +44,33 @@ def postmedia(request):
 Users API
 """
 def users(req):
+    """ Retrieves all users."""
     if req.method != "GET":
         return HttpResponse(status=404)
 
     with connection.cursor() as cursor:
         cursor.execute("""
-            SELECT
-              u.id AS user_id,
-              u.first_name,
-              u.last_name,
-              u.username,
-              COALESCE(SUM(CASE WHEN uqls.status = 'complete' THEN qpl.points ELSE 0 END), 0) AS total_points
-            FROM
-              users u
-            LEFT JOIN user_quest_locations_status uqls ON u.id = uqls.user_id
-            LEFT JOIN quest_locations qpl ON uqls.quest_id = qpl.quest_id AND uqls.location_id = qpl.location_id
-            GROUP BY
-              u.id, u.first_name, u.last_name, u.username
-            ORDER BY
-              total_points DESC;
+            WITH cte AS (
+                SELECT
+                  u.id AS user_id,
+                  u.first_name,
+                  u.last_name,
+                  u.username,
+                  u.avatar_url,
+                  COALESCE(SUM(CASE WHEN uqls.status = 'complete' THEN qpl.points ELSE 0 END), 0) AS total_points
+                FROM
+                  users u
+                LEFT JOIN user_quest_locations_status uqls ON u.id = uqls.user_id
+                LEFT JOIN quest_locations qpl ON uqls.quest_id = qpl.quest_id AND uqls.location_id = qpl.location_id
+                GROUP BY
+                  u.id, u.first_name, u.last_name, u.username
+                ORDER BY
+                  total_points DESC
+            )
+            SELECT 
+              *,
+              RANK() OVER (ORDER BY total_points DESC) as ranking 
+            FROM cte;
         """)
         rows = fetchall(cursor)
         return JsonResponse({"data": rows})

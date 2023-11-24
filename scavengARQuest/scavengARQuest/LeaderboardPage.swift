@@ -16,13 +16,14 @@ struct User: Codable {
     let firstName: String
     let lastName: String
     let username: String
+    let avatarUrl: String
     let totalPoints: String
+    let ranking: Int
 }
 
 struct LeaderboardPage: View {
     @State private var response: UsersResponseWrapper?
-    @State private var currentUser: User? = nil
-    @State private var currentUserPlace: Int?
+    @State private var currentUser: User?
     private var serverUrl: String = "https://3.142.74.134"
     
     func getUsers() async throws -> UsersResponseWrapper {
@@ -61,100 +62,110 @@ struct LeaderboardPage: View {
     }
     
     var body: some View {
-            NavigationView {
-                ScrollView {
-                    VStack {
-                        Spacer()
-                        
-                        Text("Leaderboard")
-                            .font(.system(size: 30))
-                            .fontWeight(.bold)
-                            .frame(maxWidth: .infinity, alignment: .leading)
-                        
-                        Spacer(minLength: 20)
-                        
-                        Text(UserDefaults.standard.string(forKey: "canName") ?? "testUser")
-                            .font(.system(size: 25))
-                            .fontWeight(.semibold)
-                            .frame(maxWidth: .infinity, alignment: .center)
-                        
-                        Spacer(minLength: 10)
-                        
-                        HStack {
-                            VStack{
-                                // TODO: loading indicator // UI: skeleton loader
-                                Text(getUserPlaceString(place: currentUserPlace ?? -1))
-                                    .font(.system(size: 25))
-                                    .fontWeight(.bold)
-                                Text("Place")
-                                    .font(.system(size: 16))
-                                    .fontWeight(.bold)
-                                    .foregroundColor(Color.gray) // Set the text color to gray
-                                    .frame(maxWidth: .infinity, alignment: .center)
-                            }
-                            VStack{
-                                Text(currentUser?.totalPoints ?? "-1")
-                                    .font(.system(size: 25).monospacedDigit())
-                                    .fontWeight(.bold)
-                                    .frame(maxWidth: .infinity, alignment: .center)
-                                Text("Points")
-                                    .font(.system(size: 16))
-                                    .fontWeight(.bold)
-                                    .foregroundColor(Color.gray) // Set the text color to gray
-                                    .frame(maxWidth: .infinity, alignment: .center)
-                            }
+        NavigationView {
+            VStack {
+                // Current User Information.
+                if let user = currentUser {
+                    Spacer()
+                    Text("Leaderboard")
+                        .font(.system(size: 30))
+                        .fontWeight(.bold)
+                        .frame(maxWidth: .infinity, alignment: .leading)
+                    
+                    Spacer(minLength: 20)
+                    
+                    AsyncImage(url: URL(string: user.avatarUrl)) { image in
+                            image
+                                .resizable()
+                        } placeholder: {
+                            Image(systemName: "photo.fill")
+                                .foregroundColor(.gray)
                         }
+                        .frame(width: 50, height: 50) // Adjust the width and height as needed
+                        .cornerRadius(5.0)
+                    
+                    Text(user.firstName + " " + user.lastName)
+                        .font(.system(size: 25))
+                        .fontWeight(.semibold)
+                        .frame(maxWidth: .infinity, alignment: .center)
+                    
+                    Spacer(minLength: 10)
+                    
+                    HStack{
+                        VStack(alignment:.center){
+                            Text(getUserPlaceString(place: user.ranking))
+                                .font(.system(size: 25))
+                                .fontWeight(.bold)
+                            Text("Place")
+                                .font(.system(size: 16))
+                                .fontWeight(.bold)
+                                .foregroundColor(Color.gray)
+                                .frame(maxWidth: .infinity, alignment: .center)
+                        }
+                        VStack(alignment:.center) {
+                            Text(user.totalPoints)
+                                .font(.system(size: 25).monospacedDigit())
+                                .fontWeight(.bold)
+                                .frame(maxWidth: .infinity, alignment: .center)
+                            Text("Points")
+                                .font(.system(size: 16))
+                                .fontWeight(.bold)
+                                .foregroundColor(Color.gray)
+                                .frame(maxWidth: .infinity, alignment: .center)
+                        }
+                    }
+                    
+                    Divider() // Create a horizontal line
+                    
+                    Spacer(minLength: 20)
+                                            
+                    Text("Ranking")
+                        .font(.system(size: 25))
+                        .fontWeight(.bold)
+                        .frame(maxWidth: .infinity, alignment: .leading)
                         
-                        Divider() // Create a horizontal line
-                        
-                        Spacer(minLength: 20)
-                        
-                        Text("Ranking")
-                            .font(.system(size: 25))
-                            .fontWeight(.bold)
-                            .frame(maxWidth: .infinity, alignment: .leading)
-                        
+                    ScrollView {
                         if let unwrappedResponse = response {
                             ForEach(unwrappedResponse.data.indices, id: \.self) { index in
                                 let user = unwrappedResponse.data[index]
                                 LeaderboardRow(
-                                    index: index,
                                     currentUserId: UserDefaults.standard.integer(forKey: "userID"),
                                     user: user
                                 )
                             }
                         } else {
-                            Text("Loading...")
+                            ProgressView()
                         }
-                        
                     }
-                    .task {
-                        do {
-                            response = try await getUsers()
-                            
-                            // Finds the current user from the list of users
-                            if let unwrappedResponse = response {
-                                for idx in 0..<unwrappedResponse.data.count {
-                                    let user: User = unwrappedResponse.data[idx]
-                                    if user.userId == UserDefaults.standard.integer(forKey: "userID") {
-                                        currentUser = user
-                                        currentUserPlace = idx + 1
-                                    }
+                } else {
+                    ProgressView()
+                }
+                // Scroll View of other users.
+            }.onAppear {
+                Task {
+                    do {
+                        response = try await getUsers()
+                        
+                        if let unwrappedResponse = response {
+                            for idx in 0..<unwrappedResponse.data.count {
+                                let user: User = unwrappedResponse.data[idx]
+                                if user.userId == UserDefaults.standard.integer(forKey: "userID") {
+                                    currentUser = user
                                 }
                             }
-                        } catch RequestError.invalidData {
-                            print("Invalid Data")
-                        } catch RequestError.invalidResponse {
-                            print("Invalid Response")
-                        } catch RequestError.invalidUrl {
-                            print("Invalid URL")
-                        } catch {
-                            print("Unexpected API error")
                         }
+                    } catch RequestError.invalidData {
+                        print("Invalid Data")
+                    } catch RequestError.invalidResponse {
+                        print("Invalid Response")
+                    } catch RequestError.invalidUrl {
+                        print("Invalid URL")
+                    } catch {
+                        print("Unexpected API error")
                     }
-                    .padding()
                 }
-            }
+            }.padding()
+        }
     }
 }
 
