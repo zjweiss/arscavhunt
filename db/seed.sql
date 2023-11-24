@@ -20,16 +20,17 @@ CREATE TABLE users (
   id serial PRIMARY KEY NOT NULl,
   first_name varchar NOT NULL,
   last_name varchar NOT NULL,
-  username varchar NOT NULL
+  username varchar NOT NULL,
+  avatar_url text NOT NULL
 );
 
-INSERT INTO users (first_name, last_name, username)
+INSERT INTO users (first_name, last_name, username, avatar_url)
 VALUES
-  ('Janice', 'Liu', 'janliu'),
-  ('Rohan', 'Nagavardhan', 'rnagavar'),
-  ('Shaan', 'Patel', 'pshaan'),
-  ('Zach', 'Weiss', 'zjweiss'),
-  ('Abbie', 'Tooman', 'atooman');
+  ('Janice', 'Liu', 'janliu', 'https://3.142.74.134/media/users/1.jpg'),
+  ('Rohan', 'Nagavardhan', 'rnagavar', 'https://3.142.74.134/media/users/2.jpg'),
+  ('Shaan', 'Patel', 'pshaan', 'https://3.142.74.134/media/users/3.jpg'),
+  ('Zach', 'Weiss', 'zjweiss', 'https://3.142.74.134/media/users/4.jpg'),
+  ('Abbie', 'Tooman', 'atooman', 'https://3.142.74.134/media/users/5.jpg');
 
 INSERT INTO users (id, first_name, last_name, username)
 VALUES

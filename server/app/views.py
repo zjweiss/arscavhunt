@@ -14,7 +14,7 @@ short = shortuuid.ShortUUID()
 Utils
 """
 def fetchall(cursor): 
-    "Returns all rows from a cursor as a dict" 
+    """Returns all rows from a cursor as a dict."""
     desc = cursor.description 
     return [
             dict(zip([col[0] for col in desc], row)) 
@@ -29,6 +29,7 @@ def generate_invite_code(n: int = 5):
 
 @csrf_exempt
 def postmedia(request):
+    """Saves files in a /media directory for use by the client."""
     if request.method != 'POST':
         return HttpResponse(status=400)
 
@@ -46,23 +47,35 @@ def postmedia(request):
 
 
 def users(req):
+    """ Retrieves all users."""
     if req.method != "GET":
         return HttpResponse(status=404)
 
     with connection.cursor() as cursor:
         cursor.execute("""
-            SELECT
-                u.id AS user_id,
-                u.first_name,
-                u.last_name,
-                u.username,
-                COALESCE(SUM(CASE WHEN tqls.status = 'complete' THEN qpl.points ELSE 0 END), 0) AS total_points
-            FROM users u
-            LEFT JOIN team_users tu ON u.id = tu.user_id
-            LEFT JOIN team_quest_locations_status tqls ON tqls.team_id = tu.team_id
-            LEFT JOIN quest_locations qpl ON tqls.quest_id = qpl.quest_id AND tqls.location_id = qpl.location_id
-            GROUP BY u.id, u.first_name, u.last_name, u.username
-            ORDER BY total_points DESC;
+            WITH cte AS (
+                SELECT
+                  u.id AS user_id,
+                  u.first_name,
+                  u.last_name,
+                  u.username,
+                  u.avatar_url,
+                  COALESCE(SUM(CASE WHEN uqls.status = 'complete' THEN qpl.points ELSE 0 END), 0) AS total_points
+                FROM
+                  users u
+                LEFT JOIN team_users tu ON u.id = tu.user_id
+                LEFT JOIN team_quest_locations_status tqls ON tqls.team_id = tu.team_id
+                LEFT JOIN quest_locations qpl ON tqls.quest_id = qpl.quest_id AND tqls.location_id = qpl.location_id
+                WHERE u.id <> 0
+                GROUP BY
+                  u.id, u.first_name, u.last_name, u.username
+                ORDER BY
+                  total_points DESC
+            )
+            SELECT 
+              *,
+              RANK() OVER (ORDER BY total_points DESC) as ranking 
+            FROM cte;
         """)
         rows = fetchall(cursor)
         return JsonResponse({"data": rows})
@@ -99,7 +112,7 @@ def get_user_quest_feed(req, user_id):
                   q.description as quest_description,
                   q.rating as quest_rating,
                   q.estimated_time,
-                  (SELECT COUNT(*) FROM quest_locations ql WHERE ql.quest_id = q.id) AS incomplete,
+                  5 AS incomplete,
                   0 as complete
                 FROM
                   quests q
@@ -130,32 +143,33 @@ def get_active_quest_details(req, user_id, quest_id):
     if req.method != 'GET':
         return HttpResponse(status=404)
     
-    if user_id and quest_id:
+    if quest_id:
         with connection.cursor() as cursor:
             cursor.execute("""
-            SELECT
-                ql.quest_id,
-                ql.location_id,
-                l.name,
-                latitude,
-                longitude,
-                description,
-                thumbnail,
-                ar_enabled,
-                distance_threshold,
-                status,
-                points,
-                STRING_AGG(tags.name, ',') as tags,
-                code as team_code
-            FROM quest_locations ql 
-              JOIN locations l ON ql.location_id = l.id
-              JOIN location_tag lt ON lt.location_id = ql.location_id
-              JOIN tags ON lt.tag_id = tags.id
-              JOIN team_users tu ON tu.user_id = %s
-              JOIN teams ON teams.id = tu.team_id
-              JOIN team_quest_locations_status tqls ON tqls.team_id = tu.team_id AND tqls.location_id = ql.location_id AND tqls.quest_id = ql.quest_id
-            WHERE ql.quest_id = %s
-            GROUP BY ql.quest_id, ql.location_id, l.name, latitude, longitude, description, thumbnail, ar_enabled, distance_threshold, status, points, code;
+              SELECT
+                  ql.quest_id,
+                  ql.location_id,
+                  l.name,
+                  latitude,
+                  longitude,
+                  description,
+                  thumbnail,
+                  ar_enabled,
+                  distance_threshold,
+                  status,
+                  points,
+                  STRING_AGG(tags.name, ',') as tags,
+                  code as team_code
+              FROM quest_locations ql 
+                JOIN locations l ON ql.location_id = l.id
+                JOIN location_tag lt ON lt.location_id = ql.location_id
+                JOIN tags ON lt.tag_id = tags.id
+                JOIN team_users tu ON tu.user_id = %s
+                JOIN teams ON teams.id = tu.team_id
+                JOIN team_quest_locations_status tqls ON tqls.team_id = tu.team_id AND tqls.location_id = ql.location_id AND tqls.quest_id = ql.quest_id
+              WHERE ql.quest_id = %s
+              GROUP BY ql.quest_id, ql.location_id, l.name, latitude, longitude, description, thumbnail, ar_enabled, distance_threshold, status, points, code;
+              ORDER BY CAST(status AS CHAR);
             """, [user_id, quest_id])
 
             rows = fetchall(cursor)
@@ -197,6 +211,7 @@ def login(req):
                     user_info.first_name,
                     user_info.last_name,
                     user_info.username,
+                    user_info.avatar_url,
                     COALESCE(points, 0) as points 
                 FROM user_info, cte2;
             """, [username])
@@ -291,7 +306,11 @@ def accept_quest(req, user_id: int, quest_id: int):
             # Add all subquests to the team quest locations status table.
             cursor.execute("""
                 WITH sub_qs AS (
-                  SELECT quest_id, location_id FROM quest_locations WHERE quest_id = %s
+                    SELECT quest_id, location_id
+                    FROM quest_locations
+                    WHERE quest_id = %s
+                    ORDER BY RANDOM()
+                    LIMIT 5
                 )
                 INSERT INTO team_quest_locations_status (team_id, quest_id, location_id)
                 SELECT %s as team_id, sub_qs.quest_id, sub_qs.location_id
@@ -324,7 +343,8 @@ def get_team_members(req, team_code: str):
                         users.id,
                         first_name,
                         last_name,
-                        username
+                        username,
+                        avatar_url
                     FROM users
                     JOIN team_users tu ON users.id = tu.user_id
                     WHERE tu.team_id = %s;
