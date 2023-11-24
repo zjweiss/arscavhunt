@@ -4,13 +4,17 @@
 -- \i arscavhunt/db/seed.sql
 
 DROP TABLE IF EXISTS users CASCADE;
-DROP TABLE IF EXISTS locations CASCADE;
+
 DROP TABLE IF EXISTS quests CASCADE;
 DROP TABLE IF EXISTS quest_locations CASCADE;
-DROP TABLE IF EXISTS user_quest_locations_status CASCADE;
+
+DROP TABLE IF EXISTS locations CASCADE;
 DROP TABLE IF EXISTS tags CASCADE;
 DROP TABLE IF EXISTS location_tag CASCADE;
-DROP TABLE IF EXISTS user_quest_locations_status CASCADE;
+
+DROP TABLE IF EXISTS teams CASCADE;
+DROP TABLE IF EXISTS team_users CASCADE;
+DROP TABLE IF EXISTS team_quest_locations_status CASCADE;
 
 CREATE TABLE users (
   id serial PRIMARY KEY NOT NULl,
@@ -28,6 +32,9 @@ VALUES
   ('Zach', 'Weiss', 'zjweiss', 'https://3.142.74.134/media/users/4.jpg'),
   ('Abbie', 'Tooman', 'atooman', 'https://3.142.74.134/media/users/5.jpg');
 
+INSERT INTO users (id, first_name, last_name, username)
+VALUES
+  (0, 'demo', 'demo', 'demo');
 
 CREATE TABLE locations (
   id serial PRIMARY KEY,
@@ -36,7 +43,7 @@ CREATE TABLE locations (
   longitude decimal NOT NULL,
   description text NOT NULL,
   thumbnail text NOT NULL,
-  ar_enabled boolean NOT NULL,
+  ar_enabled boolean NOT NULL DEFAULT false,
   distance_threshold decimal NOT NULL -- meters
 );
 
@@ -113,23 +120,26 @@ VALUES
 
 CREATE TYPE location_status AS ENUM ('active', 'complete');
 
-CREATE TABLE user_quest_locations_status (
+CREATE TABLE teams (
+  id serial PRIMARY KEY NOT NULL,
+  code varchar(8) NOT NULL
+);
+
+CREATE TABLE team_users (
+  team_id int NOT NULL REFERENCES teams(id),
   user_id int NOT NULL REFERENCES users(id),
+
+  PRIMARY KEY (team_id, user_id)
+);
+
+CREATE TABLE team_quest_locations_status (
+  team_id int NOT NULL REFERENCES teams(id),
   quest_id int NOT NULL REFERENCES quests(id),
   location_id int NOT NULL REFERENCES locations(id),
   status location_status NOT NULL DEFAULT 'active',
 
-  PRIMARY KEY (user_id, quest_id, location_id)
+  PRIMARY KEY (team_id, quest_id, location_id)
 );
 
-INSERT INTO user_quest_locations_status (user_id, quest_id, location_id)
-VALUES
-  (1, 1, 1),
-  (1, 1, 2),
-  (1, 1, 3),
-  (1, 1, 4),
-  (1, 1, 5),
-  (1, 1, 6),
-  (1, 1, 7);
-
 GRANT ALL PRIVILEGES ON ALL TABLES IN SCHEMA public TO arscav;
+GRANT ALL ON ALL SEQUENCES IN SCHEMA public TO arscav;
