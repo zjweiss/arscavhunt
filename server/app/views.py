@@ -204,6 +204,7 @@ def login(req):
                     user_info.first_name,
                     user_info.last_name,
                     user_info.username,
+                    user_info.avatar_url,
                     COALESCE(points, 0) as points 
                 FROM user_info, cte2;
             """, [username])
