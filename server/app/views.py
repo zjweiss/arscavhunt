@@ -62,6 +62,7 @@ def users(req):
                   users u
                 LEFT JOIN user_quest_locations_status uqls ON u.id = uqls.user_id
                 LEFT JOIN quest_locations qpl ON uqls.quest_id = qpl.quest_id AND uqls.location_id = qpl.location_id
+                WHERE u.id <> 0
                 GROUP BY
                   u.id, u.first_name, u.last_name, u.username
                 ORDER BY
@@ -140,7 +141,7 @@ def get_active_quest_details(req, user_id, quest_id):
     if req.method != 'GET':
         return HttpResponse(status=404)
     
-    if user_id and quest_id:
+    if quest_id:
         with connection.cursor() as cursor:
             cursor.execute("""
             SELECT
@@ -162,7 +163,8 @@ def get_active_quest_details(req, user_id, quest_id):
             JOIN location_tag lt ON lt.location_id = ql.location_id
             JOIN tags ON lt.tag_id = tags.id
             WHERE ql.quest_id = %s
-            GROUP BY ql.quest_id, ql.location_id, l.name, latitude, longitude, description, thumbnail, ar_enabled, distance_threshold, status, points;
+            GROUP BY ql.quest_id, ql.location_id, l.name, latitude, longitude, description, thumbnail, ar_enabled, distance_threshold, status, points
+            ORDER BY CAST(status AS CHAR);
             """, [user_id, quest_id])
 
             rows = fetchall(cursor)
@@ -222,7 +224,7 @@ def submit_checkpoint(req, user_id: int, quest_id: int, location_id: int):
     if req.method not in {'POST'}:
         return HttpResponse(status=404)
 
-    if user_id and quest_id and location_id:
+    if quest_id and location_id:
         with connection.cursor() as cursor:
             cursor.execute("""
                 UPDATE user_quest_locations_status AS uql
@@ -232,8 +234,6 @@ def submit_checkpoint(req, user_id: int, quest_id: int, location_id: int):
                     AND uql.quest_id = %s 
                     AND uql.location_id = %s
             """, [user_id, quest_id, location_id])
-            # Do we need to do a validity check to make sure
-            # the ids passed to the call are valid? (i.e. imagine location_id = 8?)
             return HttpResponse(status=200)
     else:
         return HttpResponse(status=400)
@@ -244,7 +244,7 @@ def accept_quest(req, user_id: int, quest_id: int):
     if req.method not in {'POST'}:
         return HttpResponse(status=404)
     
-    if user_id and quest_id:
+    if quest_id:
         with connection.cursor() as cursor:
             cursor.execute("""
                 WITH sub_qs AS (
