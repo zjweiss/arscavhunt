@@ -32,9 +32,9 @@ VALUES
   ('Zach', 'Weiss', 'zjweiss', 'https://3.142.74.134/media/users/4.jpg'),
   ('Abbie', 'Tooman', 'atooman', 'https://3.142.74.134/media/users/5.jpg');
 
-INSERT INTO users (id, first_name, last_name, username)
+INSERT INTO users (id, first_name, last_name, username, avatar_url)
 VALUES
-  (0, 'demo', 'demo', 'demo');
+  (0, 'demo', 'demo', 'demo', '');
 
 CREATE TABLE locations (
   id serial PRIMARY KEY,
