@@ -20,13 +20,17 @@ struct InactiveQuestCard: View {
             } label: {
                 VStack {
                     if let imageUrl = URL(string: quest.quest_thumbnail) {
-                        AsyncImage(url: imageUrl){
-                            $0.resizable()
-                                .scaledToFit()
-                                .foregroundStyle(.tint)
-                                .cornerRadius(5.0)
-                        } placeholder: {
-                            ProgressView()
+                        GeometryReader { geometry in
+                            AsyncImage(url: imageUrl){
+                                $0.resizable()
+                                    .scaledToFill()
+                                    .frame(width: geometry.size.width - 20, height: (geometry.size.width - 20) * 0.66) // 40 for padding, adjust as needed
+                                    .cornerRadius(5.0)
+                                    .padding(.horizontal, 10) // Adjust padding as needed
+                                    .foregroundStyle(.tint)
+                            } placeholder: {
+                                ProgressView()
+                            }
                         }
                         .frame(width: 300, height: 200)
                     }
