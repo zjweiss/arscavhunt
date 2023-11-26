@@ -19,6 +19,7 @@
 		42AC26332AF5D229000CF09A /* LocationVerification.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42AC26322AF5D229000CF09A /* LocationVerification.swift */; };
 		42AC26352AF7DBD0000CF09A /* LoginView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42AC26342AF7DBD0000CF09A /* LoginView.swift */; };
 		42B0F8F62AFA7B0000FF5DB4 /* LeaderboardRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42B0F8F52AFA7B0000FF5DB4 /* LeaderboardRow.swift */; };
+		42E9E2E42B0D611A0034BACE /* ScavengarStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42E9E2E32B0D611A0034BACE /* ScavengarStore.swift */; };
 		42F039F42B01B26B00EA3851 /* ActiveQuestCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42F039F32B01B26B00EA3851 /* ActiveQuestCard.swift */; };
 		42F039F82B01B2F800EA3851 /* InactiveQuestCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42F039F72B01B2F800EA3851 /* InactiveQuestCard.swift */; };
 		42F6642A2B0DD9E30036AA90 /* cube.usdz in Resources */ = {isa = PBXBuildFile; fileRef = 42F664262B0DD9E30036AA90 /* cube.usdz */; };
@@ -49,6 +50,7 @@
 		42AC26322AF5D229000CF09A /* LocationVerification.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationVerification.swift; sourceTree = "<group>"; };
 		42AC26342AF7DBD0000CF09A /* LoginView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginView.swift; sourceTree = "<group>"; };
 		42B0F8F52AFA7B0000FF5DB4 /* LeaderboardRow.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = LeaderboardRow.swift; path = scavengARQuest/LeaderboardRow.swift; sourceTree = SOURCE_ROOT; };
+		42E9E2E32B0D611A0034BACE /* ScavengarStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = ScavengarStore.swift; path = scavengARQuest/ScavengarStore.swift; sourceTree = SOURCE_ROOT; };
 		42F039F32B01B26B00EA3851 /* ActiveQuestCard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = ActiveQuestCard.swift; path = scavengARQuest/ActiveQuestCard.swift; sourceTree = SOURCE_ROOT; };
 		42F039F72B01B2F800EA3851 /* InactiveQuestCard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = InactiveQuestCard.swift; path = scavengARQuest/InactiveQuestCard.swift; sourceTree = SOURCE_ROOT; };
 		42F664262B0DD9E30036AA90 /* cube.usdz */ = {isa = PBXFileReference; lastKnownFileType = file.usdz; name = cube.usdz; path = ../../arFiles/cube.usdz; sourceTree = "<group>"; };
@@ -117,6 +119,7 @@
 				428F1DA32AF3217A009C8815 /* geodata.swift */,
 				428F1DA52AF32205009C8815 /* LocationDetails.swift */,
 				42AC26322AF5D229000CF09A /* LocationVerification.swift */,
+				42E9E2E32B0D611A0034BACE /* ScavengarStore.swift */,
 				428F1DAD2AF32F47009C8815 /* MapView.swift */,
 				428F1DA92AF32D7D009C8815 /* KeywordTag.swift */,
 				8716DE772AF3043700EB5DDE /* ActiveQuestPage.swift */,
@@ -221,6 +224,7 @@
 				8DDBEE032AF04F71002B5EB4 /* QuestDetailPage.swift in Sources */,
 				428F1DAE2AF32F47009C8815 /* MapView.swift in Sources */,
 				42AC26332AF5D229000CF09A /* LocationVerification.swift in Sources */,
+				42E9E2E42B0D611A0034BACE /* ScavengarStore.swift in Sources */,
 				420156AC2AEED418007189B5 /* ContentView.swift in Sources */,
 				428F1DA62AF32205009C8815 /* LocationDetails.swift in Sources */,
 				8DDBEDF72AEF4E99002B5EB4 /* QuestPage.swift in Sources */,
