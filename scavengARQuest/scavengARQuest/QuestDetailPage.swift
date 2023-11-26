@@ -76,7 +76,7 @@ struct QuestDetailPage: View {
                 .alert(isPresented: $showAlert) {
                         Alert(
                             title: Text("Not logged in"),
-                            message: Text("You are not currently logged in, and can't accept any quests as a result.")
+                            message: Text("You are not currently logged in, and can't accept any quests.")
                         )
                     }
             }
