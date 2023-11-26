@@ -10,10 +10,13 @@ import SwiftUI
 struct QuestDetailPage: View {
     
     //TODO remove this
-    @Binding var quest: Quest
+    let questID: Int
     @State private var teamId = ""
-    @State var questAccepted: Bool = false
+    @State private var showAlert = false
+    @Binding var returnBool: Bool
     let serverUrl = "https://3.142.74.134"
+    private let store = ScavengarStore.shared
+
     
     func submitQuestAcceptance(userID: Int, questID: Int) async {
 
@@ -38,7 +41,7 @@ struct QuestDetailPage: View {
         } catch {
             print("login: NETWORKING ERROR")
         }
-        questAccepted.toggle()
+        returnBool.toggle()
         return
     }
 
@@ -50,13 +53,16 @@ struct QuestDetailPage: View {
                 Button {
                     //do something
                     Task{
-                        if (teamAccept == true){
-                            // do multi user quest acceptance stuff
-                            // to be implemented in MVP
+                        if store.username == "" { // no one is logged in, so show alert message
+                            showAlert.toggle()
                         } else {
-                         // do single user quest acceptance
-                            let userID = UserDefaults.standard.integer(forKey: "userID")
-                            await submitQuestAcceptance(userID: userID, questID: quest.quest_id)
+                            if (teamAccept == true){
+                                // do multi user quest acceptance stuff
+                                // to be implemented in MVP
+                            } else {
+                                // do single user quest acceptance
+                                await submitQuestAcceptance(userID: store.userID, questID: questID)
+                            }
                         }
                     }
                 } label: {
@@ -67,12 +73,19 @@ struct QuestDetailPage: View {
                         .cornerRadius(8)
                         .frame(width: 128, height: 28)
                 }
+                .alert(isPresented: $showAlert) {
+                        Alert(
+                            title: Text("Not logged in"),
+                            message: Text("You are not currently logged in, and can't accept any quests.")
+                        )
+                    }
             }
         }
 
     
     
     var body: some View {
+        let quest: Quest = store.questDict[questID] ?? Quest(quest_id: 0, quest_name: "", quest_thumbnail: "", quest_description: "", quest_rating: "", estimated_time: "", incomplete: -1, complete: -1, quest_status: "active")
         NavigationView{
             VStack{
                 HStack{

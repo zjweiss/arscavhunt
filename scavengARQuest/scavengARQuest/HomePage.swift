@@ -28,61 +28,14 @@ enum RequestError: Error {
 }
 
 struct HomePage: View {
+    private let store = ScavengarStore.shared
     @State private var searchText = ""
-    @State private var quests: [Quest] = []
     @State private var active_quests: [Quest] = []
     @State private var inactive_quests: [Quest] = []
     @State private var isAcceptingQuest = false
     @State private var isOnQuestTab = false
     private let nFields = Mirror(reflecting: Quest.self).children.count
     private let serverUrl = "https://3.142.74.134"
-    
-    func getQuests() async throws -> [Quest] {
-        let userId = UserDefaults.standard.integer(forKey: "userID")
-        let endpoint = serverUrl + "/users/\(userId)/quests/"
-        
-        guard let url = URL(string: endpoint) else {
-            throw RequestError.invalidUrl
-        }
-        
-        var request = URLRequest(url: url)
-        request.setValue("application/json; charset=utf-8", forHTTPHeaderField: "Accept") // expect response in JSON
-        request.httpMethod = "GET"
-        
-        do {
-            let (data, response) = try await URLSession.shared.data(from: url)
-            
-            guard let httpResponse = response as? HTTPURLResponse, httpResponse.statusCode == 200 else {
-                throw RequestError.invalidResponse
-            }
-            
-            let decoder = JSONDecoder()
-            
-            struct QuestResponse: Codable {
-                let data: [Quest]
-            }
-            
-            // Decode the JSON data into the QuestResponse struct
-            let questResponse = try decoder.decode(QuestResponse.self, from: data)
-            
-            // Access the array of quests
-            let quests_all = questResponse.data
-            
-            return quests_all
-        } catch RequestError.invalidData {
-            print("Invalid Data")
-            throw RequestError.invalidData
-        } catch RequestError.invalidResponse {
-            print("Invalid Response")
-            throw RequestError.invalidResponse
-        } catch RequestError.invalidUrl {
-            print("Invalid URL")
-            throw RequestError.invalidUrl
-        } catch {
-            print("Unexpected API error: \(error)")
-            throw error
-        }
-    }
     
     
     var body: some View {
@@ -113,7 +66,7 @@ struct HomePage: View {
                                 .padding(.vertical)
                             //  Active Quests
                             ForEach(active_quests) { quest in
-                                ActiveQuestCard(quest: quest)
+                                ActiveQuestCard(questId: quest.quest_id)
                             }
                             Text("Trending")
                                 .font(.largeTitle)
@@ -121,15 +74,14 @@ struct HomePage: View {
                                 .padding(.vertical)
                             .padding(.trailing, 20)
                             ForEach(inactive_quests) { quest in
-                                InactiveQuestCard(quest: quest)
+                                InactiveQuestCard(questId: quest.quest_id)
                             }
                     }
                     .task {
                         do {
-                            quests = try await getQuests()
-                            // sort quests into active and inactive
-                            active_quests = quests.filter { $0.quest_status == "active" }
-                            inactive_quests = quests.filter { $0.quest_status == "inactive" }
+                            try await store.getQuests()
+                            active_quests = store.quests.filter { $0.quest_status == "active" }
+                            inactive_quests = store.quests.filter { $0.quest_status == "inactive" }
                             
                         } catch RequestError.invalidData {
                             print("Invalid Data")
