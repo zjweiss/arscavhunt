@@ -57,6 +57,7 @@ final class ScavengarStore {
                          }
                 
                 if let team_code = jsonResponse["team_code"] as? String {
+                    print(team_code)
                     questTeamDict[questID] = team_code
                 }
             }
@@ -105,17 +106,19 @@ final class ScavengarStore {
     }
     
     func getOtherTeamates(questID: Int) async throws {
-        if let team_code = questTeamDict[questID] as? String {
+        if let team_code = questTeamDict[questID]{
             let endpoint = "https://3.142.74.134/teams/" + team_code
             print(endpoint)
             
             guard let url = URL(string: endpoint) else {
+                print("teams: invalid url")
                 throw RequestError.invalidUrl
             }
             
             let (data, response) = try await URLSession.shared.data(from: url)
             
             guard let response = response as? HTTPURLResponse, response.statusCode == 200 else {
+                print("teams: invalid response")
                 throw RequestError.invalidResponse
             }
             
@@ -126,7 +129,9 @@ final class ScavengarStore {
                 questTeamateDict[questID] = decoded.data
                 
             } catch {
+                print("teams: invalid decoding")
                 throw RequestError.invalidData
+
             }
             
         }

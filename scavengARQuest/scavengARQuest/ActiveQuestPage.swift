@@ -31,12 +31,12 @@ struct TeamateResponseWrapper: Codable {
     let data: [Teamate]
 }
 
-struct Teamate: Codable {
+struct Teamate: Codable, Identifiable {
     let id: Int
     let first_name: String
     let last_name: String
     let username: String
-    let image_url: String
+    let avatar_url: String
 
 }
 
@@ -62,15 +62,14 @@ struct ActiveQuestPage: View {
                     if let teamates = store.questTeamateDict[questId] {
                         if (teamates.count > 1){
                             HStack{
-                                ForEach(teamates.indices, id: \.self) { index in
-                                    let member = teamates[index]
-                                    if let imageUrl = URL(string: member.image_url) {
+                                ForEach(teamates, id: \.id) { member in
+                                    if let imageUrl = URL(string: member.avatar_url) {
                                         AsyncImage(url: imageUrl){
                                             $0.resizable()
                                                 .aspectRatio(contentMode: .fit)
                                                 .frame(maxWidth: .infinity)
                                                 .clipShape(Circle())
-                                                .frame(width: 10, height: 10)
+                                                .frame(width: 30, height: 30)
                                                 .foregroundStyle(.tint)
                                         } placeholder: {
                                             ProgressView()

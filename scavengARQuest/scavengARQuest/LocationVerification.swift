@@ -81,7 +81,7 @@ struct LocationVerification: View {
         let team_code = locationDetailStore.team_code
         
         print(serverUrl+"/teams/" + team_code + "/quests/" + String(questID) + "/locations/" + String(locationID) + "/submit_checkpoint")
-        guard let apiUrl = URL(string: serverUrl+"/users/" + String(userID) + "/quests/" + String(questID) + "/locations/" + String(locationID) + "/submit_checkpoint") else {
+        guard let apiUrl = URL(string: serverUrl+"/teams/" + team_code + "/quests/" + String(questID) + "/locations/" + String(locationID) + "/submit_checkpoint") else {
             print("login: Bad URL")
             return
         }
