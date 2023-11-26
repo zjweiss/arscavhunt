@@ -120,8 +120,12 @@ struct HomePage: View {
                                 .frame(maxWidth: .infinity, alignment: .leading)
                                 .padding(.vertical)
                             .padding(.trailing, 20)
-                            ForEach(inactive_quests) { quest in
-                                InactiveQuestCard(quest: quest)
+                        ScrollView(.horizontal, showsIndicators: false) {
+                                LazyHGrid(rows: [GridItem()]) {
+                                    ForEach(inactive_quests) { quest in
+                                        InactiveQuestCard(quest: quest)
+                                    }
+                                }
                             }
                     }
                     .task {

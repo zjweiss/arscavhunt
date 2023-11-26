@@ -34,7 +34,6 @@ struct InactiveQuestCard: View {
                         }
                         .frame(width: 300, height: 200)
                     }
-                    Spacer()
                     Text(quest.quest_name)
                         .font(.title2)
                         .frame(maxWidth: .infinity, alignment: .leading)
