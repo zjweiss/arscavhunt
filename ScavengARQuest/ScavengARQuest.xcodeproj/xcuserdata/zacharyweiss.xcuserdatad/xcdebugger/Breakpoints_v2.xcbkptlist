@@ -205,8 +205,8 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "105"
             endingLineNumber = "105"
-            landmarkName = "VerifyButton()"
-            landmarkType = "7">
+            landmarkName = "LocationVerification"
+            landmarkType = "14">
             <Locations>
                <Location
                   uuid = "548ED97D-4C75-4582-9C6D-B90FEDE21C56 - e869626c8264dfd9"
@@ -626,7 +626,7 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "108"
             endingLineNumber = "108"
-            landmarkName = "submitLogin(inputUsername:)"
+            landmarkName = "getQuests()"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>

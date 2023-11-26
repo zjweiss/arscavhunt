@@ -49,8 +49,9 @@ struct LocationVerification: View {
             await submitValidLocation();
 
             do {
+                // FIXME -- hopefully we can get this to work
                 //try await store.getQuests()
-                try await store.getActiveQuestLocations(questID: questID)
+                //try await store.getActiveQuestLocations(questID: questID)
             } catch RequestError.invalidData {
                 print("Invalid Data")
             } catch RequestError.invalidResponse {
