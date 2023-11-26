@@ -39,6 +39,7 @@ struct ActiveQuestCard: View {
                         .font(.title2)
                         .frame(maxWidth: .infinity, alignment: .leading)
                 }
+                ProgressView(value: Double(quest.incomplete), total: Double(quest.complete + quest.incomplete))
             }
         }
         .navigationDestination(isPresented: $isOnQuestTab){

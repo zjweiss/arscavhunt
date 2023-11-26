@@ -38,6 +38,7 @@ struct InactiveQuestCard: View {
                     Text(quest.quest_name)
                         .font(.title2)
                         .frame(maxWidth: .infinity, alignment: .leading)
+                        .padding(.horizontal, 10)
                 }
             }
         }
