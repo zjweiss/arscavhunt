@@ -13,6 +13,7 @@ struct LocationVerification: View {
     @State var locationVerified: Bool = false;
     @State var badLocation  = false;
     let locationID: Int
+    @Binding var returnBinding: Bool
     private let store = ScavengarStore.shared
 
 
@@ -21,9 +22,29 @@ struct LocationVerification: View {
         func DoneButton() -> some View {
             ZStack{
                 Button {
-                    //do something
+                    returnBinding.toggle()
                 } label: {
                     Text("Done")
+                        .font(.title)
+                        .foregroundColor(.white)
+                        .multilineTextAlignment(.center)
+                        .padding(.horizontal, 30)
+                        .padding(.vertical, 30)
+                        .cornerRadius(30)
+                        .background(Color.blue)
+                        .frame(maxWidth: .infinity)
+                        .frame(minHeight: 0, maxHeight: .infinity)
+                }
+            }
+        }
+
+    @ViewBuilder
+        func ARButton() -> some View {
+            ZStack{
+                Button {
+                    //do something
+                } label: {
+                    Text("ARButton")
                         .font(.title)
                         .foregroundColor(.white)
                         .multilineTextAlignment(.center)
@@ -158,11 +179,8 @@ struct LocationVerification: View {
                     .bold()
             }
             Spacer()
-            if locationDetailStore.ar_enabled{
-                 // do AR stuff
-                 // will be implemented in MVP
-                } else {
-                 // show an image if there is no AR stuff
+            if !locationVerified{
+                 // show an image if there is pre verification
                     let displayString: String = "This is what the " +  (locationDetailStore.name) + " looks like.\nHave you found it?";
                     Text(displayString).font(.title2)
                     if let imageUrl = URL(string: locationDetailStore.thumbnail) {
@@ -174,6 +192,12 @@ struct LocationVerification: View {
                         .frame(width: 300, height: 200)
                     }
                 }
+            
+            if locationVerified && locationDetailStore.ar_enabled{
+                // do ar stuff
+                ARButton()
+            }
+            
             Spacer()
             if locationVerified{
                 // show done button

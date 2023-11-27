@@ -13,7 +13,9 @@ struct LocationDetails: View {
     @State var cameraPosition: MapCameraPosition = .userLocation(fallback: .automatic)
     @State var isMapping = false
     @State var hasArrived = false
+    @Binding var returnBinding: Bool
     let locationID: Int
+    
     private let store = ScavengarStore.shared
 
     
@@ -41,7 +43,7 @@ struct LocationDetails: View {
                     .frame(maxWidth: .infinity)
                     .frame(minHeight: 0, maxHeight: .infinity)
             } .navigationDestination(isPresented: $hasArrived) {
-                LocationVerification(locationID: locationID)
+                LocationVerification(locationID: locationID, returnBinding: $returnBinding)
             }
         }
         .edgesIgnoringSafeArea(.all)
