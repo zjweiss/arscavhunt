@@ -12,6 +12,7 @@ struct LocationVerification: View {
     let serverUrl = "https://3.142.74.134"
     @State var locationVerified: Bool = false;
     @State var badLocation  = false;
+    @State var displayAR: Bool = false
     let locationID: Int
     @Binding var returnBinding: Bool
     private let store = ScavengarStore.shared
@@ -39,24 +40,24 @@ struct LocationVerification: View {
         }
 
     @ViewBuilder
-        func ARButton() -> some View {
-            ZStack{
-                Button {
-                    //do something
-                } label: {
-                    Text("ARButton")
-                        .font(.title)
-                        .foregroundColor(.white)
-                        .multilineTextAlignment(.center)
-                        .padding(.horizontal, 30)
-                        .padding(.vertical, 30)
-                        .cornerRadius(30)
-                        .background(Color.blue)
-                        .frame(maxWidth: .infinity)
-                        .frame(minHeight: 0, maxHeight: .infinity)
-                }
+    func ARButton() -> some View {
+        ZStack{
+            Button {
+                displayAR.toggle()
+            } label: {
+                Text("Let's celebrate with some AR!")
+                    .font(.title)
+                    .foregroundColor(.white)
+                    .multilineTextAlignment(.center)
+                    .padding(.horizontal, 30)
+                    .padding(.vertical, 30)
+                    .cornerRadius(30)
+                    .background(Color.blue)
+                    .frame(maxWidth: .infinity)
+                    .frame(minHeight: 0, maxHeight: .infinity)
             }
         }
+    }
     
     func verifyLocation(landmark: GeoData, userLocation: GeoData, thresh: Double = 1, locactionId: Int, questID: Int) async {
         // distanceBetweenPoints returns the distance in km
@@ -67,23 +68,9 @@ struct LocationVerification: View {
         let locationValid = distance * 1000 < thresh
         
         if locationValid{
-            await submitValidLocation();
-
-            do {
-                // FIXME -- hopefully we can get this to work
-                //try await store.getQuests()
-                //try await store.getActiveQuestLocations(questID: questID)
-            } catch RequestError.invalidData {
-                print("Invalid Data")
-            } catch RequestError.invalidResponse {
-                print("Invalid Response")
-            } catch RequestError.invalidUrl {
-                print("Invalid URL")
-            } catch {
-                print("Unexpected API error")
-            }
+            await submitValidLocation()
             
-            locationVerified = true;
+            locationVerified = true
             return
         } else {
             badLocation = true
@@ -96,7 +83,6 @@ struct LocationVerification: View {
         
         
         let locationDetailStore = store.locationDict[locationID] ?? Location(quest_id: -1, location_id: -1, name: "", latitude: "", longitude: "", description: "", thumbnail: "", ar_enabled: false, distance_threshold: "", status: "", points: "", tags: "", team_code: "")
-        let userID: Int  = store.userID
         let questID: Int = locationDetailStore.quest_id
         let locationID: Int = locationDetailStore.location_id
         let team_code = locationDetailStore.team_code

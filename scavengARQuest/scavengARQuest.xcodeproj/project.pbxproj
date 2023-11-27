@@ -83,7 +83,6 @@
 		4201569D2AEED418007189B5 = {
 			isa = PBXGroup;
 			children = (
-				4269F2622B1420EB008EF6CE /* ARViewController.swift */,
 				420156A82AEED418007189B5 /* ScavengARQuest */,
 				420156A72AEED418007189B5 /* Products */,
 			);
@@ -104,6 +103,7 @@
 				8DDBEDFA2AEFE2DA002B5EB4 /* ChatPage.swift */,
 				420156A92AEED418007189B5 /* ScavengARQuestApp.swift */,
 				420156AB2AEED418007189B5 /* ContentView.swift */,
+				4269F2622B1420EB008EF6CE /* ARViewController.swift */,
 				42AC26342AF7DBD0000CF09A /* LoginView.swift */,
 				420156AD2AEED41A007189B5 /* Assets.xcassets */,
 				42F664292B0DD9E30036AA90 /* blockM.usdz */,
