@@ -218,7 +218,6 @@
 				8DDBEDF92AEFE150002B5EB4 /* LeaderboardPage.swift in Sources */,
 				871C64452AF45233008CE4FF /* ActiveQuestListRow.swift in Sources */,
 				8716DE782AF3043700EB5DDE /* ActiveQuestPage.swift in Sources */,
-				8DDBEDF92AEFE150002B5EB4 /* LeaderboardPage.swift in Sources */,
 				428F1DA22AF32069009C8815 /* LocManager.swift in Sources */,
 				428F1DAA2AF32D7D009C8815 /* KeywordTag.swift in Sources */,
 				8DDBEDFB2AEFE2DA002B5EB4 /* ChatPage.swift in Sources */,

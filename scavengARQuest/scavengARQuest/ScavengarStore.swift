@@ -168,7 +168,7 @@ final class ScavengarStore {
                 questTeamDict[questID] = decoded.data[0].team_code;
             }
             
-            print(questLocationDict[questID])
+            print(questLocationDict[questID]!)
         } catch {
             throw RequestError.invalidData
         }
