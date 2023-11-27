@@ -52,7 +52,7 @@ struct LocationDetails: View {
     var body: some View {
         NavigationStack {
         VStack{
-            let locationDetailStore: Location = store.locationDict[locationID] ?? Location(quest_id: -1, location_id: -1, name: "", latitude: "", longitude: "", description: "", thumbnail: "", ar_enabled: false, distance_threshold: "", status: "", points: "", tags: "", team_code: "")
+            let locationDetailStore: Location = store.locationDict[locationID] ?? Location(quest_id: -1, location_id: -1, name: "", latitude: "", longitude: "", description: "", thumbnail: "", ar_file: "", distance_threshold: "", status: "", points: "", tags: "", team_code: "")
             Spacer()
             Text(locationDetailStore.name).bold().font(.title).padding(.vertical, 20)
             Text(locationDetailStore.points + " Points").font(.title2).foregroundColor(.gray).bold()

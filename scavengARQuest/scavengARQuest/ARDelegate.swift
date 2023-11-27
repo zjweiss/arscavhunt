@@ -11,15 +11,24 @@ import UIKit
 
 class ARDelegate: NSObject, ARSCNViewDelegate, ObservableObject {
     private var arView: ARSCNView?
-    
+    private let store = ScavengarStore.shared
+
     func setARView(_ arView: ARSCNView) {
         self.arView = arView
         
         //configuration.planeDetection = .horizontal
         
         arView.delegate = self
-        arView.scene = SCNScene(named: "ship.scn")!
+        arView.scene = SCNScene()
         arView.allowsCameraControl = true
+
+        print(store.filename)
+        let model = SCNScene(named: store.filename)!
+        let modelNode = model.rootNode.childNodes[0]
+        modelNode.position = SCNVector3(0,0,-4)
+        
+        arView.scene.rootNode.addChildNode(modelNode)
+        
         
         let configuration = ARWorldTrackingConfiguration()
         arView.session.run(configuration)

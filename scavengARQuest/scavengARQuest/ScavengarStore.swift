@@ -25,6 +25,7 @@ final class ScavengarStore {
     private(set) var firstName = ""
     private(set) var lastName = ""
     private(set) var points = 0
+    var filename: String = "ship.scn"
     private let serverUrl = "https://3.142.74.134"
     
     
