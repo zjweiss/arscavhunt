@@ -56,6 +56,9 @@ struct LocationVerification: View {
                     .frame(maxWidth: .infinity)
                     .frame(minHeight: 0, maxHeight: .infinity)
             }
+            .navigationDestination(isPresented: $displayAR) {
+                ARView()
+            }
         }
     }
     
