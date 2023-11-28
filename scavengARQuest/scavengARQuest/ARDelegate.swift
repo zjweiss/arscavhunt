@@ -21,11 +21,35 @@ class ARDelegate: NSObject, ARSCNViewDelegate, ObservableObject {
         arView.delegate = self
         arView.scene = SCNScene()
         arView.allowsCameraControl = true
+        arView.autoenablesDefaultLighting = true
 
         print(store.filename)
         let model = SCNScene(named: store.filename)!
-        let modelNode = model.rootNode.childNodes[0]
-        modelNode.position = SCNVector3(0,0,-4)
+        var modelNode = model.rootNode.childNodes[0]
+        
+        print(model.rootNode.childNodes)
+        print(modelNode.childNodes)
+        
+        if (store.filename == "cube.scn"){
+            modelNode.position = SCNVector3(0,0,-0.2)
+
+        } else if (store.filename == "gavel.scn") {
+            modelNode =  model.rootNode.childNodes[0].childNodes[0].childNodes[0]
+            print(modelNode)
+            modelNode.position = SCNVector3(0,0,-3)
+        } else if (store.filename == "football.scn") {
+            modelNode =  model.rootNode.childNodes[0].childNodes[0].childNodes[0]
+            print(modelNode)
+            modelNode.position = SCNVector3(0,0,-3)
+        } else if (store.filename == "pizza.scn") {
+            modelNode =  model.rootNode.childNodes[0].childNodes[0].childNodes[0]
+            print(modelNode)
+            modelNode.position = SCNVector3(0,0,-0.1)
+        } else {
+            modelNode.position = SCNVector3(0,0,-4)
+
+        }
+        
         
         arView.scene.rootNode.addChildNode(modelNode)
         

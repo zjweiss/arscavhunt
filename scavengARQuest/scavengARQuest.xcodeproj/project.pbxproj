@@ -13,6 +13,13 @@
 		420156B12AEED41A007189B5 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 420156B02AEED41A007189B5 /* Preview Assets.xcassets */; };
 		421158022B1523B700B2D9FB /* ARViewRepresentable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 421158012B1523B700B2D9FB /* ARViewRepresentable.swift */; };
 		421158042B1523DA00B2D9FB /* ARDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 421158032B1523DA00B2D9FB /* ARDelegate.swift */; };
+		421F50E62B1561F200C6B77B /* ship.scn in Resources */ = {isa = PBXBuildFile; fileRef = 421F50E42B1561F200C6B77B /* ship.scn */; };
+		421F50FB2B15645100C6B77B /* blockM.scn in Resources */ = {isa = PBXBuildFile; fileRef = 421F50FA2B15645100C6B77B /* blockM.scn */; };
+		421F50FD2B15646500C6B77B /* texture.png in Resources */ = {isa = PBXBuildFile; fileRef = 421F50FC2B15646500C6B77B /* texture.png */; };
+		421F51052B1564D500C6B77B /* cube.scn in Resources */ = {isa = PBXBuildFile; fileRef = 421F51042B1564D500C6B77B /* cube.scn */; };
+		421F510B2B15664300C6B77B /* football.scn in Resources */ = {isa = PBXBuildFile; fileRef = 421F510A2B15664300C6B77B /* football.scn */; };
+		421F510D2B15664A00C6B77B /* gavel.scn in Resources */ = {isa = PBXBuildFile; fileRef = 421F510C2B15664A00C6B77B /* gavel.scn */; };
+		421F51112B15678E00C6B77B /* pizza.scn in Resources */ = {isa = PBXBuildFile; fileRef = 421F51102B15678E00C6B77B /* pizza.scn */; };
 		428F1DA22AF32069009C8815 /* LocManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 428F1DA12AF32069009C8815 /* LocManager.swift */; };
 		428F1DA42AF3217A009C8815 /* geodata.swift in Sources */ = {isa = PBXBuildFile; fileRef = 428F1DA32AF3217A009C8815 /* geodata.swift */; };
 		428F1DA62AF32205009C8815 /* LocationDetails.swift in Sources */ = {isa = PBXBuildFile; fileRef = 428F1DA52AF32205009C8815 /* LocationDetails.swift */; };
@@ -43,6 +50,13 @@
 		420156B02AEED41A007189B5 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		421158012B1523B700B2D9FB /* ARViewRepresentable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = ARViewRepresentable.swift; path = scavengARQuest/ARViewRepresentable.swift; sourceTree = SOURCE_ROOT; };
 		421158032B1523DA00B2D9FB /* ARDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = ARDelegate.swift; path = scavengARQuest/ARDelegate.swift; sourceTree = SOURCE_ROOT; };
+		421F50E42B1561F200C6B77B /* ship.scn */ = {isa = PBXFileReference; lastKnownFileType = file.bplist; path = ship.scn; sourceTree = "<group>"; };
+		421F50FA2B15645100C6B77B /* blockM.scn */ = {isa = PBXFileReference; lastKnownFileType = file; name = blockM.scn; path = scavengARQuest/blockM.scn; sourceTree = SOURCE_ROOT; };
+		421F50FC2B15646500C6B77B /* texture.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = texture.png; sourceTree = "<group>"; };
+		421F51042B1564D500C6B77B /* cube.scn */ = {isa = PBXFileReference; lastKnownFileType = file; name = cube.scn; path = scavengARQuest/cube.scn; sourceTree = SOURCE_ROOT; };
+		421F510A2B15664300C6B77B /* football.scn */ = {isa = PBXFileReference; lastKnownFileType = file; name = football.scn; path = scavengARQuest/football.scn; sourceTree = SOURCE_ROOT; };
+		421F510C2B15664A00C6B77B /* gavel.scn */ = {isa = PBXFileReference; lastKnownFileType = file; name = gavel.scn; path = scavengARQuest/gavel.scn; sourceTree = SOURCE_ROOT; };
+		421F51102B15678E00C6B77B /* pizza.scn */ = {isa = PBXFileReference; lastKnownFileType = file; name = pizza.scn; path = scavengARQuest/pizza.scn; sourceTree = SOURCE_ROOT; };
 		428F1DA12AF32069009C8815 /* LocManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocManager.swift; sourceTree = "<group>"; };
 		428F1DA32AF3217A009C8815 /* geodata.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = geodata.swift; sourceTree = "<group>"; };
 		428F1DA52AF32205009C8815 /* LocationDetails.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationDetails.swift; sourceTree = "<group>"; };
@@ -106,6 +120,13 @@
 				42B0F8F52AFA7B0000FF5DB4 /* LeaderboardRow.swift */,
 				8DDBEDFE2AEFE75A002B5EB4 /* HomePage.swift */,
 				42F039F72B01B2F800EA3851 /* InactiveQuestCard.swift */,
+				421F50E42B1561F200C6B77B /* ship.scn */,
+				421F51042B1564D500C6B77B /* cube.scn */,
+				421F50FA2B15645100C6B77B /* blockM.scn */,
+				421F51102B15678E00C6B77B /* pizza.scn */,
+				421F510A2B15664300C6B77B /* football.scn */,
+				421F510C2B15664A00C6B77B /* gavel.scn */,
+				421F50FC2B15646500C6B77B /* texture.png */,
 				42F039F32B01B26B00EA3851 /* ActiveQuestCard.swift */,
 				8DDBEE022AF04F71002B5EB4 /* QuestDetailPage.swift */,
 				428F1DA12AF32069009C8815 /* LocManager.swift */,
@@ -191,8 +212,15 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				421F50FD2B15646500C6B77B /* texture.png in Resources */,
+				421F51112B15678E00C6B77B /* pizza.scn in Resources */,
 				420156B12AEED41A007189B5 /* Preview Assets.xcassets in Resources */,
+				421F510B2B15664300C6B77B /* football.scn in Resources */,
+				421F50E62B1561F200C6B77B /* ship.scn in Resources */,
 				420156AE2AEED41A007189B5 /* Assets.xcassets in Resources */,
+				421F51052B1564D500C6B77B /* cube.scn in Resources */,
+				421F510D2B15664A00C6B77B /* gavel.scn in Resources */,
+				421F50FB2B15645100C6B77B /* blockM.scn in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
