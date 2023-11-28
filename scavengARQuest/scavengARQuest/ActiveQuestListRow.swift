@@ -67,8 +67,8 @@ struct ActiveQuestLocationCard: View {
         } label: {
             Card()
         }
-        .sheet(isPresented: $isPresented, content: {
+        .navigationDestination(isPresented: $isPresented) {
             LocationDetails(locationID: locationID)
-        })
+        }
     }
 }
