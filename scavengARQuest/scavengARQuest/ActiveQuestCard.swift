@@ -40,6 +40,7 @@ struct ActiveQuestCard: View {
                     Text(quest.quest_name)
                         .font(.title2)
                         .frame(maxWidth: .infinity, alignment: .leading)
+                    ProgressView(value: (Double(quest.complete) / Double(quest.complete + quest.incomplete)))
                 }
             }
         }
