@@ -24,18 +24,38 @@ VALUES
 
   ('May Her Memory Be Our Innermost Revolution', 42.28226903959532, -83.750133755821, 'The vibrantly colored mural depicts a larger-than-life portrait of Ann Lewis, a multidisciplinary Detroit artist known for using public murals, installations and participatory performances to bring attention to topics like gentrification, women''s rights, and police brutality. Her distinctive graphic style is evident in the repetitive geometric patterns that form the background behind her image. Lewis'' thought-provoking gaze engages viewers as her message of empowerment and intersectional social justice advocacy shines through. Created in collaboration with members of the local community, the mural highlights the shared humanity in all people, especially those who are often marginalized like women transitioning from incarceration back into society. Visitors will be struck by the mural''s aesthetically pleasing design and moved by the important issues it illuminates through Lewis'' inspiring artwork.', '', 50),
 
-  ('',	42.28248307674222, -83.7495937711642, '', '', 50),
+  ('WC Bevan',	42.28248307674222, -83.7495937711642, 'W. C. Bevan, a Detroit-based painter and muralist, draws inspiration from his unconventional upbringing and diverse experiences as a punk musician, traveler, graffiti artist, and construction worker in Memphis, TN. His A2AC Mural in Ann Arbor focuses on high-contrast visual movement, architectural extensions, and rhythms rooted in free-associative practices, incorporating shapes sourced from local youth in collaboration with the Community Action Network (CAN) of Ann Arbor. This partnership with CAN allowed students from the Bryant community to actively contribute to the mural''s creative process, aligning with CAN''s mission to empower under-resourced communities in Washtenaw County.', '', 50),
 
-  ('Pat Perry',	42.28095411564499, -83.74956765582102, '', '', 50),
+  ('Pat Perry',	42.28095411564499, -83.74956765582102, 'Pat Perry, a Detroit-based artist originally from Grand Rapids, MI, is known for his itinerant work that combines writing and careful observation in pictures. Primarily a painter and illustrator, Perry''s outdoor murals span various locations globally, including New Zealand, Iraq, Finland, Zurich, Cleveland, New York, Canada, Berlin, Washington D.C., Detroit, and Ann Arbor. With an impressive client list, including The New York Times and Twitter, Perry has been awarded residencies in Katmai National Park and has spoken at notable events like OFFF Barcelona, OFFF Montreal, University of Michigan, and Domestika''s MAD in Madrid. The Ann Arbor project was made possible by the support of 3Mission Design and Development, Ann Arbor Downtown Development Authority, First Martin Co., Bank of Ann Arbor, and passionate individuals dedicated to art in public spaces.', '', 50),
 
-  ('Drifts'	42.28059389456204, -83.74990334047781, '', '', 50),
+  ('Drifts'	42.28059389456204, -83.74990334047781, 'Louise Jones, known as Ouizi, is a Santa Monica-born artist based in Detroit, celebrated for her large-scale floral murals found in public spaces across the U.S. Her unique installations, influenced by her background in drawing and printmaking, depict site-specific plants and animals. Inspired by a visit to the Nichols Arboretum and Matthaei Botanical Gardens, Ouizi''s Ann Arbor mural, titled "Drifts," features Echinacea and Rudbeckia hirta, creating an immersive experience reminiscent of being a small bug in the grass. This focused piece stands out among her works, emphasizing only two flower varieties for a captivating visual impact.', '', 50),
 
-  ('',	42.279848496533994, -83.74782372513464, '', '', 50),
+  ('',	42.279848496533994, -83.74782372513464, 'Conceptual painter Nina Shahin, with a focus on color, space, and shape, creates memory scapes challenging traditional storytelling narratives. Inspired by the oral history custodians in their lineage, especially their father, Nina studied Fine Arts at Eastern Michigan University. Their mural in downtown Ann Arbor is part of the ongoing ROOM series, honoring water''s capacity to hold memory and emotion. An abstracted map of the Huron River from Gallup Park to Barton Pond, the mural was completed freehand in the fall of 2020, showcasing Nina''s unique approach to spatial storytelling.', '', 50),
 
-  ('',	42.279578573199444, -83.74782499999999, '', '', 50),
+  ('',	42.279578573199444, -83.74782499999999, 'Mike Ross, a full-time painter for the past 10 years, specializes in color and pattern, creating predominantly abstract works with occasional figurative elements. Since 2018, he has been delving into mural painting, having completed around a dozen projects, each more ambitious than the last, from local areas to as far as Santiago, Chile. Known for his tidy graphic style, Mike meticulously maps out his murals, allowing for some room for improvisation in the ideal situation. His work features eye-catching yet subtle color combinations, with a seamless flow between colors through pattern and repetition, as you can no doubt see in this mural', '', 50),
 
-  ('The Glass Beads',	42.27700135727122, -83.748233188358, '', '', 50);
+  ('The Glass Beads',	42.27700135727122, -83.748233188358, 'Detroit-based artist Jesse Kassel created a mural on the west-facing wall of the historic Pretzel Bell Building at 120 East Liberty Street. Commissioned by the Ann Arbor Art Center’s Art in Public Initiative on behalf of Shaffran Companies, Ltd., the project received generous support from Shaffran Companies, the Ann Arbor Downtown Development Authority, and private donors passionate about public art in Ann Arbor. The mural is part of the vibrant cultural landscape of Ann Arbor, contributing to the city''s public art initiative.', '', 50);
 
+INSERT INTO quest_locations (quest_id, location_id, points)
+VALUES
+  (2, 8, 50),
+  (2, 9, 50),
+  (2, 10, 50),
+  (2, 11, 50),
+  (2, 12, 50),
+  (2, 13, 50),
+  (2, 14, 50),
+  (2, 15, 50),
+  (2, 16, 50),
+  (2, 17, 50),
+  (2, 18, 50),
+  (2, 19, 50),
+  (2, 20, 50),
+  (2, 21, 50),
+  (2, 22, 50),
+  (2, 23, 50),
+  (2, 24, 50),
+  (2, 25, 50);
 
 
 
