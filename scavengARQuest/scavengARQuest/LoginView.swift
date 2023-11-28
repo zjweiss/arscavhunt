@@ -10,7 +10,7 @@ import SwiftUI
 struct LoginView: View {
     
     private var serverUrl = "https://3.142.74.134"
-    @State private var username = "Enter your username here"
+    @State private var username = "Enter username here"
     @State private var status = LoginStatus.pending
     private let store = ScavengarStore.shared
 
@@ -35,7 +35,6 @@ struct LoginView: View {
                 Text("Login")
                     .font(.subheadline)
                     .foregroundColor(Color(red: 23 / 255.0, green: 37 / 255.0, blue: 84 / 255.0))
-                    .multilineTextAlignment(.center)
                     .padding(.horizontal, 75)
                     .padding(.vertical, 15)
                     .background(Color.white)
@@ -63,14 +62,12 @@ struct LoginView: View {
             }
             .padding(.bottom, 30)
             
-            Spacer()
             Text("Login")
                 .font(/*@START_MENU_TOKEN@*/.title/*@END_MENU_TOKEN@*/)
-                .multilineTextAlignment(.center)
                 .foregroundColor(Color(red: 23 / 255.0, green: 37 / 255.0, blue: 84 / 255.0))
             Divider()
             
-            if store.username != "" {
+            if !store.username.trimmingCharacters(in: .whitespaces).isEmpty {
                 Spacer()
                 Text("You are successfully logged in, \(store.username)!")
                     .foregroundColor(Color.green)
@@ -91,10 +88,21 @@ struct LoginView: View {
                         .font(.title2)
                 }
                 
-                Spacer().padding(.bottom,100)
-                Text("Enter your username\nbelow to log in:").multilineTextAlignment(.center).bold().font(.title2)
-                Spacer()
-                TextEditor(text: $username)
+                Spacer().padding(.bottom, 20)
+                HStack {
+                    Text("Username")
+                        .bold()
+                        .padding(.leading, 20) // Added left padding
+                        .frame(maxWidth: .infinity, alignment: .leading) // Align text to the left
+                }
+                VStack{
+                    TextEditor(text: $username)
+                        .font(.caption)
+                        .multilineTextAlignment(.leading)
+                        .padding(.horizontal, 20)
+                    Divider().padding(.horizontal, 20)
+                    Spacer().padding(.bottom, 100)
+                }
                 SubmitButton()
             }
         }
