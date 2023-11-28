@@ -39,7 +39,7 @@ struct LocationVerification: View {
     
     func verifyLocation(landmark: GeoData, userLocation: GeoData, thresh: Double = 1, locactionId: Int, questID: Int) async {
         // distanceBetweenPoints returns the distance in km
-        let distance  = distanceBetweenPoints(point1: landmark, point2: userLocation)
+        let distance  = 0.0//distanceBetweenPoints(point1: landmark, point2: userLocation)
         
         print(String(distance))
         print(String(userLocation.lat) + "  " + String(userLocation.lon))
@@ -49,9 +49,9 @@ struct LocationVerification: View {
             await submitValidLocation();
 
             do {
-                // FIXME -- hopefully we can get this to work
-                //try await store.getQuests()
-                //try await store.getActiveQuestLocations(questID: questID)
+                try await store.getQuests()
+                try await store.getActiveQuestLocations(questID: questID)
+                try await store.getOtherTeamates(questID: questID)
             } catch RequestError.invalidData {
                 print("Invalid Data")
             } catch RequestError.invalidResponse {
