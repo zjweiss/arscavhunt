@@ -14,15 +14,9 @@ struct LoginView: View {
     @State private var status = LoginStatus.pending
     private let store = ScavengarStore.shared
 
-    
     enum LoginStatus {
          case pending, success, invalid
      }
-    
-    
-    
-    
-    
     
     @ViewBuilder
     func SubmitButton() -> some View {
@@ -38,25 +32,44 @@ struct LoginView: View {
                     }
                 }
             } label: {
-                Text("Submit")
-                    .font(/*@START_MENU_TOKEN@*/.title/*@END_MENU_TOKEN@*/)
-                    .foregroundColor(.white)
+                Text("Login")
+                    .font(.subheadline)
+                    .foregroundColor(Color(red: 23 / 255.0, green: 37 / 255.0, blue: 84 / 255.0))
                     .multilineTextAlignment(.center)
-                    .padding(.horizontal, 30)
-                    .padding(.vertical, 30)
-                    .cornerRadius(30)
-                    .background(Color.blue)
+                    .padding(.horizontal, 75)
+                    .padding(.vertical, 15)
+                    .background(Color.white)
+                    .overlay(
+                        RoundedRectangle(cornerRadius: 30)
+                            .stroke(Color(red: 23 / 255.0, green: 37 / 255.0, blue: 84 / 255.0), lineWidth: 2) // Blue outline
+                    )
                     .frame(maxWidth: .infinity)
                     .frame(minHeight: 0, maxHeight: .infinity)
+                    .cornerRadius(30) // Rounded corners
             }
         }
     }
     
-    
     var body: some View {
         VStack{
+            ZStack {
+                Color(red: 23 / 255.0, green: 37 / 255.0, blue: 84 / 255.0)
+                    .frame(maxWidth: .infinity)
+                    .frame(height: 100)
+                Text("ScavangAR")
+                    .font(.largeTitle)
+                    .foregroundColor(.white)
+                    .bold()
+            }
+            .padding(.bottom, 30)
+            
             Spacer()
-            Text("Welcome to\nScavengAR Quest").font(/*@START_MENU_TOKEN@*/.title/*@END_MENU_TOKEN@*/).bold().multilineTextAlignment(.center)
+            Text("Login")
+                .font(/*@START_MENU_TOKEN@*/.title/*@END_MENU_TOKEN@*/)
+                .multilineTextAlignment(.center)
+                .foregroundColor(Color(red: 23 / 255.0, green: 37 / 255.0, blue: 84 / 255.0))
+            Divider()
+            
             if store.username != "" {
                 Spacer()
                 Text("You are successfully logged in, \(store.username)!")
