@@ -73,9 +73,14 @@ struct HomePage: View {
                                 .frame(maxWidth: .infinity, alignment: .leading)
                                 .padding(.vertical)
                             .padding(.trailing, 20)
-                            ForEach(inactive_quests) { quest in
-                                InactiveQuestCard(questId: quest.quest_id)
+                        ScrollView(.horizontal, showsIndicators: false) {
+                            HStack {
+                                ForEach(inactive_quests) { quest in
+                                    InactiveQuestCard(questId: quest.quest_id)
+                                }
                             }
+                        }
+                        
                     }
                     .task {
                         do {
