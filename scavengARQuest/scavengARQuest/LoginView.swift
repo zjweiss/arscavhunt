@@ -95,14 +95,11 @@ struct LoginView: View {
                         .padding(.leading, 20) // Added left padding
                         .frame(maxWidth: .infinity, alignment: .leading) // Align text to the left
                 }
-                VStack{
                     TextEditor(text: $username)
                         .font(.caption)
                         .multilineTextAlignment(.leading)
-                        .padding(.horizontal, 20)
+                        .padding(.all, 20)
                     Divider().padding(.horizontal, 20)
-                    Spacer().padding(.bottom, 100)
-                }
                 SubmitButton()
             }
         }
