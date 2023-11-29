@@ -10,11 +10,11 @@ import SwiftUI
 struct LocationVerification: View {
     
     let serverUrl = "https://3.142.74.134"
-    @Binding var locationDetailStore: Location;
     @State var locationVerified: Bool = false;
     @State var badLocation  = false;
-    @Binding var returnBinding: Bool;
-    @Binding var completedQuests: Int;
+    let locationID: Int
+    private let store = ScavengarStore.shared
+
 
     
     @ViewBuilder
@@ -22,7 +22,6 @@ struct LocationVerification: View {
             ZStack{
                 Button {
                     //do something
-                    returnBinding.toggle()
                 } label: {
                     Text("Done")
                         .font(.title3)
@@ -36,18 +35,32 @@ struct LocationVerification: View {
             }
         }
     
-    func verifyLocation(landmark: GeoData, userLocation: GeoData, thresh: Double = 1, locactionId: Int) async {
+    func verifyLocation(landmark: GeoData, userLocation: GeoData, thresh: Double = 1, locactionId: Int, questID: Int) async {
         // distanceBetweenPoints returns the distance in km
-        let distance  = distanceBetweenPoints(point1: landmark, point2: userLocation)
+        let distance  = 0.0//distanceBetweenPoints(point1: landmark, point2: userLocation)
+        
         print(String(distance))
         print(String(userLocation.lat) + "  " + String(userLocation.lon))
         let locationValid = distance * 1000 < thresh
         
         if locationValid{
             await submitValidLocation();
+
+            do {
+                try await store.getQuests()
+                try await store.getActiveQuestLocations(questID: questID)
+                try await store.getOtherTeamates(questID: questID)
+            } catch RequestError.invalidData {
+                print("Invalid Data")
+            } catch RequestError.invalidResponse {
+                print("Invalid Response")
+            } catch RequestError.invalidUrl {
+                print("Invalid URL")
+            } catch {
+                print("Unexpected API error")
+            }
+            
             locationVerified = true;
-            locationDetailStore.status = "complete";
-            completedQuests = completedQuests + 1;
             return
         } else {
             badLocation = true
@@ -58,13 +71,15 @@ struct LocationVerification: View {
     
     func submitValidLocation() async {
         
-        let userID: Int  = UserDefaults.standard.integer(forKey: "userID")
+        
+        let locationDetailStore = store.locationDict[locationID] ?? Location(quest_id: -1, location_id: -1, name: "", latitude: "", longitude: "", description: "", thumbnail: "", ar_enabled: false, distance_threshold: "", status: "", points: "", tags: "", team_code: "")
+        let userID: Int  = store.userID
         let questID: Int = locationDetailStore.quest_id
         let locationID: Int = locationDetailStore.location_id
-    
+        let team_code = locationDetailStore.team_code
         
-        print(serverUrl+"/users/" + String(userID) + "/quests/" + String(questID) + "/locations/" + String(locationID) + "/submit_checkpoint")
-        guard let apiUrl = URL(string: serverUrl+"/users/" + String(userID) + "/quests/" + String(questID) + "/locations/" + String(locationID) + "/submit_checkpoint") else {
+        print(serverUrl+"/teams/" + team_code + "/quests/" + String(questID) + "/locations/" + String(locationID) + "/submit_checkpoint")
+        guard let apiUrl = URL(string: serverUrl+"/teams/" + team_code + "/quests/" + String(questID) + "/locations/" + String(locationID) + "/submit_checkpoint") else {
             print("login: Bad URL")
             return
         }
@@ -93,6 +108,7 @@ struct LocationVerification: View {
     func VerifyButton() -> some View {
         NavigationView{
             ZStack{
+                let locationDetailStore = store.locationDict[locationID] ?? Location(quest_id: -1, location_id: -1, name: "", latitude: "", longitude: "", description: "", thumbnail: "", ar_enabled: false, distance_threshold: "", status: "", points: "", tags: "", team_code: "")
                 Button {
                     //do something
                     Task{
@@ -101,7 +117,7 @@ struct LocationVerification: View {
                         let landmarkLocation = GeoData(lat: lat, lon: lon)
                         let userLocation = GeoData(lat: LocManager.shared.location.coordinate.latitude, lon: LocManager.shared.location.coordinate.longitude)
                         
-                        await verifyLocation(landmark: landmarkLocation, userLocation: userLocation, thresh: (Double(locationDetailStore.distance_threshold) ?? 300.0), locactionId: locationDetailStore.location_id)
+                        await verifyLocation(landmark: landmarkLocation, userLocation: userLocation, thresh: (Double(locationDetailStore.distance_threshold) ?? 300.0), locactionId: locationDetailStore.location_id, questID: locationDetailStore.quest_id)
                     }
                 } label: {
                     Text("Verify Location")
@@ -121,6 +137,7 @@ struct LocationVerification: View {
     
     var body: some View {
         VStack{
+            let locationDetailStore = store.locationDict[locationID] ?? Location(quest_id: -1, location_id: -1, name: "", latitude: "", longitude: "", description: "", thumbnail: "", ar_enabled: false, distance_threshold: "", status: "", points: "", tags: "", team_code: "")
                 Spacer()
                 Text(locationDetailStore.name).font(.title).bold()
                 Spacer()

@@ -10,37 +10,12 @@ import SwiftUI
 struct QuestDetailPage: View {
     
     //TODO remove this
-    @Binding var quest: Quest
+    let questID: Int
     @State private var teamId = ""
-    @State var questAccepted: Bool = false
+    @State private var showAlert = false
+    @Binding var returnBool: Bool
     let serverUrl = "https://3.142.74.134"
-    
-    func submitQuestAcceptance(userID: Int, questID: Int) async {
-
-        //format of api endpoint: BASE/users/<user_id>/quests/<quest_id>/accept
-        let urlString = serverUrl+"/users/" + String(userID) + "/quests/" + String(questID) + "/accept/"
-        print(urlString)
-        guard let apiUrl = URL(string: urlString ) else {
-            print("login: Bad URL")
-            return
-        }
-        
-        var request = URLRequest(url: apiUrl)
-        request.setValue("application/json; charset=utf-8", forHTTPHeaderField: "Content-Type")
-        request.httpMethod = "POST"
-        
-        do {
-            let (_, response) = try await URLSession.shared.data(for: request)
-            if let http = response as? HTTPURLResponse, http.statusCode != 200 {
-                print("accept quest: \(HTTPURLResponse.localizedString(forStatusCode: http.statusCode))")
-                return
-            }
-        } catch {
-            print("login: NETWORKING ERROR")
-        }
-        questAccepted.toggle()
-        return
-    }
+    private let store = ScavengarStore.shared
 
 
     @ViewBuilder
@@ -50,13 +25,20 @@ struct QuestDetailPage: View {
                 Button {
                     //do something
                     Task{
-                        if (teamAccept == true){
-                            // do multi user quest acceptance stuff
-                            // to be implemented in MVP
+                        if store.username == "" { // no one is logged in, so show alert message
+                            showAlert.toggle()
                         } else {
-                         // do single user quest acceptance
-                            let userID = UserDefaults.standard.integer(forKey: "userID")
-                            await submitQuestAcceptance(userID: userID, questID: quest.quest_id)
+                            if (teamAccept == true){
+                                // do multi user quest acceptance stuff
+                                await store.submitTeamQuestAcceptance(userID: store.userID, questID: questID, teamID: teamId)
+                                returnBool.toggle()
+
+                            } else {
+                                // do single user quest acceptance
+                                await store.submitSoloQuestAcceptance(userID: store.userID, questID: questID)
+                                returnBool.toggle()
+
+                            }
                         }
                     }
                 } label: {
@@ -67,12 +49,19 @@ struct QuestDetailPage: View {
                         .cornerRadius(8)
                         .frame(width: 128, height: 28)
                 }
+                .alert(isPresented: $showAlert) {
+                        Alert(
+                            title: Text("Not logged in"),
+                            message: Text("You are not currently logged in, and can't accept any quests. Please navigate to the profile page to login.")
+                        )
+                    }
             }
         }
 
     
     
     var body: some View {
+        let quest: Quest = store.questDict[questID] ?? Quest(quest_id: 0, quest_name: "", quest_thumbnail: "", quest_description: "", quest_rating: "", estimated_time: "", incomplete: -1, complete: -1, quest_status: "active")
         NavigationView{
             VStack{
                 HStack{

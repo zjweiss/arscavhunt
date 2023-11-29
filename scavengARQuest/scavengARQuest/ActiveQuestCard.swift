@@ -8,13 +8,15 @@
 import SwiftUI
 
 struct ActiveQuestCard: View {
-    @State  var quest: Quest = Quest(quest_id: -1, quest_name: "", quest_thumbnail: "", quest_description: "", quest_rating: "", estimated_time: "", incomplete: -1, complete: -1, quest_status: "")
+    var questId: Int
     @State private var isOnQuestTab = false
+    private let store = ScavengarStore.shared
 
     
     
     var body: some View {
-        ZStack {
+        let quest: Quest = store.questDict[questId] ?? Quest(quest_id: 0, quest_name: "", quest_thumbnail: "", quest_description: "", quest_rating: "", estimated_time: "", incomplete: -1, complete: -1, quest_status: "active")
+        ZStack{
             Button {
                 isOnQuestTab.toggle()
             } label: {
@@ -37,7 +39,7 @@ struct ActiveQuestCard: View {
                     Text(quest.quest_name)
                         .font(.title2)
                         .frame(maxWidth: .infinity, alignment: .leading)
-                        .padding(.bottom, 20)
+                    ProgressView(value: (Double(quest.complete) / Double(quest.complete + quest.incomplete)))
                 }
             }
             
@@ -49,9 +51,8 @@ struct ActiveQuestCard: View {
                     .padding(.horizontal, 40) // Adjust top padding as needed
             }
         }
-        .navigationDestination(isPresented: $isOnQuestTab) {
-            ActiveQuestPage(quest: $quest)
-        }
-    }
+        .navigationDestination(isPresented: $isOnQuestTab){
+            ActiveQuestPage(questId: questId)
+        }    }
 }
 

@@ -13,9 +13,10 @@ struct LocationDetails: View {
     @State var cameraPosition: MapCameraPosition = .userLocation(fallback: .automatic)
     @State var isMapping = false
     @State var hasArrived = false
-    @Binding var locationDetailStore: Location;
-    @Binding var completedQuests: Int
+    let locationID: Int
+    private let store = ScavengarStore.shared
 
+    
     // This should be the full
     
     // This is to be used by the user once they get their location verified to
@@ -24,7 +25,7 @@ struct LocationDetails: View {
     
     
     @ViewBuilder
-    func ArrivedButton() -> some View {
+    func ArrivedButton(locationID: Int) -> some View {
         ZStack{
             Button {
                 hasArrived.toggle()
@@ -38,10 +39,9 @@ struct LocationDetails: View {
                     .background(Color(red: 23/255, green: 37/255, blue: 84/255))
                     .cornerRadius(5)
             } .navigationDestination(isPresented: $hasArrived) {
-                LocationVerification(locationDetailStore: $locationDetailStore, returnBinding: $hasArrived, completedQuests: $completedQuests)
+                LocationVerification(locationID: locationID)
             }
         }
-        .edgesIgnoringSafeArea(.all)
     }
     
     var body: some View {
@@ -85,7 +85,6 @@ struct LocationDetails: View {
                 ArrivedButton()
             }
         }
-    }
     }
 }
 

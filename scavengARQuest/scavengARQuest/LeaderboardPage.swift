@@ -11,7 +11,7 @@ struct UsersResponseWrapper: Codable {
     let data: [User]
 }
 
-struct User: Codable {
+struct User: Codable, Identifiable {
     let userId: Int
     let firstName: String
     let lastName: String
@@ -19,12 +19,17 @@ struct User: Codable {
     let avatarUrl: String
     let totalPoints: String
     let ranking: Int
+    
+    var id: Int { return userId }
+
 }
 
 struct LeaderboardPage: View {
     @State private var response: UsersResponseWrapper?
     @State private var currentUser: User?
     private var serverUrl: String = "https://3.142.74.134"
+    private let store = ScavengarStore.shared
+
     
     func getUsers() async throws -> UsersResponseWrapper {
         let endpoint = serverUrl + "/users/"
@@ -65,24 +70,25 @@ struct LeaderboardPage: View {
         NavigationView {
             VStack {
                 // Current User Information.
+                Text("Leaderboard")
+                    .font(.system(size: 30))
+                    .fontWeight(.bold)
+                    .frame(maxWidth: .infinity, alignment: .leading)
                 if let user = currentUser {
                     Spacer()
-                    Text("Leaderboard")
-                        .font(.system(size: 30))
-                        .fontWeight(.bold)
-                        .frame(maxWidth: .infinity, alignment: .leading)
+                    
                     
                     Spacer(minLength: 20)
                     
                     AsyncImage(url: URL(string: user.avatarUrl)) { image in
-                            image
-                                .resizable()
-                        } placeholder: {
-                            Image(systemName: "photo.fill")
-                                .foregroundColor(.gray)
-                        }
-                        .frame(width: 50, height: 50) // Adjust the width and height as needed
-                        .cornerRadius(5.0)
+                        image
+                            .resizable()
+                    } placeholder: {
+                        Image(systemName: "photo.fill")
+                            .foregroundColor(.gray)
+                    }
+                    .frame(width: 50, height: 50) // Adjust the width and height as needed
+                    .cornerRadius(5.0)
                     
                     Text(user.firstName + " " + user.lastName)
                         .font(.system(size: 25))
@@ -116,7 +122,16 @@ struct LeaderboardPage: View {
                     }
                     
                     Divider() // Create a horizontal line
-                    
+                } else {
+                    VStack{
+                        Text("Sign in now to start earning points!")
+                           .font(.system(size: 22))
+                           .fontWeight(.semibold)
+                           .foregroundColor(Color.gray) // Set the text color to gray
+                           .frame(maxWidth: .infinity, alignment: .center)
+                       Divider() // Create a horizontal line
+                   }
+                }
                     Spacer(minLength: 20)
                                             
                     Text("Ranking")
@@ -126,10 +141,9 @@ struct LeaderboardPage: View {
                         
                     ScrollView {
                         if let unwrappedResponse = response {
-                            ForEach(unwrappedResponse.data.indices, id: \.self) { index in
-                                let user = unwrappedResponse.data[index]
+                            ForEach(unwrappedResponse.data, id: \.userId) { user in
                                 LeaderboardRow(
-                                    currentUserId: UserDefaults.standard.integer(forKey: "userID"),
+                                    currentUserId: store.userID,
                                     user: user
                                 )
                             }
@@ -137,19 +151,16 @@ struct LeaderboardPage: View {
                             ProgressView()
                         }
                     }
-                } else {
-                    ProgressView()
-                }
-                // Scroll View of other users.
             }.onAppear {
                 Task {
                     do {
                         response = try await getUsers()
-                        
+                        print("got response")
                         if let unwrappedResponse = response {
                             for idx in 0..<unwrappedResponse.data.count {
                                 let user: User = unwrappedResponse.data[idx]
-                                if user.userId == UserDefaults.standard.integer(forKey: "userID") {
+                                if user.userId == store.userID {
+                                    print("found user")
                                     currentUser = user
                                 }
                             }
