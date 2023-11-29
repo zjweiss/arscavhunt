@@ -28,8 +28,8 @@ struct KeywordPill: View {
         Text(keyword)
             .padding(.horizontal, 4)
             .padding(.vertical, 4)
-            .background(Color(red: 191 / 255, green: 219 / 255, blue: 254 / 255)) // Hex: #BFDBFE
-            .foregroundColor(Color(red: 0.1176, green: 0.2275, blue: 0.5412))
+            .background(Color.blue)
+            .foregroundColor(.white)
             .cornerRadius(10)
     }
 }
