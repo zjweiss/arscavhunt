@@ -25,15 +25,13 @@ struct LocationVerification: View {
                     returnBinding.toggle()
                 } label: {
                     Text("Done")
-                        .font(.title)
+                        .font(.title3)
                         .foregroundColor(.white)
                         .multilineTextAlignment(.center)
-                        .padding(.horizontal, 30)
-                        .padding(.vertical, 30)
-                        .cornerRadius(30)
-                        .background(Color.blue)
-                        .frame(maxWidth: .infinity)
-                        .frame(minHeight: 0, maxHeight: .infinity)
+                        .padding(.horizontal, 100)
+                        .padding(.vertical, 10)
+                        .background(Color(red: 23/255, green: 37/255, blue: 84/255))
+                        .cornerRadius(5)
                 }
             }
         }
@@ -107,15 +105,13 @@ struct LocationVerification: View {
                     }
                 } label: {
                     Text("Verify Location")
-                        .font(/*@START_MENU_TOKEN@*/.title/*@END_MENU_TOKEN@*/)
+                        .font(.title3)
                         .foregroundColor(.white)
                         .multilineTextAlignment(.center)
-                        .padding(.horizontal, 30)
-                        .padding(.vertical, 30)
-                        .cornerRadius(30)
-                        .background(Color.blue)
-                        .frame(maxWidth: .infinity)
-                        .frame(minHeight: 0, maxHeight: .infinity)
+                        .padding(.horizontal, 100)
+                        .padding(.vertical, 10)
+                        .background(Color(red: 23/255, green: 37/255, blue: 84/255))
+                        .cornerRadius(5)
                 }
             }
         }
@@ -147,14 +143,15 @@ struct LocationVerification: View {
                 } else {
                  // show an image if there is no AR stuff
                     let displayString: String = "This is what the " +  (locationDetailStore.name) + " looks like.\nHave you found it?";
-                    Text(displayString).font(.title2)
+                    Text(displayString).font(.subheadline)
                     if let imageUrl = URL(string: locationDetailStore.thumbnail) {
                         AsyncImage(url: imageUrl){
-                            $0.resizable().scaledToFit()
+                            $0.resizable().scaledToFill()
                         } placeholder: {
                             ProgressView()
                         }
-                        .frame(width: 300, height: 200)
+                        .frame(width: 370, height: 237)
+                        .cornerRadius(10.0)
                     }
                 }
             Spacer()

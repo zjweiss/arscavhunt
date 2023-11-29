@@ -14,14 +14,14 @@ struct ActiveQuestCard: View {
     
     
     var body: some View {
-        ZStack{
+        ZStack {
             Button {
                 isOnQuestTab.toggle()
             } label: {
                 VStack {
                     if let imageUrl = URL(string: quest.quest_thumbnail) {
                         GeometryReader { geometry in
-                            AsyncImage(url: imageUrl){
+                            AsyncImage(url: imageUrl) {
                                 $0.resizable()
                                     .scaledToFill()
                                     .frame(width: geometry.size.width - 20, height: (geometry.size.width - 20) * 0.66) // 40 for padding, adjust as needed
@@ -37,12 +37,21 @@ struct ActiveQuestCard: View {
                     Text(quest.quest_name)
                         .font(.title2)
                         .frame(maxWidth: .infinity, alignment: .leading)
+                        .padding(.bottom, 20)
                 }
+            }
+            
+            // Separate VStack for ProgressView
+            VStack {
+                Spacer()
                 ProgressView(value: Double(quest.incomplete), total: Double(quest.complete + quest.incomplete))
+                    .padding(.top, 30)
+                    .padding(.horizontal, 40) // Adjust top padding as needed
             }
         }
-        .navigationDestination(isPresented: $isOnQuestTab){
+        .navigationDestination(isPresented: $isOnQuestTab) {
             ActiveQuestPage(quest: $quest)
-        }    }
+        }
+    }
 }
 
