@@ -1,5 +1,128 @@
-INSERT INTO tags (name);
-  
+INSERT INTO tags (name)
+VALUES
+  ('creativity'),
+  ('inspiration'),
+  ('community'),
+
+  ('icons'),
+  ('portraits'),
+  ('literature'),
+
+  ('joyful'),
+  ('colorful'),
+  ('imaginative'),
+
+  ('folk art'),
+  ('playful'),
+  ('mischievous'),
+
+  ('abstract'),
+  ('geometric'),
+  ('colorful'),
+
+  ('landscape'),
+  ('vernacular'),
+  ('environment'),
+
+  ('art'),
+  ('downtown'),
+  ('original'),
+
+  ('taylor white'),
+  ('a2ac murals'),
+  ('art'),
+
+  ('jacob dwyer'),
+  ('native michigan birds'),
+  ('red-bellied woodpecker'),
+
+  ('truth-seeking'),
+  ('love in art'),
+  ('hopeful creations'),
+
+  ('acclaimed artist'),
+  ('art and activism'),
+  ('social impact art'),
+
+  ('diverse experiences'),
+  ('punk musician'),
+  ('traveler'),
+
+  ('grand rapids'),
+  ('itinerant work'),
+  ('writing and observation in art'),
+
+  ('focused art piece'),
+  ('visual impact'),
+  ('celebrated artist'),
+
+  ('spatial storytelling'),
+  ('unique artistic approach'),
+  ('honoring water'),
+
+  ('creative exploration'),
+  ('artistic precision'),
+  ('abstract expressionism'),
+
+  ('historic building'),
+  ('creative city enhancement'),
+  ('public art support');
+
+INSERT INTO location_tag (location_id, tag_id)
+VALUES
+  (8, 4),
+  (8, 5),
+  (8, 6),
+  (9, 7),
+  (9, 8),
+  (9, 9),
+  (10, 10),
+  (10, 11),
+  (10, 12),
+  (11, 13),
+  (11, 14),
+  (11, 15),
+  (12, 16),
+  (12, 17),
+  (12, 18),
+  (13, 19),
+  (13, 20),
+  (13, 21),
+  (14, 22),
+  (14, 23),
+  (14, 24),
+  (15, 25),
+  (15, 26),
+  (15, 27),
+  (16, 28),
+  (16, 29),
+  (16, 30),
+  (17, 31),
+  (17, 32),
+  (17, 33),
+  (18, 34),
+  (18, 35),
+  (18, 36),
+  (19, 37),
+  (19, 38),
+  (19, 39),
+  (20, 40),
+  (20, 41),
+  (20, 42),
+  (21, 43),
+  (21, 44),
+  (21, 45),
+  (22, 46),
+  (22, 47),
+  (22, 48),
+  (23, 49),
+  (23, 50),
+  (23, 51),
+  (24, 52),
+  (24, 53),
+  (24, 54),
+  (25, 55);
+
 INSERT INTO locations (name, latitude, longitude, description, thumbnail, distance_threshold)
 VALUES
   ('Challenge Everything. Create Anything',	42.2811408716837, -83.74752358, 'Behold the captivating "Challenge Everything. Create Anything." mural, a testament to the dynamic collaboration between Destination Ann Arbor, Wickfield Properties, and esteemed local artists Mary Thiefels and Danijel Matanic. Adorning the 10-story wall of Courthouse Square at 100 South 4th Avenue, this vibrant masterpiece, completed in the summer of 2019, radiates Ann Arbor''s spirited essence and tight-knit community spirit. The mural invites onlookers to embrace human creativity, ingenuity, and curiosity through its playful and illustrative depiction, earning widespread acclaim and becoming a cherished symbol of the city''s cultural vitality.', 'http://3.142.74.134/media/1.png', 50),
