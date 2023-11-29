@@ -23,7 +23,7 @@ struct ActiveQuestCard: View {
                 VStack {
                     if let imageUrl = URL(string: quest.quest_thumbnail) {
                         GeometryReader { geometry in
-                            AsyncImage(url: imageUrl){
+                            AsyncImage(url: imageUrl) {
                                 $0.resizable()
                                     .scaledToFill()
                                     .frame(width: geometry.size.width - 20, height: (geometry.size.width - 20) * 0.66) // 40 for padding, adjust as needed
@@ -36,7 +36,6 @@ struct ActiveQuestCard: View {
                         }
                         .frame(width: 300, height: 200)
                     }
-                    Spacer()
                     Text(quest.quest_name)
                         .font(.title2)
                         .frame(maxWidth: .infinity, alignment: .leading)
