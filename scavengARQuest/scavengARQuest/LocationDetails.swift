@@ -29,16 +29,14 @@ struct LocationDetails: View {
             Button {
                 hasArrived.toggle()
             } label: {
-                Text("I'VE ARRIVED?")
-                    .font(/*@START_MENU_TOKEN@*/.title/*@END_MENU_TOKEN@*/)
+                Text("I've arrived?")
+                    .font(.title3)
                     .foregroundColor(.white)
                     .multilineTextAlignment(.center)
-                    .padding(.horizontal, 70)
-                    .padding(.vertical, 30)
-                    .cornerRadius(30)
-                    .background(Color.blue)
-                    .frame(maxWidth: .infinity)
-                    .frame(minHeight: 0, maxHeight: .infinity)
+                    .padding(.horizontal, 100)
+                    .padding(.vertical, 10)
+                    .background(Color(red: 23/255, green: 37/255, blue: 84/255))
+                    .cornerRadius(5)
             } .navigationDestination(isPresented: $hasArrived) {
                 LocationVerification(locationDetailStore: $locationDetailStore, returnBinding: $hasArrived, completedQuests: $completedQuests)
             }
@@ -49,29 +47,35 @@ struct LocationDetails: View {
     var body: some View {
         NavigationStack {
         VStack{
-            Spacer()
-            Text(locationDetailStore.name).bold().font(.title).padding(.vertical, 20)
-            Text(locationDetailStore.points + " Points").font(.title2).foregroundColor(.gray).bold()
+            Text(locationDetailStore.name).bold().font(.title).padding(.top, 20)
+            Text(locationDetailStore.points + " Points").font(.subheadline).foregroundColor(.gray).bold()
             if let imageUrl = URL(string: locationDetailStore.thumbnail) {
                 AsyncImage(url: imageUrl){
-                    $0.resizable().scaledToFit()
+                    $0.resizable().scaledToFill()
                 } placeholder: {
                     ProgressView()
                 }
-                .frame(width: 300, height: 200)
+                .frame(width: 370, height: 237)
+                .cornerRadius(10.0)
             }
             Spacer()
             KeywordTag(keywords: locationDetailStore.tags )
             Spacer()
-            Text(locationDetailStore.description)
+            Text(locationDetailStore.description).padding(.horizontal, 30)
             Spacer()
             Button {
                 cameraPosition = .camera(MapCamera(
                     centerCoordinate: CLLocationCoordinate2D(latitude: Double(locationDetailStore.latitude) ?? 0, longitude: Double(locationDetailStore.longitude) ?? 0), distance: 500, heading: 0, pitch: 60))
                 isMapping.toggle()
             } label: {
-                Image(systemName: "mappin.and.ellipse").scaleEffect(2.5).padding(.top, 20)
+                HStack {
+                    Image(systemName: "mappin.and.ellipse").scaleEffect(2).padding(.top, 20).offset(x: -20)
+                    Text("Need a hint?")
+                        .baselineOffset(-25) // Adjust the value to move the text up or down
+                }
+//                .padding(.top, 20.0)
             }
+            .padding(.bottom, 20)
             .navigationDestination(isPresented: $isMapping) {
                 MapView(cameraPosition: $cameraPosition, locationDetails: locationDetailStore)
             }
