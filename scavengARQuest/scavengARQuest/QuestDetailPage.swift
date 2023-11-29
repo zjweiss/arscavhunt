@@ -89,13 +89,15 @@ struct QuestDetailPage: View {
                         .foregroundStyle(.tint)
                 }
                 if let imageUrl = URL(string: quest.quest_thumbnail) {
-                    AsyncImage(url: imageUrl){
-                        $0.resizable().scaledToFit()
-                    } placeholder: {
-                        ProgressView()
-                    }
-                    .frame(width: 392, height: 174)
-                    .cornerRadius(5.0)
+                    ZStack {
+                            AsyncImage(url: imageUrl) {
+                                $0.resizable().scaledToFit()
+                            } placeholder: {
+                                ProgressView()
+                            }
+                            .frame(width: 394, height: 237)
+                        }
+                        .cornerRadius(5.0)
                 }
                 HStack{
                     VStack{
