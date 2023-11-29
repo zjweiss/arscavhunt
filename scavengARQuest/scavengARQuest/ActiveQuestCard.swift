@@ -42,14 +42,6 @@ struct ActiveQuestCard: View {
                     ProgressView(value: (Double(quest.complete) / Double(quest.complete + quest.incomplete)))
                 }
             }
-            
-            // Separate VStack for ProgressView
-            VStack {
-                Spacer()
-                ProgressView(value: Double(quest.incomplete), total: Double(quest.complete + quest.incomplete))
-                    .padding(.top, 30)
-                    .padding(.horizontal, 40) // Adjust top padding as needed
-            }
         }
         .navigationDestination(isPresented: $isOnQuestTab){
             ActiveQuestPage(questId: questId)

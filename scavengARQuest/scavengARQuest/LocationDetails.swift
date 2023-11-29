@@ -15,7 +15,7 @@ struct LocationDetails: View {
     @State var hasArrived = false
     let locationID: Int
     private let store = ScavengarStore.shared
-
+    
     
     // This should be the full
     
@@ -46,54 +46,46 @@ struct LocationDetails: View {
     
     var body: some View {
         NavigationStack {
-        VStack{
-            Text(locationDetailStore.name).bold().font(.title).padding(.top, 20)
-            Text(locationDetailStore.points + " Points").font(.subheadline).foregroundColor(.gray).bold()
-            if let imageUrl = URL(string: locationDetailStore.thumbnail) {
-                AsyncImage(url: imageUrl){
-                    $0.resizable().scaledToFill()
-                } placeholder: {
-                    ProgressView()
+            VStack{
+                let locationDetailStore: Location = store.locationDict[locationID] ?? Location(quest_id: -1, location_id: -1, name: "", latitude: "", longitude: "", description: "", thumbnail: "", ar_enabled: false, distance_threshold: "", status: "", points: "", tags: "", team_code: "")
+                Text(locationDetailStore.name).bold().font(.title).padding(.top, 20)
+                Text(locationDetailStore.points + " Points").font(.subheadline).foregroundColor(.gray).bold()
+                if let imageUrl = URL(string: locationDetailStore.thumbnail) {
+                    AsyncImage(url: imageUrl){
+                        $0.resizable().scaledToFill()
+                    } placeholder: {
+                        ProgressView()
+                    }
+                    .frame(width: 370, height: 237)
+                    .cornerRadius(10.0)
                 }
-                .frame(width: 370, height: 237)
-                .cornerRadius(10.0)
-            }
-            Spacer()
-            KeywordTag(keywords: locationDetailStore.tags )
-            Spacer()
-            Text(locationDetailStore.description).padding(.horizontal, 30)
-            Spacer()
-            Button {
-                cameraPosition = .camera(MapCamera(
-                    centerCoordinate: CLLocationCoordinate2D(latitude: Double(locationDetailStore.latitude) ?? 0, longitude: Double(locationDetailStore.longitude) ?? 0), distance: 500, heading: 0, pitch: 60))
-                isMapping.toggle()
-            } label: {
-                HStack {
-                    Image(systemName: "mappin.and.ellipse").scaleEffect(2).padding(.top, 20).offset(x: -20)
-                    Text("Need a hint?")
-                        .baselineOffset(-25) // Adjust the value to move the text up or down
+                Spacer()
+                KeywordTag(keywords: locationDetailStore.tags )
+                Spacer()
+                Text(locationDetailStore.description).padding(.horizontal, 30)
+                Spacer()
+                Button {
+                    cameraPosition = .camera(MapCamera(
+                        centerCoordinate: CLLocationCoordinate2D(latitude: Double(locationDetailStore.latitude) ?? 0, longitude: Double(locationDetailStore.longitude) ?? 0), distance: 500, heading: 0, pitch: 60))
+                    isMapping.toggle()
+                } label: {
+                    HStack {
+                        Image(systemName: "mappin.and.ellipse").scaleEffect(2).padding(.top, 20).offset(x: -20)
+                        Text("Need a hint?")
+                            .baselineOffset(-25) // Adjust the value to move the text up or down
+                    }
+                    //                .padding(.top, 20.0)
                 }
-//                .padding(.top, 20.0)
-            }
-            .padding(.bottom, 20)
-            .navigationDestination(isPresented: $isMapping) {
-                MapView(cameraPosition: $cameraPosition, locationDetails: locationDetailStore)
-            }
-            
-            Spacer()
-            if (locationDetailStore.status != "complete"){
-                ArrivedButton()
+                .padding(.bottom, 20)
+                .navigationDestination(isPresented: $isMapping) {
+                    MapView(cameraPosition: $cameraPosition, locationDetails: locationDetailStore)
+                }
+                
+                Spacer()
+                if (locationDetailStore.status != "complete"){
+                    ArrivedButton(locationID: locationID)
+                }
             }
         }
     }
 }
-
-
-
-/*
-struct LocationDetails_Preview: PreviewProvider {
-    static var previews: some View {
-        LocationDetails( locationDetailStore: LocationDetailsStore(name: "DOW", imageUrl: "https://brand.umich.edu/assets/brand/style-guide/logo-guidelines/Block_M-Hex.png", description: "The Herbert H. Dow Building, an architectural marvel, named after the renowned chemist Herbert H. Dow, is a focal point for students and researchers in the fields of chemistry and natural sciences. Inside, it houses advanced laboratories and collaborative spaces that foster innovation and groundbreaking discoveries. The Herbert H. Dow Building stands as a testament to the university's commitment to pushing the boundaries of knowledge and shaping the future of scientific research.", labels: "Engineering,North Campus,Herbert Dow, Quiet,Nerds,Fun", geodata: GeoData(lat: 42.293911, lon: -83.713577) ), returnBinding: Binding<Bool>)
-    }
-}
-*/
