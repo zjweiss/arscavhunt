@@ -85,6 +85,7 @@ struct LocationVerification: View {
             print("login: Bad URL")
             return
         }
+
         
         var request = URLRequest(url: apiUrl)
         request.setValue("application/json; charset=utf-8", forHTTPHeaderField: "Content-Type")
