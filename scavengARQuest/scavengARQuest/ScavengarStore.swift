@@ -25,6 +25,7 @@ final class ScavengarStore {
     private(set) var firstName = ""
     private(set) var lastName = ""
     private(set) var points = 0
+    var filename: String = "pizza.scn"
     private let serverUrl = "https://3.142.74.134"
     
     
@@ -168,7 +169,7 @@ final class ScavengarStore {
                 questTeamDict[questID] = decoded.data[0].team_code;
             }
             
-            print(questLocationDict[questID])
+            print(questLocationDict[questID]!)
         } catch {
             throw RequestError.invalidData
         }

@@ -11,7 +11,8 @@ import SwiftUI
 struct ScavengARQuestApp: App {
     var body: some Scene {
         WindowGroup {
-            ContentView()
+            //ContentView()
+            ARView()
         }
     }
 }

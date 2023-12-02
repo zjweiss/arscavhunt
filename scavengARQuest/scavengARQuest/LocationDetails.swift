@@ -13,7 +13,9 @@ struct LocationDetails: View {
     @State var cameraPosition: MapCameraPosition = .userLocation(fallback: .automatic)
     @State var isMapping = false
     @State var hasArrived = false
+    @Binding var returnBinding: Bool
     let locationID: Int
+    
     private let store = ScavengarStore.shared
     
     
@@ -39,7 +41,7 @@ struct LocationDetails: View {
                     .background(Color(red: 23/255, green: 37/255, blue: 84/255))
                     .cornerRadius(5)
             } .navigationDestination(isPresented: $hasArrived) {
-                LocationVerification(locationID: locationID)
+                LocationVerification(locationID: locationID, returnBinding: $returnBinding)
             }
         }
     }

@@ -12,7 +12,9 @@ struct LocationVerification: View {
     let serverUrl = "https://3.142.74.134"
     @State var locationVerified: Bool = false;
     @State var badLocation  = false;
+    @State var displayAR: Bool = false
     let locationID: Int
+    @Binding var returnBinding: Bool
     private let store = ScavengarStore.shared
 
 
@@ -21,7 +23,7 @@ struct LocationVerification: View {
         func DoneButton() -> some View {
             ZStack{
                 Button {
-                    //do something
+                    returnBinding.toggle()
                 } label: {
                     Text("Done")
                         .font(.title3)
@@ -34,10 +36,34 @@ struct LocationVerification: View {
                 }
             }
         }
+
+    @ViewBuilder
+    func ARButton() -> some View {
+        ZStack{
+            Button {
+                displayAR.toggle()
+            } label: {
+                Text("Let's celebrate with some AR!")
+                    .font(.title)
+                    .foregroundColor(.white)
+                    .multilineTextAlignment(.center)
+                    .padding(.horizontal, 30)
+                    .padding(.vertical, 30)
+                    .cornerRadius(30)
+                    .background(Color.blue)
+                    .frame(maxWidth: .infinity)
+                    .frame(minHeight: 0, maxHeight: .infinity)
+            }
+            .navigationDestination(isPresented: $displayAR) {
+                ARView()
+            }
+        }
+    }
     
     func verifyLocation(landmark: GeoData, userLocation: GeoData, thresh: Double = 1, locactionId: Int, questID: Int) async {
         // distanceBetweenPoints returns the distance in km
         let distance  = 0.0//distanceBetweenPoints(point1: landmark, point2: userLocation)
+        store.filename = store.locationDict[locationID]?.ar_file ?? ""
         
         print(String(distance))
         print(String(userLocation.lat) + "  " + String(userLocation.lon))
@@ -60,7 +86,7 @@ struct LocationVerification: View {
                 print("Unexpected API error")
             }
             
-            locationVerified = true;
+            locationVerified = true
             return
         } else {
             badLocation = true
@@ -72,8 +98,7 @@ struct LocationVerification: View {
     func submitValidLocation() async {
         
         
-        let locationDetailStore = store.locationDict[locationID] ?? Location(quest_id: -1, location_id: -1, name: "", latitude: "", longitude: "", description: "", thumbnail: "", ar_enabled: false, distance_threshold: "", status: "", points: "", tags: "", team_code: "")
-        let userID: Int  = store.userID
+        let locationDetailStore = store.locationDict[locationID] ?? Location(quest_id: -1, location_id: -1, name: "", latitude: "", longitude: "", description: "", thumbnail: "", ar_file: "", distance_threshold: "", status: "", points: "", tags: "", team_code: "")
         let questID: Int = locationDetailStore.quest_id
         let locationID: Int = locationDetailStore.location_id
         let team_code = locationDetailStore.team_code
@@ -109,7 +134,7 @@ struct LocationVerification: View {
     func VerifyButton() -> some View {
         NavigationView{
             ZStack{
-                let locationDetailStore = store.locationDict[locationID] ?? Location(quest_id: -1, location_id: -1, name: "", latitude: "", longitude: "", description: "", thumbnail: "", ar_enabled: false, distance_threshold: "", status: "", points: "", tags: "", team_code: "")
+                let locationDetailStore = store.locationDict[locationID] ?? Location(quest_id: -1, location_id: -1, name: "", latitude: "", longitude: "", description: "", thumbnail: "", ar_file: "", distance_threshold: "", status: "", points: "", tags: "", team_code: "")
                 Button {
                     //do something
                     Task{
@@ -138,7 +163,7 @@ struct LocationVerification: View {
     
     var body: some View {
         VStack{
-            let locationDetailStore = store.locationDict[locationID] ?? Location(quest_id: -1, location_id: -1, name: "", latitude: "", longitude: "", description: "", thumbnail: "", ar_enabled: false, distance_threshold: "", status: "", points: "", tags: "", team_code: "")
+            let locationDetailStore = store.locationDict[locationID] ?? Location(quest_id: -1, location_id: -1, name: "", latitude: "", longitude: "", description: "", thumbnail: "", ar_file: "", distance_threshold: "", status: "", points: "", tags: "", team_code: "")
                 Spacer()
                 Text(locationDetailStore.name).font(.title).bold()
                 Spacer()
@@ -155,11 +180,8 @@ struct LocationVerification: View {
                     .bold()
             }
             Spacer()
-            if locationDetailStore.ar_enabled{
-                 // do AR stuff
-                 // will be implemented in MVP
-                } else {
-                 // show an image if there is no AR stuff
+            if !locationVerified{
+                 // show an image if there is pre verification
                     let displayString: String = "This is what the " +  (locationDetailStore.name) + " looks like.\nHave you found it?";
                     Text(displayString).font(.subheadline)
                     if let imageUrl = URL(string: locationDetailStore.thumbnail) {
@@ -172,6 +194,13 @@ struct LocationVerification: View {
                         .cornerRadius(10.0)
                     }
                 }
+            
+                if locationVerified && locationDetailStore.ar_file != "" {
+                    ARButton()
+            }
+            
+            
+            
             Spacer()
             if locationVerified{
                 // show done button
