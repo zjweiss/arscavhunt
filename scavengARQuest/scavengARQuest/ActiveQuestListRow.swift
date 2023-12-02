@@ -68,7 +68,7 @@ struct ActiveQuestLocationCard: View {
             Card()
         }
         .navigationDestination(isPresented: $isPresented) {
-            LocationDetails(locationID: locationID)
+            LocationDetails(returnBinding: $isPresented, locationID: locationID)
         }
     }
 }
