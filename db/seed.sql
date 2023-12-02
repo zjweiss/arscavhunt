@@ -3,6 +3,7 @@
 -- \c scavangardb
 -- \i arscavhunt/db/seed.sql
 
+
 DROP TABLE IF EXISTS users CASCADE;
 
 DROP TABLE IF EXISTS quests CASCADE;
