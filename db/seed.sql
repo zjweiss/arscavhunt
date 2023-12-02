@@ -309,6 +309,33 @@ VALUES
   ('Lurie Bell Tower', 42.29223992589584, -83.71629344821156, 'Piercing the sky with its timeless elegance, the Lurie Bell Tower graces the North Campus of the University of Michigan, standing as a melodic symbol of academic achievement and innovation. Named in honor of engineering pioneers Peter and Clara Lurie, the tower not only marks the passage of time with its carillon chimes but also symbolizes the enduring spirit of excellence that defines the university''s commitment to engineering and technology.', 'http://3.142.74.134/media/bell_tower.jpeg', 300, 'blockM.scn'),
   ('South Quad Dining Hall', 42.27362160663896, -83.74195810218781, 'A culinary haven in the heart of South Campus, the South Quad Dining Hall is a gastronomic delight for University of Michigan students. Boasting a diverse array of dining options, from comfort food to international cuisine, the hall is a bustling gathering spot where students come together to savor delicious meals, forge friendships, and fuel their academic journeys in a warm and inviting atmosphere.', 'http://3.142.74.134/media/south_quad.jpeg', 300, 'pizza.scn');
 
+
+INSERT INTO tags (name)
+VALUES
+  ('legal scholarship'),
+  ('gothic architecture'),
+  ('academic excellence'),
+
+  ('interactive art'),
+  ('ann arbor landmark'),
+  ('creative expression'),
+
+  ('college football'),
+  ('wolverines spirit'),
+  ('game day experience'),
+
+  ('student life'),
+  ('community hub'),
+  ('historic meeting place'),
+
+  ('engineering excellence'),
+  ('carillon chimes'),
+  ('innovation symbol'),
+
+  ('culinary delights'),
+  ('social gathering'),
+  ('diverse cuisine');
+
 INSERT INTO location_tag (location_id, tag_id)
 VALUES
   (25, 56),
@@ -336,31 +363,7 @@ VALUES
   (3, 29, 100),
   (3, 30, 100);
 
-INSERT INTO tags (name)
-VALUES
-  ('legal scholarship'),
-  ('gothic architecture'),
-  ('academic excellence'),
 
-  ('interactive art'),
-  ('ann arbor landmark'),
-  ('creative expression'),
-
-  ('college football'),
-  ('wolverines spirit'),
-  ('game day experience'),
-
-  ('student life'),
-  ('community hub'),
-  ('historic meeting place'),
-
-  ('engineering excellence'),
-  ('carillon chimes'),
-  ('innovation symbol'),
-
-  ('culinary delights'),
-  ('social gathering'),
-  ('diverse cuisine');
 
 
 
