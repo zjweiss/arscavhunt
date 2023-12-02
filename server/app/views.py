@@ -60,7 +60,7 @@ def users(req):
                   u.last_name,
                   u.username,
                   u.avatar_url,
-                  COALESCE(SUM(CASE WHEN uqls.status = 'complete' THEN qpl.points ELSE 0 END), 0) AS total_points
+                  COALESCE(SUM(CASE WHEN tqls.status = 'complete' THEN qpl.points ELSE 0 END), 0) AS total_points
                 FROM
                   users u
                 LEFT JOIN team_users tu ON u.id = tu.user_id
@@ -74,7 +74,7 @@ def users(req):
             )
             SELECT 
               *,
-              RANK() OVER (ORDER BY total_points DESC) as ranking 
+              DENSE_RANK() OVER (ORDER BY total_points DESC) as ranking 
             FROM cte;
         """)
         rows = fetchall(cursor)
@@ -168,7 +168,7 @@ def get_active_quest_details(req, user_id, quest_id):
                 JOIN teams ON teams.id = tu.team_id
                 JOIN team_quest_locations_status tqls ON tqls.team_id = tu.team_id AND tqls.location_id = ql.location_id AND tqls.quest_id = ql.quest_id
               WHERE ql.quest_id = %s
-              GROUP BY ql.quest_id, ql.location_id, l.name, latitude, longitude, description, thumbnail, ar_enabled, distance_threshold, status, points, code;
+              GROUP BY ql.quest_id, ql.location_id, l.name, latitude, longitude, description, thumbnail, ar_enabled, distance_threshold, status, points, code
               ORDER BY CAST(status AS CHAR);
             """, [user_id, quest_id])
 
@@ -264,7 +264,7 @@ def accept_quest(req, user_id: int, quest_id: int):
     # code as part of the JSON payload.
     if req.body:
         body = json.loads(req.body)
-        team_code = body.get("code", None)
+        team_code = body.get("team_code", None)
 
         if team_code:
             with connection.cursor() as cursor:
@@ -283,6 +283,8 @@ def accept_quest(req, user_id: int, quest_id: int):
                     return JsonResponse(data={"team_code": team_code}, status=200)
 
                 return HttpResponse(status=404)
+
+        return HttpResponse(status=404)
     
     # When a user accepts a quest solo, they will be provided an invite code (or team identification string)
     # other users can provide this team identification string to join the original user in this quest.

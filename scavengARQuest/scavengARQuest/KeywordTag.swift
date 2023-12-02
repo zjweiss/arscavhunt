@@ -26,10 +26,14 @@ struct KeywordPill: View {
 
     var body: some View {
         Text(keyword)
-            .padding(.horizontal, 4)
-            .padding(.vertical, 4)
-            .background(Color.blue)
-            .foregroundColor(.white)
+            .padding(.horizontal, 6)
+            .padding(.vertical, 6)
+            .background(Color(
+                red: 191 / 255.0,
+                green: 219 / 255.0,
+                blue: 254 / 255.0
+            ))
+            .foregroundColor(Color(red: 23/255, green: 37/255, blue: 84/255))
             .cornerRadius(10)
     }
 }

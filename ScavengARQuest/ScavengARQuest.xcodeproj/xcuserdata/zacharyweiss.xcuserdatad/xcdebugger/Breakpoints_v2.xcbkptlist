@@ -203,10 +203,10 @@
             filePath = "ScavengARQuest/LocationVerification.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "103"
-            endingLineNumber = "103"
-            landmarkName = "VerifyButton()"
-            landmarkType = "7">
+            startingLineNumber = "105"
+            endingLineNumber = "105"
+            landmarkName = "LocationVerification"
+            landmarkType = "14">
             <Locations>
                <Location
                   uuid = "548ED97D-4C75-4582-9C6D-B90FEDE21C56 - e869626c8264dfd9"
@@ -458,54 +458,6 @@
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            uuid = "0E617557-21EE-4D93-9E8A-E09800D8D2AE"
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "ScavengARQuest/LoginView.swift"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "34"
-            endingLineNumber = "34"
-            landmarkName = "submitLogin()"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            uuid = "7489DC03-FEC7-4994-9C78-84344F8253FB"
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "ScavengARQuest/LoginView.swift"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "35"
-            endingLineNumber = "35"
-            landmarkName = "submitLogin()"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            uuid = "2C4766E3-15A3-4D6F-88A8-1E78614EC0BF"
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "ScavengARQuest/LoginView.swift"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "33"
-            endingLineNumber = "33"
-            landmarkName = "submitLogin()"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
             uuid = "B39DD2E0-B37B-4049-A622-6170E79ECF98"
             shouldBeEnabled = "No"
             ignoreCount = "0"
@@ -513,8 +465,8 @@
             filePath = "scavengARQuest/QuestDetailPage.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "58"
-            endingLineNumber = "58"
+            startingLineNumber = "64"
+            endingLineNumber = "64"
             landmarkName = "AcceptQuest(teamAccept:teamId:)"
             landmarkType = "7">
             <Locations>
@@ -576,8 +528,8 @@
             filePath = "scavengARQuest/QuestDetailPage.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "41"
-            endingLineNumber = "41"
+            startingLineNumber = "44"
+            endingLineNumber = "44"
             landmarkName = "submitQuestAcceptance(userID:questID:)"
             landmarkType = "7">
             <Locations>
@@ -624,8 +576,8 @@
             filePath = "scavengARQuest/HomePage.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "131"
-            endingLineNumber = "131"
+            startingLineNumber = "84"
+            endingLineNumber = "84"
             landmarkName = "body"
             landmarkType = "24">
             <Locations>
@@ -665,125 +617,141 @@
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            uuid = "5D52AD09-E3C0-4CA7-84A3-32E8E7F5879B"
+            uuid = "340F5910-9735-496F-A6E5-E9AC99F5444E"
             shouldBeEnabled = "No"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "scavengARQuest/ActiveQuestPage.swift"
+            filePath = "scavengARQuest/ScavengarStore.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "44"
-            endingLineNumber = "44"
-            landmarkName = "getActiveQuestLocations()"
+            startingLineNumber = "108"
+            endingLineNumber = "108"
+            landmarkName = "getQuests()"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            uuid = "C22D18A0-58B1-49E7-9271-52B20D249A86"
-            shouldBeEnabled = "Yes"
+            uuid = "AA46D7CE-C1A2-4725-84A1-A44EAD5C94AD"
+            shouldBeEnabled = "No"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "scavengARQuest/ActiveQuestPage.swift"
+            filePath = "scavengARQuest/ScavengarStore.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "60"
-            endingLineNumber = "60"
-            landmarkName = "getActiveQuestLocations()"
+            startingLineNumber = "120"
+            endingLineNumber = "120"
+            landmarkName = "submitLogin(inputUsername:)"
             landmarkType = "7">
             <Locations>
                <Location
-                  uuid = "C22D18A0-58B1-49E7-9271-52B20D249A86 - a71d44830b399561"
+                  uuid = "AA46D7CE-C1A2-4725-84A1-A44EAD5C94AD - bf706275f3c432fe"
                   shouldBeEnabled = "Yes"
                   ignoreCount = "0"
                   continueAfterRunningActions = "No"
-                  symbolName = "(1) suspend resume partial function for ScavengARQuest.ActiveQuestPage.getActiveQuestLocations() async throws -&gt; ScavengARQuest.ActiveQuestLocationsResponseWrapper"
+                  symbolName = "ScavengARQuest.ScavengarStore.submitLogin() async -&gt; Swift.Int"
                   moduleName = "ScavengARQuest"
                   usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/zacharyweiss/Desktop/arscavhunt/scavengARQuest/scavengARQuest/ActiveQuestPage.swift"
+                  urlString = "file:///Users/zacharyweiss/Desktop/arscavhunt/scavengARQuest/scavengARQuest/ScavengarStore.swift"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "60"
-                  endingLineNumber = "60"
-                  offsetFromSymbolStart = "1644">
+                  startingLineNumber = "88"
+                  endingLineNumber = "88"
+                  offsetFromSymbolStart = "24">
                </Location>
                <Location
-                  uuid = "C22D18A0-58B1-49E7-9271-52B20D249A86 - ef260b8d5d06c0a3"
+                  uuid = "AA46D7CE-C1A2-4725-84A1-A44EAD5C94AD - a5e9d49365d73882"
                   shouldBeEnabled = "Yes"
                   ignoreCount = "0"
                   continueAfterRunningActions = "No"
-                  symbolName = "(2) await resume partial function for ScavengARQuest.ActiveQuestPage.getActiveQuestLocations() async throws -&gt; ScavengARQuest.ActiveQuestLocationsResponseWrapper"
+                  symbolName = "(1) suspend resume partial function for ScavengARQuest.ScavengarStore.submitLogin() async -&gt; Swift.Int"
                   moduleName = "ScavengARQuest"
                   usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/zacharyweiss/Desktop/arscavhunt/scavengARQuest/scavengARQuest/ActiveQuestPage.swift"
+                  urlString = "file:///Users/zacharyweiss/Desktop/arscavhunt/scavengARQuest/scavengARQuest/ScavengarStore.swift"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "60"
-                  endingLineNumber = "60"
-                  offsetFromSymbolStart = "52">
+                  startingLineNumber = "88"
+                  endingLineNumber = "88"
+                  offsetFromSymbolStart = "92">
                </Location>
                <Location
-                  uuid = "C22D18A0-58B1-49E7-9271-52B20D249A86 - 308e27c127853173"
+                  uuid = "AA46D7CE-C1A2-4725-84A1-A44EAD5C94AD - a5e9d49365d73882"
                   shouldBeEnabled = "Yes"
                   ignoreCount = "0"
                   continueAfterRunningActions = "No"
-                  symbolName = "(3) suspend resume partial function for ScavengARQuest.ActiveQuestPage.getActiveQuestLocations() async throws -&gt; ScavengARQuest.ActiveQuestLocationsResponseWrapper"
+                  symbolName = "(1) suspend resume partial function for ScavengARQuest.ScavengarStore.submitLogin() async -&gt; Swift.Int"
                   moduleName = "ScavengARQuest"
                   usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/zacharyweiss/Desktop/arscavhunt/scavengARQuest/scavengARQuest/ActiveQuestPage.swift"
+                  urlString = "file:///Users/zacharyweiss/Desktop/arscavhunt/scavengARQuest/scavengARQuest/ScavengarStore.swift"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "60"
-                  endingLineNumber = "60"
-                  offsetFromSymbolStart = "128">
+                  startingLineNumber = "88"
+                  endingLineNumber = "88"
+                  offsetFromSymbolStart = "1240">
                </Location>
                <Location
-                  uuid = "C22D18A0-58B1-49E7-9271-52B20D249A86 - 87c688a6c834ff8c"
+                  uuid = "AA46D7CE-C1A2-4725-84A1-A44EAD5C94AD - 9ea7675511d0c2b7"
                   shouldBeEnabled = "Yes"
                   ignoreCount = "0"
                   continueAfterRunningActions = "No"
-                  symbolName = "(4) suspend resume partial function for ScavengARQuest.ActiveQuestPage.getActiveQuestLocations() async throws -&gt; ScavengARQuest.ActiveQuestLocationsResponseWrapper"
+                  symbolName = "(2) await resume partial function for ScavengARQuest.ScavengarStore.submitLogin() async -&gt; Swift.Int"
                   moduleName = "ScavengARQuest"
                   usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/zacharyweiss/Desktop/arscavhunt/scavengARQuest/scavengARQuest/ActiveQuestPage.swift"
+                  urlString = "file:///Users/zacharyweiss/Desktop/arscavhunt/scavengARQuest/scavengARQuest/ScavengarStore.swift"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "60"
-                  endingLineNumber = "60"
+                  startingLineNumber = "88"
+                  endingLineNumber = "88"
+                  offsetFromSymbolStart = "24">
+               </Location>
+               <Location
+                  uuid = "AA46D7CE-C1A2-4725-84A1-A44EAD5C94AD - de61d99941ad750c"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "(3) suspend resume partial function for ScavengARQuest.ScavengarStore.submitLogin() async -&gt; Swift.Int"
+                  moduleName = "ScavengARQuest"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/zacharyweiss/Desktop/arscavhunt/scavengARQuest/scavengARQuest/ScavengarStore.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "88"
+                  endingLineNumber = "88"
+                  offsetFromSymbolStart = "104">
+               </Location>
+               <Location
+                  uuid = "AA46D7CE-C1A2-4725-84A1-A44EAD5C94AD - fdbddc1db396574d"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "(4) suspend resume partial function for ScavengARQuest.ScavengarStore.submitLogin() async -&gt; Swift.Int"
+                  moduleName = "ScavengARQuest"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/zacharyweiss/Desktop/arscavhunt/scavengARQuest/scavengARQuest/ScavengarStore.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "88"
+                  endingLineNumber = "88"
                   offsetFromSymbolStart = "44">
                </Location>
-               <Location
-                  uuid = "C22D18A0-58B1-49E7-9271-52B20D249A86 - 308e27c127853150"
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "(3) suspend resume partial function for ScavengARQuest.ActiveQuestPage.getActiveQuestLocations() async throws -&gt; ScavengARQuest.ActiveQuestLocationsResponseWrapper"
-                  moduleName = "ScavengARQuest"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/zacharyweiss/Desktop/arscavhunt/scavengARQuest/scavengARQuest/ActiveQuestPage.swift"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "59"
-                  endingLineNumber = "59"
-                  offsetFromSymbolStart = "1032">
-               </Location>
-               <Location
-                  uuid = "C22D18A0-58B1-49E7-9271-52B20D249A86 - 308e27c1278531b5"
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "(3) suspend resume partial function for ScavengARQuest.ActiveQuestPage.getActiveQuestLocations() async throws -&gt; ScavengARQuest.ActiveQuestLocationsResponseWrapper"
-                  moduleName = "ScavengARQuest"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/zacharyweiss/Desktop/arscavhunt/scavengARQuest/scavengARQuest/ActiveQuestPage.swift"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "62"
-                  endingLineNumber = "62"
-                  offsetFromSymbolStart = "1032">
-               </Location>
             </Locations>
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "9D01BDAC-D8E9-42D1-BF92-E4CBFBD924FF"
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "scavengARQuest/ScavengarStore.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "121"
+            endingLineNumber = "121"
+            landmarkName = "submitLogin(inputUsername:)"
+            landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
    </Breakpoints>

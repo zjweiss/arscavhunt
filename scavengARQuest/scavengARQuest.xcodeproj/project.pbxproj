@@ -19,6 +19,7 @@
 		42AC26332AF5D229000CF09A /* LocationVerification.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42AC26322AF5D229000CF09A /* LocationVerification.swift */; };
 		42AC26352AF7DBD0000CF09A /* LoginView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42AC26342AF7DBD0000CF09A /* LoginView.swift */; };
 		42B0F8F62AFA7B0000FF5DB4 /* LeaderboardRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42B0F8F52AFA7B0000FF5DB4 /* LeaderboardRow.swift */; };
+		42E9E2E42B0D611A0034BACE /* ScavengarStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42E9E2E32B0D611A0034BACE /* ScavengarStore.swift */; };
 		42F039F42B01B26B00EA3851 /* ActiveQuestCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42F039F32B01B26B00EA3851 /* ActiveQuestCard.swift */; };
 		42F039F82B01B2F800EA3851 /* InactiveQuestCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42F039F72B01B2F800EA3851 /* InactiveQuestCard.swift */; };
 		8716DE782AF3043700EB5DDE /* ActiveQuestPage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8716DE772AF3043700EB5DDE /* ActiveQuestPage.swift */; };
@@ -26,7 +27,6 @@
 		8DDBEDF72AEF4E99002B5EB4 /* QuestPage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DDBEDF62AEF4E99002B5EB4 /* QuestPage.swift */; };
 		8DDBEDF92AEFE150002B5EB4 /* LeaderboardPage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DDBEDF82AEFE150002B5EB4 /* LeaderboardPage.swift */; };
 		8DDBEDFB2AEFE2DA002B5EB4 /* ChatPage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DDBEDFA2AEFE2DA002B5EB4 /* ChatPage.swift */; };
-		8DDBEDFD2AEFE337002B5EB4 /* ProfilePage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DDBEDFC2AEFE337002B5EB4 /* ProfilePage.swift */; };
 		8DDBEDFF2AEFE75A002B5EB4 /* HomePage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DDBEDFE2AEFE75A002B5EB4 /* HomePage.swift */; };
 		8DDBEE032AF04F71002B5EB4 /* QuestDetailPage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DDBEE022AF04F71002B5EB4 /* QuestDetailPage.swift */; };
 /* End PBXBuildFile section */
@@ -45,6 +45,7 @@
 		42AC26322AF5D229000CF09A /* LocationVerification.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationVerification.swift; sourceTree = "<group>"; };
 		42AC26342AF7DBD0000CF09A /* LoginView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginView.swift; sourceTree = "<group>"; };
 		42B0F8F52AFA7B0000FF5DB4 /* LeaderboardRow.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = LeaderboardRow.swift; path = scavengARQuest/LeaderboardRow.swift; sourceTree = SOURCE_ROOT; };
+		42E9E2E32B0D611A0034BACE /* ScavengarStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = ScavengarStore.swift; path = scavengARQuest/ScavengarStore.swift; sourceTree = SOURCE_ROOT; };
 		42F039F32B01B26B00EA3851 /* ActiveQuestCard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = ActiveQuestCard.swift; path = scavengARQuest/ActiveQuestCard.swift; sourceTree = SOURCE_ROOT; };
 		42F039F72B01B2F800EA3851 /* InactiveQuestCard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = InactiveQuestCard.swift; path = scavengARQuest/InactiveQuestCard.swift; sourceTree = SOURCE_ROOT; };
 		8716DE772AF3043700EB5DDE /* ActiveQuestPage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = ActiveQuestPage.swift; path = scavengARQuest/ActiveQuestPage.swift; sourceTree = SOURCE_ROOT; };
@@ -52,7 +53,6 @@
 		8DDBEDF62AEF4E99002B5EB4 /* QuestPage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = QuestPage.swift; path = scavengARQuest/QuestPage.swift; sourceTree = SOURCE_ROOT; };
 		8DDBEDF82AEFE150002B5EB4 /* LeaderboardPage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = LeaderboardPage.swift; path = scavengARQuest/LeaderboardPage.swift; sourceTree = SOURCE_ROOT; };
 		8DDBEDFA2AEFE2DA002B5EB4 /* ChatPage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatPage.swift; sourceTree = "<group>"; };
-		8DDBEDFC2AEFE337002B5EB4 /* ProfilePage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfilePage.swift; sourceTree = "<group>"; };
 		8DDBEDFE2AEFE75A002B5EB4 /* HomePage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = HomePage.swift; path = scavengARQuest/HomePage.swift; sourceTree = SOURCE_ROOT; };
 		8DDBEE022AF04F71002B5EB4 /* QuestDetailPage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = QuestDetailPage.swift; path = scavengARQuest/QuestDetailPage.swift; sourceTree = SOURCE_ROOT; };
 /* End PBXFileReference section */
@@ -87,7 +87,6 @@
 		420156A82AEED418007189B5 /* ScavengARQuest */ = {
 			isa = PBXGroup;
 			children = (
-				8DDBEDFC2AEFE337002B5EB4 /* ProfilePage.swift */,
 				8DDBEDFA2AEFE2DA002B5EB4 /* ChatPage.swift */,
 				420156A92AEED418007189B5 /* ScavengARQuestApp.swift */,
 				420156AB2AEED418007189B5 /* ContentView.swift */,
@@ -105,6 +104,7 @@
 				428F1DA32AF3217A009C8815 /* geodata.swift */,
 				428F1DA52AF32205009C8815 /* LocationDetails.swift */,
 				42AC26322AF5D229000CF09A /* LocationVerification.swift */,
+				42E9E2E32B0D611A0034BACE /* ScavengarStore.swift */,
 				428F1DAD2AF32F47009C8815 /* MapView.swift */,
 				428F1DA92AF32D7D009C8815 /* KeywordTag.swift */,
 				8716DE772AF3043700EB5DDE /* ActiveQuestPage.swift */,
@@ -201,10 +201,10 @@
 				428F1DAA2AF32D7D009C8815 /* KeywordTag.swift in Sources */,
 				8DDBEDFB2AEFE2DA002B5EB4 /* ChatPage.swift in Sources */,
 				42AC26352AF7DBD0000CF09A /* LoginView.swift in Sources */,
-				8DDBEDFD2AEFE337002B5EB4 /* ProfilePage.swift in Sources */,
 				8DDBEE032AF04F71002B5EB4 /* QuestDetailPage.swift in Sources */,
 				428F1DAE2AF32F47009C8815 /* MapView.swift in Sources */,
 				42AC26332AF5D229000CF09A /* LocationVerification.swift in Sources */,
+				42E9E2E42B0D611A0034BACE /* ScavengarStore.swift in Sources */,
 				420156AC2AEED418007189B5 /* ContentView.swift in Sources */,
 				428F1DA62AF32205009C8815 /* LocationDetails.swift in Sources */,
 				8DDBEDF72AEF4E99002B5EB4 /* QuestPage.swift in Sources */,

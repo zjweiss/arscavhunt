@@ -8,13 +8,13 @@
 import SwiftUI
 
 struct ActiveQuestLocationCard: View {
-    @State var data: Location
+    @State var locationID: Int
     @State var isPresented: Bool = false
-    @Binding var completedQuests: Int
-    
+    private let store = ScavengarStore.shared
+
     @ViewBuilder
     func Checkbox() -> some View {
-        let isComplete: Bool = data.status == "complete"
+        let isComplete: Bool = store.locationDict[locationID]?.status == "complete"
         
         Image(systemName: isComplete ? "checkmark.circle.fill" : "circle")
             .resizable()
@@ -24,6 +24,7 @@ struct ActiveQuestLocationCard: View {
     
     @ViewBuilder
     func Card() -> some View {
+        let data: Location = store.locationDict[locationID] ?? Location(quest_id: -1, location_id: -1, name: "", latitude: "", longitude: "", description: "", thumbnail: "", ar_enabled: false, distance_threshold: "", status: "", points: "", tags: "", team_code: "")
         ZStack {
             if let imageUrl = URL(string: data.thumbnail) {
                 AsyncImage(url: imageUrl){
@@ -66,8 +67,8 @@ struct ActiveQuestLocationCard: View {
         } label: {
             Card()
         }
-        .sheet(isPresented: $isPresented, content: {
-            LocationDetails(locationDetailStore: $data, completedQuests: $completedQuests)
-        })
+        .navigationDestination(isPresented: $isPresented) {
+            LocationDetails(locationID: locationID)
+        }
     }
 }
