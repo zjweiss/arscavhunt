@@ -273,7 +273,6 @@ VALUES
   (23, 52),
   (23, 53),
   (23, 54),
-  (24, 55);
 
 
 
@@ -326,7 +325,6 @@ VALUES
   (28, 67),
   (29, 68),
   (29, 69),
-  (29, 70);
 
 
 INSERT INTO quest_locations (quest_id, location_id, points)
