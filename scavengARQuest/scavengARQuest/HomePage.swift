@@ -73,9 +73,15 @@ struct HomePage: View {
                                 .frame(maxWidth: .infinity, alignment: .leading)
                                 .padding(.vertical)
                             .padding(.trailing, 20)
-                            ForEach(inactive_quests) { quest in
-                                InactiveQuestCard(questId: quest.quest_id)
+                        ScrollView(.horizontal, showsIndicators: false) {
+                                LazyHGrid(rows: [GridItem()]) {
+                                    ForEach(inactive_quests) { quest in
+                                        InactiveQuestCard(questId: quest.quest_id)
+                                    }
+                                }
                             }
+                        }
+                        
                     }
                     .task {
                         do {
@@ -97,7 +103,7 @@ struct HomePage: View {
                 }
             }
     }
-}
+
 
 struct HomePage_Previews: PreviewProvider {
     static var previews: some View {

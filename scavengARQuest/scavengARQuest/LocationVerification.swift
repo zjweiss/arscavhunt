@@ -26,15 +26,13 @@ struct LocationVerification: View {
                     returnBinding.toggle()
                 } label: {
                     Text("Done")
-                        .font(.title)
+                        .font(.title3)
                         .foregroundColor(.white)
                         .multilineTextAlignment(.center)
-                        .padding(.horizontal, 30)
-                        .padding(.vertical, 30)
-                        .cornerRadius(30)
-                        .background(Color.blue)
-                        .frame(maxWidth: .infinity)
-                        .frame(minHeight: 0, maxHeight: .infinity)
+                        .padding(.horizontal, 100)
+                        .padding(.vertical, 10)
+                        .background(Color(red: 23/255, green: 37/255, blue: 84/255))
+                        .cornerRadius(5)
                 }
             }
         }
@@ -65,8 +63,6 @@ struct LocationVerification: View {
     func verifyLocation(landmark: GeoData, userLocation: GeoData, thresh: Double = 1, locactionId: Int, questID: Int) async {
         // distanceBetweenPoints returns the distance in km
         let distance  = 0.0//distanceBetweenPoints(point1: landmark, point2: userLocation)
-        
-        
         store.filename = store.locationDict[locationID]?.ar_file ?? ""
         
         print(String(distance))
@@ -74,7 +70,21 @@ struct LocationVerification: View {
         let locationValid = distance * 1000 < thresh
         
         if locationValid{
-            await submitValidLocation()
+            await submitValidLocation();
+
+            do {
+                try await store.getQuests()
+                try await store.getActiveQuestLocations(questID: questID)
+                try await store.getOtherTeamates(questID: questID)
+            } catch RequestError.invalidData {
+                print("Invalid Data")
+            } catch RequestError.invalidResponse {
+                print("Invalid Response")
+            } catch RequestError.invalidUrl {
+                print("Invalid URL")
+            } catch {
+                print("Unexpected API error")
+            }
             
             locationVerified = true
             return
@@ -98,6 +108,7 @@ struct LocationVerification: View {
             print("login: Bad URL")
             return
         }
+
         
         var request = URLRequest(url: apiUrl)
         request.setValue("application/json; charset=utf-8", forHTTPHeaderField: "Content-Type")
@@ -136,15 +147,13 @@ struct LocationVerification: View {
                     }
                 } label: {
                     Text("Verify Location")
-                        .font(/*@START_MENU_TOKEN@*/.title/*@END_MENU_TOKEN@*/)
+                        .font(.title3)
                         .foregroundColor(.white)
                         .multilineTextAlignment(.center)
-                        .padding(.horizontal, 30)
-                        .padding(.vertical, 30)
-                        .cornerRadius(30)
-                        .background(Color.blue)
-                        .frame(maxWidth: .infinity)
-                        .frame(minHeight: 0, maxHeight: .infinity)
+                        .padding(.horizontal, 100)
+                        .padding(.vertical, 10)
+                        .background(Color(red: 23/255, green: 37/255, blue: 84/255))
+                        .cornerRadius(5)
                 }
             }
         }
@@ -174,14 +183,15 @@ struct LocationVerification: View {
             if !locationVerified{
                  // show an image if there is pre verification
                     let displayString: String = "This is what the " +  (locationDetailStore.name) + " looks like.\nHave you found it?";
-                    Text(displayString).font(.title2)
+                    Text(displayString).font(.subheadline)
                     if let imageUrl = URL(string: locationDetailStore.thumbnail) {
                         AsyncImage(url: imageUrl){
-                            $0.resizable().scaledToFit()
+                            $0.resizable().scaledToFill()
                         } placeholder: {
                             ProgressView()
                         }
-                        .frame(width: 300, height: 200)
+                        .frame(width: 370, height: 237)
+                        .cornerRadius(10.0)
                     }
                 }
             

@@ -52,7 +52,7 @@ struct QuestDetailPage: View {
                 .alert(isPresented: $showAlert) {
                         Alert(
                             title: Text("Not logged in"),
-                            message: Text("You are not currently logged in, and can't accept any quests.")
+                            message: Text("You are not currently logged in, and can't accept any quests. Please navigate to the profile page to login.")
                         )
                     }
             }
