@@ -44,15 +44,13 @@ struct LocationVerification: View {
                 displayAR.toggle()
             } label: {
                 Text("Let's celebrate with some AR!")
-                    .font(.title)
+                    .font(.title3)
                     .foregroundColor(.white)
                     .multilineTextAlignment(.center)
-                    .padding(.horizontal, 30)
-                    .padding(.vertical, 30)
-                    .cornerRadius(30)
-                    .background(Color.blue)
-                    .frame(maxWidth: .infinity)
-                    .frame(minHeight: 0, maxHeight: .infinity)
+                    .padding(.horizontal, 100)
+                    .padding(.vertical, 10)
+                    .background(Color(red: 23/255, green: 37/255, blue: 84/255))
+                    .cornerRadius(5)
             }
             .navigationDestination(isPresented: $displayAR) {
                 ARView()

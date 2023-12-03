@@ -157,7 +157,7 @@ final class ScavengarStore {
         
         do {
             let decoder = JSONDecoder()
-            //decoder.keyDecodingStrategy = .useDefaultKeys
+            decoder.keyDecodingStrategy = .useDefaultKeys
             let decoded = try decoder.decode(ActiveQuestLocationsResponseWrapper.self, from: data)
             questLocationDict[questID] = []
             for location in decoded.data {
@@ -170,7 +170,9 @@ final class ScavengarStore {
             }
             
             print(questLocationDict[questID]!)
-        } catch {
+        } catch let error {
+            print(error.localizedDescription)
+            print(error)
             throw RequestError.invalidData
         }
     }
