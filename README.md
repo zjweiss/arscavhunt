@@ -8,5 +8,5 @@
 ![Team](/assets/team.png)
 
 [video_page]: https://youtu.be/sample
-[wiki_page]: https://github.com/member/team/wiki
-[agile_page]: https://trello.com/b/sample/general
+[wiki_page]: https://github.com/member/team/wiki](https://github.com/zjweiss/arscavhunt/wiki
+[agile_page]: https://trello.com/invite/b/m2LqbUDd/ATTI82630c96a8e04de84d68d6ce02d7182637D3BDD2/arcscavhunt
