@@ -1,4 +1,4 @@
-# UM EECS441§3&4 F23 Teamname
+# UM EECS441§3&4 F23 ARScavHunt
 
 | Video  |  Wiki |  Trello  |
 |:-----:|:-----:|:--------:|
