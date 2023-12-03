@@ -134,9 +134,13 @@ struct ActiveQuestPage: View {
             }
             .refreshable{
                 do {
+                    print(0)
                     try await store.getQuests()
+                    print(1)
                     try await store.getActiveQuestLocations(questID: questId)
+                    print(2)
                     try await store.getOtherTeamates(questID: questId)
+                    print(3)
                 } catch RequestError.invalidData {
                     print("Invalid Data")
                 } catch RequestError.invalidResponse {

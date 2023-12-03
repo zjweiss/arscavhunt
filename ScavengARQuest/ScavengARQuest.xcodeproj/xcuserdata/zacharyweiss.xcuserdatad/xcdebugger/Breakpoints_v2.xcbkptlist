@@ -205,8 +205,8 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "118"
             endingLineNumber = "118"
-            landmarkName = "LocationVerification"
-            landmarkType = "14">
+            landmarkName = "submitValidLocation()"
+            landmarkType = "7">
             <Locations>
                <Location
                   uuid = "548ED97D-4C75-4582-9C6D-B90FEDE21C56 - e869626c8264dfd9"
@@ -467,8 +467,8 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "64"
             endingLineNumber = "64"
-            landmarkName = "AcceptQuest(teamAccept:teamId:)"
-            landmarkType = "7">
+            landmarkName = "body"
+            landmarkType = "24">
             <Locations>
                <Location
                   uuid = "B39DD2E0-B37B-4049-A622-6170E79ECF98 - d98270a7dc0a8f71"
@@ -530,7 +530,7 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "44"
             endingLineNumber = "44"
-            landmarkName = "submitQuestAcceptance(userID:questID:)"
+            landmarkName = "AcceptQuest(teamAccept:teamId:)"
             landmarkType = "7">
             <Locations>
                <Location
