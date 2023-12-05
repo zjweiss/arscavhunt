@@ -45,8 +45,8 @@ CREATE TABLE locations (
   description text NOT NULL,
   thumbnail text NOT NULL,
   ar_file text NOT NULL DEFAULT '',
-  ar_displacement decimal NOT NULL,
-  ar_unwrap boolean NOT NULL,
+  ar_displacement decimal NOT NULL default 0.0,
+  ar_unwrap boolean NOT NULL default false,
   distance_threshold decimal NOT NULL -- meters
 );
 
