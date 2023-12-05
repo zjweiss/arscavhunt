@@ -63,7 +63,7 @@ struct LocationVerification: View {
         let distance  = distanceBetweenPoints(point1: landmark, point2: userLocation)
         store.filename = store.locationDict[locationID]?.ar_file ?? ""
         store.ar_unwrap = store.locationDict[locationID]?.ar_unwrap ?? false
-        store.ar_displacement = store.locationDict[locationID]?.ar_displacement ?? 0.0
+        store.ar_displacement = Double(store.locationDict[locationID]?.ar_displacement ?? "-2.0") ?? -2.0
 
         
         print(String(distance))
@@ -99,7 +99,7 @@ struct LocationVerification: View {
     func submitValidLocation() async {
         
         
-        let locationDetailStore = store.locationDict[locationID] ?? Location(quest_id: -1, location_id: -1, name: "", latitude: "", longitude: "", description: "", thumbnail: "", ar_file: "", ar_displacement: 0.0, ar_unwrap: false, distance_threshold: "", status: "", points: "", tags: "", team_code: "")
+        let locationDetailStore = store.locationDict[locationID] ?? Location(quest_id: -1, location_id: -1, name: "", latitude: "", longitude: "", description: "", thumbnail: "", ar_file: "", ar_displacement: "0.0", ar_unwrap: false, distance_threshold: "", status: "", points: "", tags: "", team_code: "")
         
         let questID: Int = locationDetailStore.quest_id
         let locationID: Int = locationDetailStore.location_id
@@ -136,7 +136,7 @@ struct LocationVerification: View {
     func VerifyButton() -> some View {
         NavigationView{
             ZStack{
-                let locationDetailStore = store.locationDict[locationID] ?? Location(quest_id: -1, location_id: -1, name: "", latitude: "", longitude: "", description: "", thumbnail: "", ar_file: "",ar_displacement: 0.0, ar_unwrap: false,  distance_threshold: "", status: "", points: "", tags: "", team_code: "")
+                let locationDetailStore = store.locationDict[locationID] ?? Location(quest_id: -1, location_id: -1, name: "", latitude: "", longitude: "", description: "", thumbnail: "", ar_file: "",ar_displacement: "0.0", ar_unwrap: false,  distance_threshold: "", status: "", points: "", tags: "", team_code: "")
                 
                 Button {
                     //do something
@@ -166,7 +166,7 @@ struct LocationVerification: View {
     
     var body: some View {
         VStack{
-            let locationDetailStore = store.locationDict[locationID] ?? Location(quest_id: -1, location_id: -1, name: "", latitude: "", longitude: "", description: "", thumbnail: "", ar_file: "", ar_displacement: 0.0, ar_unwrap: false, distance_threshold: "", status: "", points: "", tags: "", team_code: "")
+            let locationDetailStore = store.locationDict[locationID] ?? Location(quest_id: -1, location_id: -1, name: "", latitude: "", longitude: "", description: "", thumbnail: "", ar_file: "", ar_displacement: "0.0", ar_unwrap: false, distance_threshold: "", status: "", points: "", tags: "", team_code: "")
                 Spacer()
                 Text(locationDetailStore.name).font(.title).bold()
                 Spacer()

@@ -31,11 +31,22 @@ struct QuestDetailPage: View {
                             if (teamAccept == true){
                                 // do multi user quest acceptance stuff
                                 await store.submitTeamQuestAcceptance(userID: store.userID, questID: questID, teamID: teamId)
+                                do {
+                                    try await store.getQuests()
+                                } catch {
+                                    print("error")
+                                }
                                 returnBool.toggle()
 
                             } else {
                                 // do single user quest acceptance
                                 await store.submitSoloQuestAcceptance(userID: store.userID, questID: questID)
+                                do {
+                                    try await store.getQuests()
+                                } catch {
+                                    print("error")
+                                }
+
                                 returnBool.toggle()
 
                             }

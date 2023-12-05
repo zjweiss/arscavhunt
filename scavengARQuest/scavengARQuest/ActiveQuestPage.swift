@@ -20,7 +20,7 @@ struct Location: Codable {
     let description: String
     let thumbnail: String
     let ar_file: String // "" if there is no ar_file
-    let ar_displacement: Double // 0 if there is no ar_file
+    let ar_displacement: String // 0 if there is no ar_file
     let ar_unwrap: Bool // false if there is no ar_file
     let distance_threshold: String
     var status: String
@@ -46,7 +46,7 @@ struct ActiveQuestPage: View {
     private let store = ScavengarStore.shared
     @State var questId: Int
     @State private var inLocationDetails: Bool = false
-    @State private var locationState: Location = Location(quest_id: -1, location_id: -1, name: "", latitude: "", longitude: "", description: "", thumbnail: "", ar_file: "", ar_displacement: 0.0, ar_unwrap: false, distance_threshold: "", status: "", points: "", tags: "", team_code: "")
+    @State private var locationState: Location = Location(quest_id: -1, location_id: -1, name: "", latitude: "", longitude: "", description: "", thumbnail: "", ar_file: "", ar_displacement: "0.0", ar_unwrap: false, distance_threshold: "", status: "", points: "", tags: "", team_code: "")
     
     
     var body: some View {
