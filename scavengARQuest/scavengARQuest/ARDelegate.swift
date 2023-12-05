@@ -30,26 +30,11 @@ class ARDelegate: NSObject, ARSCNViewDelegate, ObservableObject {
         print(model.rootNode.childNodes)
         print(modelNode.childNodes)
         
-        if (store.filename == "cube.scn"){
-            modelNode.position = SCNVector3(0,0,-0.2)
-
-        } else if (store.filename == "gavel.scn") {
+        if (store.ar_unwrap){
             modelNode =  model.rootNode.childNodes[0].childNodes[0].childNodes[0]
-            print(modelNode)
-            modelNode.position = SCNVector3(0,0,-3)
-        } else if (store.filename == "football.scn") {
-            modelNode =  model.rootNode.childNodes[0].childNodes[0].childNodes[0]
-            print(modelNode)
-            modelNode.position = SCNVector3(0,0,-3)
-        } else if (store.filename == "pizza.scn") {
-            modelNode =  model.rootNode.childNodes[0].childNodes[0].childNodes[0]
-            print(modelNode)
-            modelNode.position = SCNVector3(0,0,-0.1)
-        } else {
-            modelNode.position = SCNVector3(0,0,-4)
-
         }
         
+        modelNode.position = SCNVector3(0,0,store.ar_displacement)        
         
         arView.scene.rootNode.addChildNode(modelNode)
         

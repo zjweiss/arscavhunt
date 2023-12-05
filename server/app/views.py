@@ -155,6 +155,8 @@ def get_active_quest_details(req, user_id, quest_id):
                   description,
                   thumbnail,
                   ar_file,
+                  ar_displacement,
+                  ar_unwrap
                   distance_threshold,
                   status,
                   points,

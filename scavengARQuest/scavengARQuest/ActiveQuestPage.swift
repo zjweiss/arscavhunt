@@ -20,6 +20,8 @@ struct Location: Codable {
     let description: String
     let thumbnail: String
     let ar_file: String // "" if there is no ar_file
+    let ar_displacement: Double // 0 if there is no ar_file
+    let ar_unwrap: Bool // false if there is no ar_file
     let distance_threshold: String
     var status: String
     let points: String

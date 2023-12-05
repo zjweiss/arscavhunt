@@ -26,6 +26,8 @@ final class ScavengarStore {
     private(set) var lastName = ""
     private(set) var points = 0
     var filename: String = "pizza.scn"
+    var ar_unwrap: Bool = false
+    var ar_displacement: Double = 0.0
     private let serverUrl = "https://3.142.74.134"
     
     

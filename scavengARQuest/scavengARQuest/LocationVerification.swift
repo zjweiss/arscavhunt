@@ -62,6 +62,9 @@ struct LocationVerification: View {
         // distanceBetweenPoints returns the distance in km
         let distance  = distanceBetweenPoints(point1: landmark, point2: userLocation)
         store.filename = store.locationDict[locationID]?.ar_file ?? ""
+        store.ar_unwrap = store.locationDict[locationID]?.ar_unwrap ?? false
+        store.ar_displacement = store.locationDict[locationID]?.ar_displacement ?? 0.0
+
         
         print(String(distance))
         print(String(userLocation.lat) + "  " + String(userLocation.lon))
