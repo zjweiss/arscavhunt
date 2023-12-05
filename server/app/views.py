@@ -164,12 +164,12 @@ def get_active_quest_details(req, user_id, quest_id):
                   code as team_code
               FROM quest_locations ql 
                 JOIN locations l ON ql.location_id = l.id
-                JOIN location_tag lt ON lt.location_id = ql.location_id
-                JOIN tags ON lt.tag_id = tags.id
+                LEFT JOIN location_tag lt ON lt.location_id = ql.location_id
+                LEFT JOIN tags ON lt.tag_id = tags.id
                 JOIN team_users tu ON tu.user_id = %s
                 JOIN teams ON teams.id = tu.team_id
                 JOIN team_quest_locations_status tqls ON tqls.team_id = tu.team_id AND tqls.location_id = ql.location_id AND tqls.quest_id = ql.quest_id
-              WHERE ql.quest_id = %s
+              WHERE ql.quest_id = %s 
               GROUP BY ql.quest_id, ql.location_id, l.name, latitude, longitude, description, thumbnail, ar_file, distance_threshold, status, points, code
               ORDER BY CAST(status AS CHAR);
             """, [user_id, quest_id])
