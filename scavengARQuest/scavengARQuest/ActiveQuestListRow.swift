@@ -24,7 +24,7 @@ struct ActiveQuestLocationCard: View {
     
     @ViewBuilder
     func Card() -> some View {
-        let data: Location = store.locationDict[locationID] ?? Location(quest_id: -1, location_id: -1, name: "", latitude: "", longitude: "", description: "", thumbnail: "", ar_file: "", distance_threshold: "", status: "", points: "", tags: "", team_code: "")
+        let data: Location = store.locationDict[locationID] ?? Location(quest_id: -1, location_id: -1, name: "", latitude: "", longitude: "", description: "", thumbnail: "", ar_file: "", ar_displacement: 0.0, ar_unwrap: false, distance_threshold: "", status: "", points: "", tags: "", team_code: "")
         ZStack {
             if let imageUrl = URL(string: data.thumbnail) {
                 AsyncImage(url: imageUrl){

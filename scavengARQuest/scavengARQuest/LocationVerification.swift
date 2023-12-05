@@ -99,7 +99,8 @@ struct LocationVerification: View {
     func submitValidLocation() async {
         
         
-        let locationDetailStore = store.locationDict[locationID] ?? Location(quest_id: -1, location_id: -1, name: "", latitude: "", longitude: "", description: "", thumbnail: "", ar_file: "", distance_threshold: "", status: "", points: "", tags: "", team_code: "")
+        let locationDetailStore = store.locationDict[locationID] ?? Location(quest_id: -1, location_id: -1, name: "", latitude: "", longitude: "", description: "", thumbnail: "", ar_file: "", ar_displacement: 0.0, ar_unwrap: false, distance_threshold: "", status: "", points: "", tags: "", team_code: "")
+        
         let questID: Int = locationDetailStore.quest_id
         let locationID: Int = locationDetailStore.location_id
         let team_code = locationDetailStore.team_code
@@ -135,7 +136,8 @@ struct LocationVerification: View {
     func VerifyButton() -> some View {
         NavigationView{
             ZStack{
-                let locationDetailStore = store.locationDict[locationID] ?? Location(quest_id: -1, location_id: -1, name: "", latitude: "", longitude: "", description: "", thumbnail: "", ar_file: "", distance_threshold: "", status: "", points: "", tags: "", team_code: "")
+                let locationDetailStore = store.locationDict[locationID] ?? Location(quest_id: -1, location_id: -1, name: "", latitude: "", longitude: "", description: "", thumbnail: "", ar_file: "",ar_displacement: 0.0, ar_unwrap: false,  distance_threshold: "", status: "", points: "", tags: "", team_code: "")
+                
                 Button {
                     //do something
                     Task{
@@ -164,7 +166,7 @@ struct LocationVerification: View {
     
     var body: some View {
         VStack{
-            let locationDetailStore = store.locationDict[locationID] ?? Location(quest_id: -1, location_id: -1, name: "", latitude: "", longitude: "", description: "", thumbnail: "", ar_file: "", distance_threshold: "", status: "", points: "", tags: "", team_code: "")
+            let locationDetailStore = store.locationDict[locationID] ?? Location(quest_id: -1, location_id: -1, name: "", latitude: "", longitude: "", description: "", thumbnail: "", ar_file: "", ar_displacement: 0.0, ar_unwrap: false, distance_threshold: "", status: "", points: "", tags: "", team_code: "")
                 Spacer()
                 Text(locationDetailStore.name).font(.title).bold()
                 Spacer()
